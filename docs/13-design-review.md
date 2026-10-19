@@ -25,13 +25,13 @@ Round history (2026-10-19):
 ## Still unresolved (blocking purchase)
 
 1. **Budget** (D1): over the cap.
-2. **Power bank** owned: bulky 10,000 mAh model, dimensions and ratings pending; two suitable outputs, protection and low-load behaviour unconfirmed (PG1, PG3).
+2. **Power bank** owned: MINISO QW01, approximate 130 × 60 × 10 mm; two USB-A outputs each reported 5 V / 2 A. Combined output, protection, low-load behaviour and fit are unverified (PG1, PG3). Approximate footprint overlaps the current tray/frame; existing CAD has not been resized.
 3. **Servo voltage margin** (PG2) and **no servo-branch current limit**.
 4. **Kitronik regulator capacity** for the Pico 2 W plus 10 PiicoDev modules is not published (PG6).
 5. **Single master disconnect** not found solder-free (PG5). Interim: unplug both leads.
 6. **Charging interlock**: procedural only.
 7. **Speaker** out of stock; plug fit to the DFR1154 socket unconfirmed.
-8. Unpriced items: wire, bank, screws, strap, O-rings, delivery for the full cart.
+8. Unpriced items: wire, screws, strap, O-rings, delivery for the full cart. Owned bank is AU$0 if compatible.
 9. All bought-part dimensions are placeholders ([12](12-measurement-calibration-checklist.md)).
 
 ## What the CAD checks do and do not establish

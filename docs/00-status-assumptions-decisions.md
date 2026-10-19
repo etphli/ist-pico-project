@@ -1,6 +1,6 @@
 # 00 · Status, assumptions and open decisions
 
-User update: the owned bank is a bulky 10,000 mAh model. Capacity does not establish size or output current. Dimensions, mass, port layout and ratings are pending. The current tray and body envelope are placeholders and may need widening before printing.
+User update, 2026-10-20: owned MINISO QW01, 10,000 mAh; approximately 130 × 60 × 10 mm, not exact. Micro-USB charging input and two USB-A outputs, each reported as 5 V / 2 A. Combined simultaneous output, protection, mass and low-load behaviour remain unverified. The current CAD still uses the older 100 × 66 × 24 mm placeholder. A placement check of the approximate footprint found tray/frame overlap, so fit is not approved.
 
 **Project:** Pip, a companion robot for children aged 5–8 that encourages off-screen play (IST project; closed loop sensor → output → feedback).
 **Round:** design v0.2, 2026-10-19. No hardware has been bought, printed, wired or tested. Automated CAD checks have been run.
@@ -21,7 +21,7 @@ User update: the owned bank is a bulky 10,000 mAh model. Capacity does not estab
 | Soldering | None, for every connection |
 | Budget | **Hard cap AU$70 total** for additional hardware **including delivery** (target AU$50) |
 | Printing | Unlimited PLA/resin |
-| Power bank | Owned; model, port count and ratings unconfirmed. No spare Android phone. |
+| Power bank | Owned MINISO QW01 10,000 mAh; approximate 130 × 60 × 10 mm; micro-USB input; two USB-A outputs, each reported 5 V / 2 A. Combined limit unverified. No spare Android phone. |
 | Repo / name | Private repo `etphli/ist-pico-project`; robot name Pip |
 | Deadline | Unknown |
 
@@ -48,7 +48,7 @@ User update: the owned bank is a bulky 10,000 mAh model. Capacity does not estab
 | D2 | Deadline | unknown | Milestones are in relative weeks ([09](09-build-plan-milestones-tests.md)) |
 | D3 | AI account and who pays | OpenRouter with a per-key limit | Adult-owned |
 | D4 | Speech processing | Local on the laptop first | Local first |
-| D5 | Power bank compatibility | Owned bank: model, ports and ratings unknown | Check PG1 against its label before selecting a topology |
+| D5 | Power bank compatibility | MINISO QW01: per-port rating reported, combined limit and physical fit unresolved | Check PG1 against its label before selecting a topology |
 | D6 | Master disconnect | Accept "unplug both leads" as the master disconnect, or find a solder-free rated switch | Open (PG5) |
 | D7 | Laptop OS / hotspot | — | — |
 | D8 | School consent for camera/mic with children | — | Ask before any session with children |
@@ -59,7 +59,7 @@ User update: the owned bank is a bulky 10,000 mAh model. Capacity does not estab
 |---|---|---|
 | 4 wheels | 2 TT drive + 2 casters | Low |
 | Moving head | FS90, clutch, stops | Servo supply margin (PG2); no position feedback |
-| Rechargeable battery, accessible port | Power bank behind the rear door | Bank not selected (PG1) |
+| Rechargeable battery, accessible port | Power bank behind the rear door | Owned QW01; fit and combined output unverified (PG1) |
 | Camera person-tracking | DFR1154 + laptop tracker | Lens position placeholder; 160° lens needs calibration |
 | Two rear buttons | 2 PiicoDev Buttons + plungers | Second button address method to confirm |
 | Screen in the middle | Kit OLED in the belly | Small (23 × 11 mm active) |

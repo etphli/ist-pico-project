@@ -1,6 +1,6 @@
 # 05 · Power topology, ratings, protection and charging
 
-User update: the owned bank is a bulky 10,000 mAh model. Capacity does not establish size or output current. Dimensions, mass, port layout and ratings are pending. The current tray and body envelope are placeholders and may need widening before printing.
+User update, 2026-10-20: owned MINISO QW01, 10,000 mAh; approximately 130 × 60 × 10 mm, not exact. Micro-USB charging input and two USB-A outputs, each reported as 5 V / 2 A. Combined simultaneous output, protection, mass and low-load behaviour remain unverified. The current CAD still uses the older 100 × 66 × 24 mm placeholder. A placement check of the approximate footprint found tray/frame overlap, so fit is not approved.
 
 > **Wiring HOLD.** This page defines the revised power topology for the full concept in [08](08-bom-budget-sourcing.md) §3 and the **gates** it must pass. Nothing here authorises running any part outside its rating. If a gate fails, that branch stays unbuilt and the design changes. Running it "to see" is not an option.
 
@@ -45,7 +45,7 @@ User update: the owned bank is a bulky 10,000 mAh model. Capacity does not estab
 | DFR1154 camera board | USB-C 5 V DC (DFRobot); VIN range conflicts between sources (Core 5–12 V, DFRobot wiki 3.7–15 V), so VIN is **not used** | Standard USB cable from a bank port | Within rating as an ordinary USB-powered device. Gate **PG4** records the voltage at its USB-C under load. |
 | Pico 2 WH | Powered by the Kitronik 3 V regulator through the socket (Kitronik datasheet) | — | **Regulator current capacity is not stated** by Kitronik. The Pico 2 W radio plus 10 PiicoDev modules must fit within it. Gate **PG6**: ask Kitronik or measure. HOLD until known. |
 | PiicoDev chain | 3.3 V modules | Pico 3V3 OUT (Pico 2 W datasheet recommends < 300 mA load on 3V3) | Keep RGB brightness low. Measure the chain current (PG6). |
-| Bank | Unknown until a bank is chosen | — | Must provide **two USB-A outputs** and published per-port and combined ratings. It must not shut off at low load. Gate **PG1**. |
+| Bank | MINISO QW01: user reports 5 V / 2 A on each of two USB-A outputs | Combined limit unknown | Each port is 10 W nominal. Do not infer 4 A / 20 W combined. PG1 is not passed; the original ≥ 2.1 A per-port criterion is not met by the reported 2 A rating. Reconcile measured load and protection with the actual limits before adopting this bank. |
 
 ## 4. Current budget and hardware protection
 
@@ -80,14 +80,22 @@ Every gate is a pass/fail **verification of a rated condition**. None authorises
 
 ## 6. Battery and charging
 
-The user owns a power bank. Its model, output ports and ratings remain unknown; PG1 is still open.
+The owned bank is the MINISO QW01 described above. Its charging input is micro-USB, not USB-C. The charging opening, connector clearance and retention must be revised after exact measurements. PG1 remains open.
 
 - **Option chosen:** a finished consumer power bank (its own charge and protection electronics). No loose lithium cells. The kit's PiicoDev LiPo Expansion Board is a 1-cell charger for the Pico. It has no motor or servo supply and is not used in the robot.
 - **Charge port access:** the bank's charge input sits behind the sliding rear door (CAD `charge_door`).
-- **Runtime:** unknown until a bank is chosen. A bank's mAh label is the internal cell capacity, not the amount delivered at 5 V. Measure (T-PWR-1).
+- **Runtime:** unmeasured for the owned QW01. A bank's mAh label is the internal cell capacity, not the amount delivered at 5 V. Measure (T-PWR-1).
 - **Charging with the robot unable to drive:** the Pico cannot sense the bank charging. **No automatic interlock exists in this design.** Procedure: switch the body off, open the door, **unplug both robot leads from the bank**, then plug in the charger. With both leads unplugged the robot cannot drive. That is a procedural control, not an interlock. A mechanical interlock, where the door can only open with the switch off, is not modelled (open item).
 - Charge on a hard surface, supervised by an adult, following the bank maker's instructions.
 
 ## 7. Reduced-scope option R1 power (if chosen)
 
 R1 replaces B8 with a spare USB-A cable cut and stripped into the lever connectors. Cutting and stripping is not soldering. The cable's conductor gauge is unknown and must carry the port-1 worst case. Use only a cable whose gauge can be identified, and repeat gates PG1–PG3 and PG6–PG7. There is no camera branch in R1.
+
+## 8. Owned-bank update and fit check, 2026-10-20
+
+The brand, model, capacity, approximate size, input type and individual output ratings above are user-reported. No MINISO manufacturer datasheet for this exact model was located. Per-port ratings do not establish simultaneous combined capacity or protection behaviour. The bank must not be opened or modified.
+
+The current body's estimated 3.3–4.1 A port-1 fault demand exceeds this bank's reported 2 A individual output. Its second port does not add current to port 1. Do not parallel the outputs. A lower-current/protected drive arrangement or different power distribution is still required for the concept; no compatibility pass is claimed.
+
+A conservative rectangular 130 × 60 × 10 mm envelope, at the existing bank rear-face position and tray-top height, was checked against the current CAD. Approximate intersections were 510 mm³ with the tray and 907 mm³ with a front frame column. No intersection with the two body shells was found at that placement. This is a diagnostic placement check only, not a fit certificate: rounded corners, plugs, tolerances and straps were omitted. Exact dimensions and port positions are needed before revising the tray and frame. The existing STL set is unchanged.

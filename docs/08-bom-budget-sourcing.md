@@ -10,7 +10,7 @@ Prices are AU$ including GST, read on **2026-10-19** from Core Electronics' live
 - PiicoDev Starter Kit for Raspberry Pi Pico, assumed v1.2 ([00](00-status-assumptions-decisions.md) A1): OLED 128×64, RGB LED, atmospheric sensor, buzzer, colour sensor, capacitive touch, accelerometer, distance (ToF) sensor, PiicoDev LiPo Expansion Board, Platform, cables
 - Unlimited PLA/resin printing
 
-**Confirmed owned:** one power bank, with model, ports and ratings still unconfirmed. No spare Android phone.
+**Confirmed owned:** MINISO QW01 10,000 mAh power bank. Approximate size 130 × 60 × 10 mm, micro-USB input and two USB-A outputs, each reported 5 V / 2 A. Combined output and fit remain unverified. No spare Android phone.
 
 **Not confirmed as owned:** small screws, wire, a hook-and-loop strap and two O-rings or rubber bands. The full concept needs two suitable USB-A outputs; ownership alone does not establish compatibility. See [00](00-status-assumptions-decisions.md) A4–A5.
 
@@ -49,7 +49,7 @@ Every requirement is addressed by a part. The power design is still subject to t
 | B16 | Screws: 14 × M3 × 10–12 pan-head thread-forming for plastic, 4 × M2.5 × 6 | — | — | — | **unpriced** | — | List and locations in [11](11-mechanical-design-print-assembly.md) §6 |
 | B17 | Hook-and-loop strap (bank), 2 O-rings ~60 mm ID (tyres) | — | — | — | **unpriced** | — | maybe owned |
 
-**Result:** priced hardware alone is AU$121.78, before delivery, wire, bank, screws and strap. That is **AU$51.78 over the cap before the unpriced items**. Status: **over budget, HOLD.**
+**Result:** priced hardware alone is AU$121.78, before delivery, wire, screws and strap. The owned bank adds no purchase cost if it proves compatible. That is **AU$51.78 over the cap before the unpriced items**. Status: **over budget, HOLD.**
 
 ## 4. Is there a configuration at or under AU$70?
 

@@ -1,6 +1,6 @@
 # 12 · Measurement and calibration checklist (before printing the full set)
 
-User update: the owned bank is a bulky 10,000 mAh model. Capacity does not establish size or output current. Dimensions, mass, port layout and ratings are pending. The current tray and body envelope are placeholders and may need widening before printing.
+User update, 2026-10-20: owned MINISO QW01, 10,000 mAh; approximately 130 × 60 × 10 mm, not exact. Micro-USB charging input and two USB-A outputs, each reported as 5 V / 2 A. Combined simultaneous output, protection, mass and low-load behaviour remain unverified. The current CAD still uses the older 100 × 66 × 24 mm placeholder. A placement check of the approximate footprint found tray/frame overlap, so fit is not approved.
 
 Only for parts actually bought, after the purchase decision ([08](08-bom-budget-sourcing.md)). Measure with digital calipers, write the value in "Measured", update the named parameter in [`params.py`](../cad/pip_robot/params.py), run `scripts/cad.sh`, and fix anything the report flags.
 
@@ -8,8 +8,8 @@ Only for parts actually bought, after the purchase decision ([08](08-bom-budget-
 
 | # | Part | What to measure | Parameter(s) | Placeholder | Measured |
 |---|---|---|---|---|---|
-| E1 | Power bank | L × W × H; charge-input end; port heights; LED position; **two USB-A outputs?** | `Battery.*` | 100 × 66 × 24 | |
-| E2 | Power bank | Label ratings per port and combined; low-load shut-off (PG1) | docs | unknown | |
+| E1 | Power bank | L × W × H; charge-input end; port heights; LED position; **two USB-A outputs?** | `Battery.*` | CAD remains 100 × 66 × 24 | User estimate 130 × 60 × 10, not fit-verified; MINISO QW01, micro-USB input, 2 USB-A outputs |
+| E2 | Power bank | Label ratings per port and combined; low-load shut-off (PG1) | docs | combined output unknown | User reports 5 V / 2 A per port; shared total not established |
 | E3 | TT motor | Body, shaft position, shaft Ø/flats/length, shaft-end screw hole | `Drive.tt_*` | 70 × 22.5 × 18.8; Ø5.4/3.7 | |
 | E4 | FS90 | Body, tab span/height/thickness, spline offset/height, horn length | `Neck.servo_*`, `horn_*` | 22.5 × 12.1 × 22.4 | |
 | E5 | Kitronik 5331 + Pico 2 WH | Board size; hole spacing; height with the Pico seated; **switch position, travel and slide direction**; terminal positions; terminal accepts PiicoDev cable pins? | `Boards.ctrl_*`, `switch_uv`, `switch_travel` | 63 × 35; holes 55 × 28; 22 mm; switch (−20, 3) | |

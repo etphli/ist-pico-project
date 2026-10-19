@@ -42,3 +42,7 @@ Feetech and Adafruit manufacturer pages (the servo and motor facts above are ret
 ## Previous-round sources still referenced
 
 Kit contents (Core CE08256 page), PiicoDev OLED dimensions (CE07911), XIAO and Gravity speaker listings (now comparison only). See git history of this file.
+
+## Owned power bank, user report 2026-10-20
+
+MINISO QW01, 10,000 mAh, approximately 130 × 60 × 10 mm; micro-USB charging input, two wide rectangular USB-A output sockets. The user reports 5 V / 2 A **each**. These are transcribed reports, not independently read label values. Combined simultaneous output, mass and protection behaviour are not established. A bounded manufacturer-document search did not find an exact QW01 datasheet; specifications from other MINISO models were not substituted.

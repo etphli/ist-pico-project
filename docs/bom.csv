@@ -13,7 +13,7 @@ B11,full;R2,USB-A to USB-C Cable 50cm 2A,Core Electronics,CE09370,1,3.25,3.25,li
 B12,full;R2,USB-C In-Line Power Switch Cable 28 cm (C female -> C male; power pins only; <=3 A),Core Electronics,CE06575,1,3.45,3.45,live product page 2026-10-19,in stock,camera/mic hard-off,F15,plug-in,https://core-electronics.com.au/micro-usb-c-in-line-power-switch-cable-for-raspberry-pi-4.html
 B13,full;R1;R2,Delivery (Core standard),Core Electronics,-,1,,,not quoted for this cart; example quote AU$6.25 to postcode 2000 for smaller carts,-,delivery,F11,-,
 B14,full,Stranded wire ~22 AWG ~0.3 m red + black,-,-,1,,,unpriced; no cheaper verified short pack found,-,5 V feed ADA3628 -> lever connectors,F4,strip ~7 mm into terminals/levers,
-B15,full;R1;R2,USB power bank with 2 x USB-A outputs (stays on at low load),-,-,1,0,0,owned per user; compatibility not confirmed,owned; model unknown,battery + accessible charge port,F4,finished product,
+B15,full;R1;R2,MINISO QW01 10000mAh power bank; approx 130x60x10mm; micro-USB input; two USB-A outputs each user-reported 5V 2A,-,QW01,1,0,0,owned; user report 2026-10-20; combined output and fit unverified,owned,battery + accessible charge port,F4,finished product,
 B16,full;R1;R2,Screws: 14 x M3 x 10-12 pan-head thread-forming for plastic; 4 x M2.5 x 6,-,-,1,,,unpriced,-,frame/shell/head/board/button retention,N7 N10,-,
 B17,full;R1;R2,Hook-and-loop strap (bank); 2 x O-ring ~60 mm ID (tyres),-,-,1,,,unpriced; maybe owned,-,retention; traction,F2 F4,-,
 X1,rejected,Makerverse Motor Driver 2 Channel,Core Electronics,CE08038,1,6.60,6.60,live product page 2026-10-19,in stock,rejected: terminals/headers need soldering (Core guide: unsoldered pads),-,-,https://core-electronics.com.au/makerverse-motor-driver-2-channel.html
