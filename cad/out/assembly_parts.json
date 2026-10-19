@@ -1,0 +1,197 @@
+[
+ {
+  "name": "base_plate",
+  "kind": "print",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "tray",
+  "kind": "print",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "column_L",
+  "kind": "print",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "rear_upright",
+  "kind": "print",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "top_deck",
+  "kind": "print",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "front_shell",
+  "kind": "print",
+  "colour": "#f4f3ef"
+ },
+ {
+  "name": "rear_shell",
+  "kind": "print",
+  "colour": "#f4f3ef"
+ },
+ {
+  "name": "head_cap",
+  "kind": "print",
+  "colour": "#f4f3ef"
+ },
+ {
+  "name": "head_base",
+  "kind": "print",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "clutch_disc",
+  "kind": "print",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "eye_left_camera",
+  "kind": "print",
+  "colour": "#202326"
+ },
+ {
+  "name": "eye_right",
+  "kind": "print",
+  "colour": "#202326"
+ },
+ {
+  "name": "drive_wheel_L",
+  "kind": "print",
+  "colour": "#202326"
+ },
+ {
+  "name": "drive_wheel_R",
+  "kind": "print",
+  "colour": "#202326"
+ },
+ {
+  "name": "motor_strap",
+  "kind": "print",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "caster_fork_F",
+  "kind": "print",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "caster_wheel_F",
+  "kind": "print",
+  "colour": "#202326"
+ },
+ {
+  "name": "caster_axle_F",
+  "kind": "print",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "caster_clip_F",
+  "kind": "print",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "plunger_wake",
+  "kind": "print",
+  "colour": "#f4f3ef"
+ },
+ {
+  "name": "plunger_move",
+  "kind": "print",
+  "colour": "#202326"
+ },
+ {
+  "name": "charge_door",
+  "kind": "print",
+  "colour": "#f4f3ef"
+ },
+ {
+  "name": "switch_actuator",
+  "kind": "print",
+  "colour": "#202326"
+ },
+ {
+  "name": "column_R",
+  "kind": "inst",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "caster_fork_R",
+  "kind": "inst",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "caster_wheel_R",
+  "kind": "inst",
+  "colour": "#202326"
+ },
+ {
+  "name": "caster_axle_R",
+  "kind": "inst",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "caster_clip_R",
+  "kind": "inst",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "motor_strap_2",
+  "kind": "inst",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "motor_strap_3",
+  "kind": "inst",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "motor_strap_4",
+  "kind": "inst",
+  "colour": "#9aa3ad"
+ },
+ {
+  "name": "ref_power_bank",
+  "kind": "ref",
+  "colour": "#e0a040"
+ },
+ {
+  "name": "ref_tt_motor_L",
+  "kind": "ref",
+  "colour": "#e8c000"
+ },
+ {
+  "name": "ref_tt_motor_R",
+  "kind": "ref",
+  "colour": "#e8c000"
+ },
+ {
+  "name": "ref_robo_pico",
+  "kind": "ref",
+  "colour": "#2a7a3a"
+ },
+ {
+  "name": "ref_servo",
+  "kind": "ref",
+  "colour": "#3060c0"
+ },
+ {
+  "name": "ref_xiao_cam",
+  "kind": "ref",
+  "colour": "#2a7a3a"
+ },
+ {
+  "name": "ref_front_modules",
+  "kind": "ref",
+  "colour": "#c03030"
+ },
+ {
+  "name": "ref_base_modules",
+  "kind": "ref",
+  "colour": "#c03030"
+ }
+]
