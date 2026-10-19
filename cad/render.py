@@ -1,21 +1,32 @@
-"""Matplotlib previews of the assembly (no GPU / CAD app needed)."""
+"""Previews of the assembly with a small numpy z-buffer rasteriser (no GPU / CAD app).
+
+Why a rasteriser: matplotlib's 3D polygon collections sort whole triangles by depth
+(painter's algorithm). Around openings this draws hidden faces in front of visible
+ones, which made the v0.1 belly cutouts look like red triangles. Here every pixel keeps
+the nearest surface, so openings, pockets and modules behind windows show truthfully.
+The meshes are the exact exported geometry (no simplification).
+
+Outputs (cad/out/):
+  preview_assembly.png         shaded views of the assembled robot
+  preview_xray.png             shells and head cap transparent
+  preview_front_reference.png  orthographic front / rear / head elevations with labelled openings
+  preview_sections.png         true cross-sections (manifold slices) incl. camera FOV lines
+  preview_parts.png            every printable part
+"""
+
+import math
 
 import numpy as np
 
+BG = np.array([0.97, 0.97, 0.96])
 
-def _tris(m, max_tris=None):
-    mesh = m.simplify(0.25).to_mesh()
-    v = np.asarray(mesh.vert_properties)[:, :3]
-    f = np.asarray(mesh.tri_verts)
+
+# --------------------------------------------------------------------------- geometry
+def _tris(m):
+    mesh = m.to_mesh()
+    v = np.asarray(mesh.vert_properties)[:, :3].astype(np.float64)
+    f = np.asarray(mesh.tri_verts).astype(np.int64)
     return v[f]
-
-
-def _shade(tris, base_rgb, light=np.array([0.4, -0.5, 0.8])):
-    n = np.cross(tris[:, 1] - tris[:, 0], tris[:, 2] - tris[:, 0])
-    n /= np.linalg.norm(n, axis=1, keepdims=True) + 1e-12
-    light = light / np.linalg.norm(light)
-    k = 0.45 + 0.55 * np.clip(np.abs(n @ light), 0, 1)
-    return np.clip(np.outer(k, base_rgb), 0, 1)
 
 
 def _hex(c):
@@ -23,74 +34,349 @@ def _hex(c):
     return np.array([int(c[i:i + 2], 16) / 255 for i in (0, 2, 4)])
 
 
-def _draw(ax, items, elev, azim, title):
-    from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-    # one collection for everything -> matplotlib depth-sorts per face, not per part
-    tri_all, fc_all = [], []
-    for tris, col, alpha in items:
-        fc = np.hstack([_shade(tris, _hex(col)), np.full((len(tris), 1), alpha)])
-        tri_all.append(tris)
-        fc_all.append(fc)
-    tri_all, fc_all = np.vstack(tri_all), np.vstack(fc_all)
-    ax.add_collection3d(Poly3DCollection(tri_all, facecolors=fc_all, edgecolors="none"))
-    allv = tri_all.reshape(-1, 3)
-    lo, hi = allv.min(0), allv.max(0)
-    c, r = (lo + hi) / 2, (hi - lo).max() / 2
-    ax.set_xlim(c[0] - r, c[0] + r)
-    ax.set_ylim(c[1] - r, c[1] + r)
-    ax.set_zlim(c[2] - r, c[2] + r)
-    ax.set_box_aspect((1, 1, 1))
-    ax.view_init(elev=elev, azim=azim)
-    ax.set_axis_off()
+def _basis(elev, azim):
+    """Orthographic camera. Returns (right, up, toward_viewer) unit vectors.
+    azim is measured from +X toward +Y; elev above the horizon. azim=0 looks at the face."""
+    e, a = math.radians(elev), math.radians(azim)
+    d = np.array([math.cos(e) * math.cos(a), math.cos(e) * math.sin(a), math.sin(e)])
+    r = np.array([-math.sin(a), math.cos(a), 0.0])
+    u = np.cross(d, r)
+    return r, u, d
+
+
+# --------------------------------------------------------------------------- rasteriser
+def _raster(tri2, tz, W, H):
+    """tri2: (T,3,2) pixel coords, tz: (T,3) depth (larger = nearer).
+    Returns depth buffer (H,W) and triangle-id buffer (H,W, -1 = empty)."""
+    depth = np.full(H * W, -np.inf)
+    tid = np.full(H * W, -1, dtype=np.int64)
+    x0 = np.floor(tri2[:, :, 0].min(1)).astype(np.int64)
+    x1 = np.ceil(tri2[:, :, 0].max(1)).astype(np.int64)
+    y0 = np.floor(tri2[:, :, 1].min(1)).astype(np.int64)
+    y1 = np.ceil(tri2[:, :, 1].max(1)).astype(np.int64)
+    keep = (x1 >= 0) & (y1 >= 0) & (x0 < W) & (y0 < H)
+    span = np.maximum(x1 - x0, y1 - y0) + 1
+    ax, ay = tri2[:, 0, 0], tri2[:, 0, 1]
+    bx, by = tri2[:, 1, 0], tri2[:, 1, 1]
+    cx, cy = tri2[:, 2, 0], tri2[:, 2, 1]
+    area = (bx - ax) * (cy - ay) - (by - ay) * (cx - ax)
+    keep &= np.abs(area) > 1e-12
+    pix_all, dep_all, id_all = [], [], []
+    lo = 0
+    for S in (2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096):
+        sel = np.nonzero(keep & (span > lo) & (span <= S))[0]
+        lo = S
+        if len(sel) == 0:
+            continue
+        oy, ox = np.divmod(np.arange(S * S), S)
+        chunk = max(1, int(3e6 // (S * S)))
+        for i in range(0, len(sel), chunk):
+            t = sel[i:i + chunk]
+            px = x0[t, None] + ox[None, :]
+            py = y0[t, None] + oy[None, :]
+            qx, qy = px + 0.5, py + 0.5
+            w0 = ((bx[t, None] - qx) * (cy[t, None] - qy) - (by[t, None] - qy) * (cx[t, None] - qx)) / area[t, None]
+            w1 = ((cx[t, None] - qx) * (ay[t, None] - qy) - (cy[t, None] - qy) * (ax[t, None] - qx)) / area[t, None]
+            w2 = 1.0 - w0 - w1
+            ins = (w0 >= -1e-9) & (w1 >= -1e-9) & (w2 >= -1e-9) & (px >= 0) & (py >= 0) & (px < W) & (py < H)
+            if not ins.any():
+                continue
+            z = w0 * tz[t, 0, None] + w1 * tz[t, 1, None] + w2 * tz[t, 2, None]
+            r, c = np.nonzero(ins)
+            pix_all.append(py[r, c] * W + px[r, c])
+            dep_all.append(z[r, c])
+            id_all.append(t[r])
+    if pix_all:
+        pix = np.concatenate(pix_all)
+        dep = np.concatenate(dep_all)
+        ids = np.concatenate(id_all)
+        order = np.lexsort((-dep, pix))
+        pix, dep, ids = pix[order], dep[order], ids[order]
+        first = np.ones(len(pix), bool)
+        first[1:] = pix[1:] != pix[:-1]
+        depth[pix[first]] = dep[first]
+        tid[pix[first]] = ids[first]
+    return depth.reshape(H, W), tid.reshape(H, W)
+
+
+def _shade(tris_world, cols, basis):
+    r, u, d = basis
+    n = np.cross(tris_world[:, 1] - tris_world[:, 0], tris_world[:, 2] - tris_world[:, 0])
+    n /= np.linalg.norm(n, axis=1, keepdims=True) + 1e-12
+    nv = np.stack([n @ r, n @ u, n @ d], axis=1)
+    nv[nv[:, 2] < 0] *= -1                              # two-sided lighting
+    light = np.array([-0.35, 0.55, 0.76])
+    light /= np.linalg.norm(light)
+    k = 0.38 + 0.62 * np.clip(nv @ light, 0, 1)
+    return np.clip(cols * k[:, None], 0, 1), nv
+
+
+def render(items, elev, azim, px_per_mm=3.0, bounds=None, ss=2, edges=True, bg=BG):
+    """items: list of (tris (T,3,3), colour hex, alpha). alpha < 1 items are drawn as a
+    transparent layer over the opaque image. Returns (rgb image, extent (mm), bounds)."""
+    basis = _basis(elev, azim)
+    r, u, d = basis
+    opaque = [(t, c) for t, c, a in items if a >= 1.0]
+    trans = [(t, c, a) for t, c, a in items if a < 1.0]
+    allv = np.vstack([t.reshape(-1, 3) for t, _, _ in items])
+    sx, sy = allv @ r, allv @ u
+    if bounds is None:
+        pad = 6.0
+        bounds = (sx.min() - pad, sx.max() + pad, sy.min() - pad, sy.max() + pad)
+    bx0, bx1, by0, by1 = bounds
+    s = px_per_mm * ss
+    W = int(math.ceil((bx1 - bx0) * px_per_mm)) * ss
+    H = int(math.ceil((by1 - by0) * px_per_mm)) * ss
+
+    def layer(group):
+        tris = np.vstack([t for t, *_ in group])
+        cols = np.vstack([np.tile(_hex(c), (len(t), 1)) for t, c, *_ in group])
+        p2 = np.stack([(tris @ r - bx0) * s, (by1 - tris @ u) * s], axis=-1)
+        dep, tid = _raster(p2, tris @ d, W, H)
+        fc, nv = _shade(tris, cols, basis)
+        return dep, tid, fc, nv
+
+    img = np.tile(bg, (H, W, 1))
+    dep_o = np.full((H, W), -np.inf)
+    if opaque:
+        dep_o, tid, fc, nv = layer(opaque)
+        hit = tid >= 0
+        img[hit] = fc[tid[hit]]
+        if edges:
+            img = _edges(img, tid, nv, dep_o, s)
+    if trans:
+        for t, c, a in trans:
+            dep_t, tid_t, fc_t, nv_t = layer([(t, c)])
+            front = (tid_t >= 0) & (dep_t > dep_o)
+            img[front] = (1 - a) * img[front] + a * fc_t[tid_t[front]]
+            if edges:
+                e = _edge_mask(tid_t, nv_t, dep_t, s) & front
+                img[e] = 0.75 * img[e]
+    img = img.reshape(H // ss, ss, W // ss, ss, 3).mean(axis=(1, 3))
+    return img, (bx0, bx1, by0, by1), bounds
+
+
+def _edge_mask(tid, nv, dep, s):
+    hit = tid >= 0
+    n = np.zeros(tid.shape + (3,))
+    n[hit] = nv[tid[hit]]
+    m = np.zeros(tid.shape, bool)
+    for dy, dx in ((0, 1), (1, 0)):
+        a = (slice(0, tid.shape[0] - dy), slice(0, tid.shape[1] - dx))
+        b = (slice(dy, None), slice(dx, None))
+        diff_hit = hit[a] != hit[b]
+        both = hit[a] & hit[b]
+        crease = both & ((n[a] * n[b]).sum(-1) < math.cos(math.radians(28)))
+        delta = np.zeros_like(dep[a])
+        np.subtract(dep[a], dep[b], out=delta, where=both)
+        step = both & (np.abs(delta) > 1.2 / s * 6)
+        e = diff_hit | crease | step
+        m[a] |= e
+    return m
+
+
+def _edges(img, tid, nv, dep, s):
+    e = _edge_mask(tid, nv, dep, s)
+    img = img.copy()
+    img[e] = img[e] * 0.35
+    return img
+
+
+# --------------------------------------------------------------------------- figures
+def _items(built, parts, names=None, alpha=None, skip=()):
+    out = []
+    for p in parts:
+        if p.kind == "cal" or p.name in skip or (names is not None and p.name not in names):
+            continue
+        out.append((_tris(built[p.name]), p.colour, (alpha or {}).get(p.name, 1.0)))
+    return out
+
+
+def _show(ax, img, ext, title):
+    ax.imshow(img, extent=ext, interpolation="lanczos")
     ax.set_title(title, fontsize=9)
+    ax.set_axis_off()
 
 
 def render_all(built, parts, out):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
+    from pip_robot import params
+    from pip_robot import parts as pt
 
-    shells = {"front_shell", "rear_shell", "head_cap"}
-    full, xray, internals = [], [], []
-    for p in parts:
-        if p.kind == "cal":
-            continue
-        tris = _tris(built[p.name])
-        full.append((tris, p.colour, 1.0))
-        if p.name in shells:
-            xray.append((tris, p.colour, 0.10))
-        else:
-            xray.append((tris, p.colour, 1.0))
-            internals.append((tris, p.colour, 1.0))
+    ver = params.VERSION
+    full = _items(built, parts)
 
-    fig = plt.figure(figsize=(14, 5), dpi=110)
-    for i, (el, az, t) in enumerate([(12, 30, "front-left"), (12, 150, "rear-left (buttons, charge door)"),
-                                     (12, 90, "left side")]):
-        ax = fig.add_subplot(1, 3, i + 1, projection="3d")
-        _draw(ax, full, el, az, t)
-    fig.suptitle("Pip CAD v0.1 PROTOTYPE - assembled (placeholder dimensions, not fit-verified)", fontsize=10)
+    # --- assembly
+    fig, axs = plt.subplots(1, 4, figsize=(18, 6.2), dpi=110)
+    for ax, (el, az, t) in zip(axs, [(0, 0, "front (orthographic)"), (14, 32, "front-left"),
+                                     (14, 148, "rear-left (buttons, switch, charge door)"), (10, 90, "left side")]):
+        img, ext, _ = render(full, el, az, px_per_mm=2.6)
+        _show(ax, img, ext, t)
+    fig.suptitle(f"Pip CAD v{ver} PROTOTYPE - assembled (placeholder dimensions, not fit-verified). "
+                 "Red/green/blue/orange = bought-part envelopes seen through openings.", fontsize=10)
     fig.tight_layout()
     fig.savefig(out / "preview_assembly.png")
     plt.close(fig)
 
-    fig = plt.figure(figsize=(14, 5), dpi=110)
-    for i, (el, az, t) in enumerate([(15, 35, "x-ray front"), (15, 145, "x-ray rear"), (70, 90, "x-ray top")]):
-        ax = fig.add_subplot(1, 3, i + 1, projection="3d")
-        _draw(ax, xray, el, az, t)
-    fig.suptitle("Pip CAD v0.1 - internals (shells transparent; orange/green/blue = bought-part envelopes)", fontsize=10)
+    # --- x-ray
+    shells = {"front_shell": 0.16, "rear_shell": 0.16, "head_cap": 0.16}
+    xray = _items(built, parts, alpha=shells)
+    fig, axs = plt.subplots(1, 3, figsize=(16, 6), dpi=110)
+    for ax, (el, az, t) in zip(axs, [(15, 35, "x-ray front-left"), (15, 145, "x-ray rear-left"), (89.9, 180.0, "x-ray top (face toward top of page)")]):
+        img, ext, _ = render(xray, el, az, px_per_mm=2.6)
+        _show(ax, img, ext, t)
+    fig.suptitle(f"Pip CAD v{ver} - internals (shells and head cap transparent). Green = controller board / camera board, "
+                 "red = PiicoDev modules + rear buttons, orange = power bank / head speaker, yellow = TT motors, blue = servo",
+                 fontsize=9)
     fig.tight_layout()
     fig.savefig(out / "preview_xray.png")
     plt.close(fig)
 
-    # exploded print-part sheet
+    _front_reference(built, parts, out, plt, pt, params)
+    _sections(built, parts, out, plt, pt, params)
+
+    # --- printable parts
     printable = [p for p in parts if p.kind in ("print", "cal")]
     cols = 6
     rows = int(np.ceil(len(printable) / cols))
-    fig = plt.figure(figsize=(16, 2.9 * rows), dpi=100)
+    fig = plt.figure(figsize=(17, 3.0 * rows), dpi=100)
     for i, p in enumerate(printable):
-        ax = fig.add_subplot(rows, cols, i + 1, projection="3d")
-        _draw(ax, [(_tris(built[p.name]), p.colour, 1.0)], 20, 35, f"{p.name} x{p.qty}")
-    fig.suptitle("Pip CAD v0.1 - printable parts (assembly orientation)", fontsize=11)
+        ax = fig.add_subplot(rows, cols, i + 1)
+        img, ext, _ = render([(_tris(built[p.name]), p.colour, 1.0)], 22, 35, px_per_mm=4.0 if p.name not in (
+            "front_shell", "rear_shell", "base_plate") else 1.8)
+        _show(ax, img, ext, f"{p.name}  x{p.qty}")
+    fig.suptitle(f"Pip CAD v{ver} - printable parts (assembly orientation; STLs are exported in print orientation)", fontsize=11)
     fig.tight_layout()
     fig.savefig(out / "preview_parts.png")
+    plt.close(fig)
+
+
+def _label(ax, xy, text, xytext, color="#111"):
+    ax.annotate(text, xy=xy, xytext=xytext, fontsize=7.5, color=color,
+                arrowprops=dict(arrowstyle="-", lw=0.7, color=color),
+                bbox=dict(boxstyle="round,pad=0.2", fc="white", ec="none", alpha=0.85))
+
+
+def _front_reference(built, parts, out, plt, pt, params):
+    """Orthographic elevations. In the 'shell alone' views the backdrop is dark, so every
+    THROUGH opening shows dark and every blind pocket / thin skin shows as plastic."""
+    P = params.P
+    BD, F, H = P.boards, P.front, P.head
+    dark = np.array([0.10, 0.14, 0.24])
+    fig, axs = plt.subplots(1, 4, figsize=(20, 7.2), dpi=110)
+
+    img, ext, _ = render(_items(built, parts), 0, 0, px_per_mm=3.0)
+    _show(axs[0], img, ext, "A. Front elevation, assembled (viewer's right = robot's left, +Y)")
+
+    img, ext, _ = render(_items(built, parts, names={"front_shell"}), 0, 0, px_per_mm=3.5, bg=dark)
+    ax = axs[1]
+    _show(ax, img, ext, "B. Front shell alone, front elevation\n(dark = through-opening; white = plastic incl. thin skins)")
+    gx, gz = BD.oled_active
+    _label(ax, (0, F.oled_z), f"OLED window {gx + 1.5:.1f} x {gz + 1.5:.1f} (through)\n+ glass/board pocket behind", (30, F.oled_z + 2))
+    _label(ax, (0, F.touch_z), f"touch pads: {P.pr.touch_membrane:.1f} mm membrane\n(blind pocket, 3 target rings)", (30, F.touch_z - 22))
+    _label(ax, (0, F.dist_z), "ToF window 12 x 7 (through)", (5, F.dist_z + 30))
+    _label(ax, (F.rgb_y, F.rgb_z), f"RGB cheek: {P.pr.led_diffuser:.1f} mm diffuser\nskin (blind, not visible here)", (45, F.rgb_z + 8))
+    _label(ax, (-F.rgb_y, F.rgb_z), "buzzer holes", (-90, F.rgb_z + 25))
+
+    head_names = {"head_cap", "head_base", "eye_left_camera", "eye_right", "ref_cam_board", "ref_head_speaker", "clutch_disc"}
+    img, ext, _ = render(_items(built, parts, names=head_names), 0, 0, px_per_mm=4.5)
+    ax = axs[2]
+    _show(ax, img, ext, f"C. Head, front elevation (camera board visible through\nthe {BD.cam_fov_design:.0f} deg aperture in the left eye)")
+    ez = pt.EYE_Z
+    _label(ax, (H.eye_y, ez), "camera aperture\n(design FOV cone, see sections)", (H.eye_y + 10, ez + 40))
+    _label(ax, (-H.eye_y, pt.SPK_Z), "speaker grille", (-H.eye_y - 30, pt.SPK_Z - 22))
+    _label(ax, (pt.MIC_HOLES[0][0], pt.MIC_HOLES[0][1]), "mic holes (placeholder)", (H.eye_y + 6, pt.MIC_HOLES[0][1] - 26))
+
+    img, ext, _ = render(_items(built, parts), 0, 180, px_per_mm=3.0)
+    ax = axs[3]
+    _show(ax, img, ext, "D. Rear elevation (viewer's right = robot's right, -Y)")
+    for (y, z), t in ((BD.btn_wake_yz, "A wake (white)"), (BD.btn_move_yz, "B move enable (dark)")):
+        _label(ax, (-y, z), t, (-y + 25, z - 25 if "A" in t else z + 28))
+    su, sv = BD.switch_uv
+    _label(ax, (-su, BD.ctrl_bottom_z + sv), "power switch actuator", (-su + 20, BD.ctrl_bottom_z + sv + 30))
+    pz = P.body.tray_z + P.body.tray_t + P.bat.port_z_off
+    _label(ax, (0, pz), "charge-port door", (-70, pz - 25))
+    fig.suptitle(f"Pip CAD v{params.VERSION} - reference elevations (orthographic, axes in mm; placeholder positions)", fontsize=11)
+    fig.tight_layout()
+    fig.savefig(out / "preview_front_reference.png")
+    plt.close(fig)
+
+
+def _poly_fill(ax, cs, color, mapper=lambda p: p, alpha=1.0, z=1):
+    from matplotlib.patches import PathPatch
+    from matplotlib.path import Path
+    polys = cs.to_polygons()
+    verts, codes = [], []
+    for poly in polys:
+        p = mapper(np.asarray(poly))
+        if len(p) < 3:
+            continue
+        verts += list(p) + [p[0]]
+        codes += [Path.MOVETO] + [Path.LINETO] * (len(p) - 1) + [Path.CLOSEPOLY]
+    if verts:
+        ax.add_patch(PathPatch(Path(np.array(verts), codes), fc=color, ec="#222", lw=0.4, alpha=alpha, zorder=z))
+
+
+def _sections(built, parts, out, plt, pt, params):
+    P = params.P
+    BD = P.boards
+    colours = {p.name: p.colour for p in parts}
+    skip = {"fit_test_coupon", "fit_test_pegs"}
+    fig, axs = plt.subplots(1, 3, figsize=(20, 7.5), dpi=110)
+
+    # A. horizontal section through the camera axis (top view, +X up the page)
+    ax = axs[0]
+    zc = pt.CAM_Z
+    for p in parts:
+        if p.name in skip:
+            continue
+        cs = built[p.name].slice(zc)
+        _poly_fill(ax, cs, colours[p.name], mapper=lambda q: np.stack([-q[:, 1], q[:, 0]], 1))
+    lx, ly = pt.LENS_FRONT_X, pt.CAM_Y
+    for half, ls, lab in ((BD.cam_fov_design / 2, "-", f"design FOV {BD.cam_fov_design:.0f} deg"),
+                          (BD.cam_fov_lens / 2, ":", f"lens max {BD.cam_fov_lens:.0f} deg (vignetted)")):
+        for sgn in (1, -1):
+            a = math.radians(half)
+            L = 30
+            ax.plot([-ly, -(ly + sgn * L * math.sin(a))], [lx, lx + L * math.cos(a)], ls, color="#d02020", lw=1)
+        ax.text(-ly + 2, lx + 22 if ls == "-" else lx + 5, lab, fontsize=7, color="#d02020")
+    ax.set_aspect("equal")
+    ax.set_xlim(-75, 75)
+    ax.set_ylim(-60, 70)
+    ax.set_title(f"A. Head section at camera height z={zc:.0f} (view from above, face up).\n"
+                 "Eye flange is backed by the head_base frame; FOV lines from the lens front.", fontsize=9)
+    ax.set_xlabel("-Y (mm)")
+    ax.set_ylabel("X (mm)")
+
+    # B. vertical section on the centre line (side view, face to the right)
+    def xz_section(ax, y, xlim, ylim, title):
+        for p in parts:
+            if p.name in skip:
+                continue
+            m = built[p.name].translate((0, -y, 0)).rotate((90, 0, 0))
+            cs = m.slice(0.0)
+            _poly_fill(ax, cs, colours[p.name], mapper=lambda q: np.stack([q[:, 0], -q[:, 1]], 1))
+        ax.set_aspect("equal")
+        ax.set_xlim(*xlim)
+        ax.set_ylim(*ylim)
+        ax.set_title(title, fontsize=9)
+        ax.set_xlabel("X (mm, face to the right)")
+        ax.set_ylabel("Z (mm)")
+
+    xz_section(axs[1], 0.0, (-110, 110), (0, 310),
+               "B. Section on the centre line y=0: belly modules behind the shell,\n"
+               "controller (rear), neck, servo, clutch, eye frame")
+    xz_section(axs[2], pt.CAM_Y, (-10, 60), (205, 300),
+               f"C. Section through the left eye / camera axis y={pt.CAM_Y:.0f}")
+    lx, lz = pt.LENS_FRONT_X, pt.CAM_Z
+    a = math.radians(BD.cam_fov_design / 2)
+    for sgn in (1, -1):
+        axs[2].plot([lx, lx + 15], [lz, lz + sgn * 15 * math.tan(a)], "-", color="#d02020", lw=1)
+    axs[2].text(lx + 1, lz + 17, f"design FOV {BD.cam_fov_design:.0f} deg", fontsize=7, color="#d02020")
+    fig.suptitle(f"Pip CAD v{params.VERSION} - true cross-sections (manifold slices; colours as in the assembly). "
+                 "Placeholder positions for bought parts.", fontsize=11)
+    fig.tight_layout()
+    fig.savefig(out / "preview_sections.png")
     plt.close(fig)

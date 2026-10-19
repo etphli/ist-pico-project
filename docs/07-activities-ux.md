@@ -16,11 +16,12 @@ Design principle: **Pip is a play partner that gets children moving, talking and
 
 | Input | Where | Meaning |
 |---|---|---|
-| Rear button A (white) | Back, right of centre (outer of the two, seen from behind) | Short: wake / sleep. Long (2 s): go to sleep now |
-| Rear button B (dark) | Back, right of centre (inner, nearer the middle) | Movement enable on/off (adult-supervised) |
-| Power actuator | Back, left of centre, low | Hard on/off (adult) |
+| Rear button A (white plunger) | Back, right of centre (outer of the two, seen from behind) | Short: wake / sleep. Long (2 s): go to sleep now |
+| Rear button B (dark plunger) | Back, right of centre (inner, nearer the middle) | Movement enable on/off (adult) |
+| Body power actuator | Back, right of centre, above the buttons | Body power on/off (adult) |
+| Camera/mic switch | Inside the body (adult) | Camera and microphone hard-off |
 | Belly touch pads A / B / C | Below the screen | Answer choices, "yes/no/maybe", game buttons |
-| Voice | Mic in the head (under the left eye) | Conversation |
+| Voice | Mic on the camera board in the head (left eye) | Conversation (turn-based first) |
 | Floor colour cards | Under Pip | Colour games |
 | Walking around | Camera + distance sensor | Pip follows / looks at the child |
 
@@ -30,14 +31,14 @@ Design principle: **Pip is a play partner that gets children moving, talking and
 | Wheels | Approach, follow, happy wiggle, spin dance (all speed-capped) |
 | OLED | Big icon + ≤ 3 words + A/B/C markers lined up with the pads |
 | Left cheek RGB | Mood / state: green = idle, amber = movement enabled, red = stop/fault, blue = listening, white pulse = camera on |
-| Speaker | Speech, songs |
+| Speaker (head) | Speech, songs |
 | Buzzer | Short UI chirps (button feedback) |
 
 ## 3. Activities
 
 | # | Activity | How it plays | Sensors → outputs (loops) | Off-screen value | Needs AI? |
 |---|---|---|---|---|---|
-| 1 | **Follow the Leader** | The child walks around; Pip follows at ~60 cm and copies "stop" and "go" | camera bearing → head/body; ToF → speed (L1–L3) | Gross motor, turn-taking | Tracking needs the laptop (no LLM) |
+| 1 | **Follow the Leader** | The adult points Pip at one child; the child walks slowly on a clear floor; Pip follows at ~60 cm and stops when the child is closer than 35 cm or out of view | camera bearing → head/body; ToF → speed (L1–L3) | Gross motor, turn-taking | Tracking needs the laptop (no LLM) |
 | 2 | **Freeze Dance** | Pip plays music; when it stops, everyone freezes; Pip "checks" by looking around | buzzer/speaker; head sweep; camera motion check (optional) | Movement, self-control | No (offline version) |
 | 3 | **Colour Treasure Hunt** | Pip asks for "something red"; the child places a colour card; Pip drives onto it and celebrates | colour sensor → speech, LEDs, wiggle (L9) | Exploring the room, colour vocabulary | Optional |
 | 4 | **Question Time** | Pip asks a question by voice; the OLED shows icon choices A/B/C; the child taps a pad | touch → feedback → difficulty (L8) | Literacy and numeracy, but the screen is minimal | Optional (offline question bank) |
@@ -64,5 +65,5 @@ Design principle: **Pip is a play partner that gets children moving, talking and
 
 - Can 5-year-olds find and use the belly pads through 1.0 mm of plastic? (Test membrane thickness options: 0.8 / 1.0 / 1.2 mm.)
 - Is the OLED readable from 50–80 cm? (128×64 pixels in a 23 × 11 mm active area: icons yes, small text no.)
-- Is the PWM speech understandable? (T-AUD-2)
+- Is speech from the small head speaker understandable at 1 m? (T-AUD-2)
 - Does following feel fun or creepy? Tune the following distance and head behaviour.

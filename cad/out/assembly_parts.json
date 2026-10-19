@@ -170,9 +170,14 @@
   "colour": "#e8c000"
  },
  {
-  "name": "ref_robo_pico",
+  "name": "ref_controller",
   "kind": "ref",
   "colour": "#2a7a3a"
+ },
+ {
+  "name": "ref_buttons",
+  "kind": "ref",
+  "colour": "#c03030"
  },
  {
   "name": "ref_servo",
@@ -180,9 +185,14 @@
   "colour": "#3060c0"
  },
  {
-  "name": "ref_xiao_cam",
+  "name": "ref_cam_board",
   "kind": "ref",
   "colour": "#2a7a3a"
+ },
+ {
+  "name": "ref_head_speaker",
+  "kind": "ref",
+  "colour": "#e0a040"
  },
  {
   "name": "ref_front_modules",

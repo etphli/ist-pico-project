@@ -1,46 +1,44 @@
 # Sources (accessed 2026-10-19)
 
-Verification status:
-- **V** = read directly from the page or document that day.
-- **S** = taken from a search-engine extract of the page (may be stale).
-- **X** = page could not be fetched (blocked or timed out), so the value is unverified.
+Type: **M** = manufacturer document (used for technical facts); **R** = retailer live page (used for price/stock, and for technical facts only where marked "retailer only"); **S** = search-engine extract (not relied on for decisions).
+Status: **V** = read directly that day; **X** = could not be fetched.
 
-| # | Source | Used for | Status |
+## Technical (manufacturer)
+
+| # | Source | Used for | Type/Status |
 |---|---|---|---|
-| 1 | Core Electronics, PiicoDev Starter Kit for Raspberry Pi Pico (CE08256): https://core-electronics.com.au/piicodev-starter-kit-for-raspberry-pi-pico.html | Kit v1.2 contents, version history, AU$86.50 | V |
-| 2 | Core Electronics, PiicoDev LiPo Expansion Board (CE07693): https://core-electronics.com.au/piicodev-lipo-expansion-board-for-raspberry-pi-pico.html | ~220/440 mA charge, JST-PH, I2C0 GP8/GP9, 120 Ω, 51×51 mm | V |
-| 3 | PiicoDev LiPo Expansion Board schematic Rev v11 (CoreElectronics GitHub, `Documents/schematic.pdf`) | P-MOSFET power path, charger PROG network, FAST_CHG jumper | V (PDF read) |
-| 4 | Raspberry Pi, Pico-series documentation: https://www.raspberrypi.com/documentation/microcontrollers/pico-series.html | Pico 2 W: RP2350, 520 KB SRAM, 4 MB flash, 150 MHz, CYW43439, 2.4 GHz n | V (page also shows a conflicting dual-band line) |
-| 5 | Raspberry Pi, Pico 2 W datasheet: https://datasheets.raspberrypi.com/picow/pico-2-w-datasheet.pdf | VSYS 1.8–5.5 V; 3V3 load < 300 mA recommended; VBUS→VSYS Schottky; WL_GPIO2 VBUS sense; GPIO29 VSYS/3 | V (PDF text extracted) |
-| 6 | Cytron, Robo Pico datasheet Rev 1.0 (Apr 2023), DigiKey-hosted PDF: https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/6147/Robo_Pico.pdf | Pin map, VIN 3.6–6 V, Vmotor/Vservo table, 1 A/1.5 A per channel, 300 mA 3V3, switch, buttons GP20/21 | V (PDF text extracted) |
-| 7 | Core Electronics, Robo Pico (CE11203): https://core-electronics.com.au/robo-pico-simplifying-robotics-with-raspberry-pi-pico-pico-w.html | AU$27.90, out of stock, 88×72 mm, Maker Port = PiicoDev compatible, included items | V |
-| 8 | Pakronics, Robo Pico: https://www.pakronics.com.au/products/robo-pico-simplifying-robotics-with-raspberry-pi-pico-pico-w-pakr-a0558 | A$26.22, out of stock | V |
-| 9 | element14 AU, Robo Pico 4415368: https://au.element14.com/cytron/robo-pico/robo-pico-board-rpi-pico-pico/dp/4415368 | AU$17.73 inc GST | S / X (fetch timed out) |
-| 10 | Core Electronics, TT gearmotor ADA3777: https://core-electronics.com.au/dc-gearbox-motor-tt-motor-200rpm-3-to-6vdc.html | AU$7.35; pre-fitted 200 mm leads; 150 mA no-load; 1.1–1.5 A stall; 70×22×18 mm; 30.6 g | V |
-| 11 | Core Electronics, Feetech FS90 CE09376: https://core-electronics.com.au/feetech-fs90-1-5kgcm-micro-servo-9g.html | AU$5.70; 4.8–6 V; 800 mA stall; 22.5×12.1×22.4 mm | V |
-| 12 | Core Electronics, Micro Servo SG92R ADA169: https://core-electronics.com.au/micro-servo.html | Alternative servo AU$12.75 | V |
-| 13 | Core Electronics, XIAO ESP32S3 Sense SS113991115: https://core-electronics.com.au/seeed-studio-xiao-esp32s3-54467.html | AU$30.60; lead time; currents; size | V |
-| 14 | Pakronics, XIAO ESP32S3 Sense pre-soldered: https://www.pakronics.com.au/products/seeed-studio-xiao-esp32s3-sense-pre-soldered-ss102010635 | A$32.99 | S |
-| 15 | Core Electronics, Gravity Digital Speaker FIT0449: https://core-electronics.com.au/gravity-digital-speaker-module.html | AU$9.51; module only listed | V |
-| 16 | DFRobot wiki FIT0449: https://wiki.dfrobot.com/fit0449/ | 2.0–5.5 V, 0.5 W 8 Ω, 40×40 mm, GND/VCC/Signal | V |
-| 17 | Core Electronics, Gravity digital cable 10-pack FIT0756: https://core-electronics.com.au/gravity-digital-sensor-cable-for-arduino-50cm-10-pack.html | AU$11.60 | S |
-| 18 | Core Electronics, USB-A male → terminal ADA3628: https://core-electronics.com.au/usb-a-male-plug-to-5-pin-terminal-block.html | AU$9.65, no soldering | V |
-| 19 | Core Electronics, USB-A female → terminal ADA3629: https://core-electronics.com.au/usb-a-female-socket-to-5-pin-terminal-block.html | AU$9.65, lead time | V |
-| 20 | Core Electronics, 50 cm USB-A→C CE09370: https://core-electronics.com.au/50cm-usb-a-usb-c-cable.html | AU$3.25 | S |
-| 21 | Core Electronics, jumper M/F 40 CE09130: https://core-electronics.com.au/male-female-jumper-wire-40-20cm.html | AU$3.95; delivery "Standard from $7, Express from $11" | S |
-| 22 | Core Electronics, jumper M/M 40 CE08574: https://core-electronics.com.au/jumper-wire-20cm-ribbon-of-40pcs.html | AU$3.95 (not in the final BOM) | S |
-| 23 | Core Electronics, 22 AWG hook-up wire red PRT-08865 / black PRT-08867 | AU$7.80 / AU$7.40 | S |
-| 24 | Core Electronics, PiicoDev OLED CE07911: https://core-electronics.com.au/piicodev-oled-display-module-128x64-ssd1306.html | 25.4×25.4 mm, glass 27×19.5, active 23×11, 0x3C/0x3D | S |
-| 25 | Core Electronics, PiicoDev Button CE08500: https://core-electronics.com.au/piicodev-button.html | AU$8.05 (considered, not used) | S |
-| 26 | Core Electronics, LiPo 2000 mAh CE04378 | AU$14.45, protection, leads rated 1 A (option B only) | S |
-| 27 | Little Bird Electronics, L298N board; DRV8833 carrier listings | Rejected drivers (soldering / voltage drop) | S |
-| 28 | Kmart, 10000 mAh USB-A & C 20 W power bank 43277094: https://www.kmart.com.au/product/portable-charger-10000mah-usba-and-c-20w-43277094 | AU$14.50 ("was $39") | S / X (page blocked) |
-| 29 | OpenRouter Quickstart: https://openrouter.ai/docs/quickstart | Endpoint, Bearer auth, OpenAI-compatible | V |
-| 30 | OpenRouter FAQ: https://openrouter.ai/docs/faq | USD credits, 5.5% (min $0.80) fee, free-model limits 50/1000 per day, no logging by default | V |
-| 31 | OpenRouter audio guide: https://openrouter.ai/docs/guides/overview/multimodal/audio | `input_audio`, audio output needs streaming | V |
-| 32 | OpenRouter limits / key docs: https://openrouter.ai/docs/api/reference/limits | Per-key credit limit, HTTP 402 | S |
-| 33 | Reference image (user attachment) | Visual style only: rounded white upright companion, dark eyes. Not copied. | inspected |
+| 1 | Cytron, Robo Pico datasheet Rev 1.0 (DigiKey-hosted PDF): https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/6147/Robo_Pico.pdf | VIN 3.6–6 V; **Vmotor & Vservo = VIN with only VIN connected** (row 6), VUSB − 0.4 V on USB (rows 5, 7, 8); 1 A continuous / 1.5 A peak < 5 s per channel; no driver protection stated | M/V (PDF text) |
+| 2 | Kitronik, Compact Motor Driver Board for Pico 5331 datasheet (Core-hosted): https://core-electronics.com.au/attachments/localcontent/5331-compact-motor-driver-raspberry-pi-pico-datasheet_30137893d1d.pdf | DRV8833 with built-in short-circuit, over-current and thermal protection; 3–10 V; 1.5 A max per channel; motor pins GP2/3, GP6/7; GPO terminals GP0, GP1, GP27, GP28; 3V/GND out; reverse-polarity protected power; on/off switch; 3 V regulator powers the Pico; 63 × 35 mm, 11.6 mm tall, M3-clearance holes | M/V (PDF text) |
+| 3 | DFRobot wiki, ESP32-S3 AI CAM DFR1154: https://wiki.dfrobot.com/SKU_DFR1154_ESP32_S3_AI_CAM | 42 × 42 mm; Type-C 5 V; VIN 3.7–15 V (conflicts with Core's 5–12 V; VIN not used); OV3660 160°; PDM mic; MAX98357; MX1.25 speaker socket; recommended speaker 4 Ω 1.5 W or 8 Ω 1 W; package list not given | M/V |
+| 4 | Seeed wiki, XIAO ESP32S3 getting started: https://wiki.seeedstudio.com/xiao_esp32s3_getting_started/ | Type-C input 5 V; Sense streaming ≈ 140 mA average, ≈ 347 mA peak at 5 V; OV5640 on current Sense | M/V |
+| 5 | Raspberry Pi, Pico-series documentation and Pico 2 W datasheet | RP2350 520 KB SRAM, 4 MB flash, 150 MHz; 2.4 GHz radio; 3V3 load < 300 mA recommended | M/V (previous round) |
+| 6 | PiicoDev LiPo Expansion Board schematic (CoreElectronics GitHub) | Charger only; no motor/servo supply | M/V (previous round) |
+| 7 | Core Electronics guide, Makerverse Motor Driver 2-channel application guide | Terminals and headers fit **unsoldered pads**, hence rejected | M (Core is the maker)/V |
+| 8 | OpenRouter docs: quickstart, FAQ, limits | Endpoint, auth, credit fee 5.5% (US$0.80 min), per-key limits/HTTP 402, free-model limits | M/V (previous round) |
 
-Not checked this round: OpenRouter Terms of Service (age, child-directed use); OpenCode plan terms; AS/NZS toy standards text; PiicoDev module default I2C addresses (except the OLED); Robo Pico charge current and JST-PH polarity; Pico 2 W compatibility statement for the Robo Pico.
+## Price, stock and retailer-only technical facts (Core Electronics live catalogue)
 
-Parent review 2026-10-19: Seeed XIAO getting-started documentation https://wiki.seeedstudio.com/xiao_esp32s3_getting_started/ and Waveshare combined camera/audio documentation https://docs.waveshare.com/ESP32-S3-CAM-OVxxxx were read. The latter is an unpriced alternative candidate only.
+| # | Page | Used for | Type/Status |
+|---|---|---|---|
+| 10 | Kitronik Motor Driver Board CE07855 | AU$19.95; in stock (3 today) | R/V |
+| 11 | TT motor ADA3777 | AU$7.35; 3–6 V; 28 AWG leads; Adafruit bench figures: stall 1.1 A at 3 V, 1.2 A at 4.5 V, 1.5 A at 6 V (**retailer copy of Adafruit's text; Adafruit page not checked**) | R/V |
+| 12 | Feetech FS90 CE09376 | AU$5.70; **4.8–6 V; 800 mA stall (retailer only; Feetech page not checked)** | R/V |
+| 13 | DFR1154 | AU$37.23; in stock (16) | R/V |
+| 14 | Mini Oval Speaker ADA3923 | AU$4.80; **out of stock**; PicoBlade 1.25 mm plug; 30 × 20 × 5 mm | R/V |
+| 15 | PiicoDev Button CE08500 | AU$8.05; I2C 0x42 default, user-selectable; 25.4 mm; 2 × M2.5 | R/V (Core is the maker) |
+| 16 | USB-A male → terminal ADA3628 | AU$9.65; no soldering | R/V |
+| 17 | USB-C in-line power switch CE06575 | AU$3.45; power pins only; not with smart USB-C chargers; ≤ 3 A; 28 cm | R/V |
+| 18 | USB-A → USB-C 50 cm CE09370 | AU$3.25; 2 A | R/V |
+| 19 | Catalogue search results (generated from the live catalogue): PiicoDev prototyping cable CE07796 AU$0.95; Wago 221-413 AU$1.40; jumper 10 cm M/M CE09607 AU$3.20; PTC COM-08357 (RXE025, 250 mA) AU$2.95; Battery Bank 5000 mAh AD0505B AU$26.95 (one 2.1 A output) | Prices | R/V |
+| 20 | Robo Pico CE11203 | AU$27.90, out of stock; Core lists Pico 2 compatibility | R/V |
+| 21 | Makerverse 2-ch driver CE08038; TT 50 RPM CE09390 | Rejected options (solder pads; 3 V rating) | R/V |
+| 22 | Core cart quotes (example postcode 2000) | Standard delivery AU$6.25 for two smaller test carts. The full-concept cart could not be quoted: Core stopped responding later that day. | R/V |
+| 23 | Search extracts: Kitronik Mini 180 servo, Feetech FT90B voltage listings (conflicting), Kitronik Robotics Board prices | Not relied on | S |
+
+## Not checked this round
+
+Feetech and Adafruit manufacturer pages (the servo and motor facts above are retailer copies); TI DRV8833 datasheet (over-current threshold), whose download failed; Kitronik 3 V regulator current rating, not stated in its datasheet; DFR1154 current draw and lens position; PiicoDev Button address-change method; any power bank; element14/Cytron/marketplace prices; OpenRouter terms beyond the facts above.
+
+## Previous-round sources still referenced
+
+Kit contents (Core CE08256 page), PiicoDev OLED dimensions (CE07911), XIAO and Gravity speaker listings (now comparison only). See git history of this file.

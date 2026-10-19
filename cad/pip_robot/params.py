@@ -1,4 +1,4 @@
-"""Pip companion robot - CAD v0.1 parameters (millimetres).
+"""Pip companion robot - CAD v0.2 parameters (millimetres).
 
 EVERY dimension tagged `# MEASURE` is a placeholder taken from a datasheet,
 retailer listing or a typical part. It MUST be checked against the physical part
@@ -11,7 +11,7 @@ Coordinate system (assembly): origin on the floor under the robot centre,
 
 from dataclasses import dataclass, field
 
-VERSION = "0.1-prototype"
+VERSION = "0.2-prototype"
 
 
 @dataclass(frozen=True)
@@ -93,35 +93,44 @@ class Battery:
 
 @dataclass(frozen=True)
 class Boards:
-    # Cytron Robo Pico datasheet/listing: 88 x 72 mm, 4x M3 holes.            # MEASURE
-    robo_w: float = 88.0           # along Y
-    robo_h: float = 72.0           # along Z when mounted vertically
-    robo_t: float = 1.6
-    robo_comp_h: float = 16.0      # tallest component incl. Pico socket+Pico  # MEASURE
-    robo_hole_inset: float = 4.0   # M3 hole centre inset from edges            # MEASURE
-    robo_bottom_z: float = 78.0    # board lower edge height in assembly
-    robo_back_x: float = -40.0     # X of board rear (component-side) face plane
-    # Positions on Robo Pico (board coords: u along Y from board centre, v up from lower edge)
-    btn_gp20_uv: tuple = (-35.0, 8.0)    # MEASURE (soft wake / sleep)
-    btn_gp21_uv: tuple = (-21.0, 8.0)    # MEASURE (movement enable)
-    switch_uv: tuple = (22.0, 6.0)       # MEASURE  on/off slide switch (rotate board so it sits low)
+    # Controller: Kitronik Compact Motor Driver Board for Pico (5331, Core CE07855).
+    # Kitronik datasheet: 63 x 35 mm, 11.6 mm tall, 1.6 mm PCB, M3-clearance holes.
+    # Mounted vertically on the rear upright, component (Pico) side facing the rear.
+    ctrl_w: float = 63.0           # along Y
+    ctrl_h: float = 35.0           # along Z
+    ctrl_t: float = 1.6
+    ctrl_comp_h: float = 22.0      # board top side incl. Pico 2 WH in its socket   # MEASURE
+    ctrl_hole_dy: float = 55.0     # hole spacing along the long edge (datasheet drawing, read as 55)  # MEASURE
+    ctrl_hole_dz: float = 28.0     # hole spacing along the short edge (datasheet drawing, read as 28) # MEASURE
+    ctrl_bottom_z: float = 118.0   # board lower edge height in assembly
+    ctrl_standoff: float = 4.0     # rear upright face -> board back face
+    switch_uv: tuple = (-20.0, 4.0)      # MEASURE on/off slide switch (u along Y from board centre, v up from lower edge)
     switch_travel: float = 3.0           # MEASURE
-    led_strip_uv: tuple = (0.0, 66.0)    # MEASURE  NeoPixel / status LEDs
+    # Rear buttons: two PiicoDev Button modules (Core CE08500, 25.4 x 25.4 mm, 2x M2.5)
+    btn_wake_yz: tuple = (-40.0, 92.0)   # rear button A (wake / sleep), white plunger
+    btn_move_yz: tuple = (-12.0, 92.0)   # rear button B (movement enable), dark plunger
+    btn_h: float = 9.5                   # MEASURE board front face -> button cap top
+    btn_standoff: float = 4.0
+    btn_holes: tuple = ((-10.16, -10.16), (10.16, 10.16))   # MEASURE (2x M2.5 per listing; positions assumed)
     # PiicoDev modules (Core listing: 25.4 x 25.4 mm, M2.5 holes)
     piico: float = 25.4
     piico_hole_pitch: float = 20.32      # MEASURE
     oled_glass: tuple = (27.0, 19.5)     # Core CE07911 listing
     oled_active: tuple = (23.0, 11.0)    # Core CE07911 listing
-    # Gravity speaker module FIT0449: 40 x 40 mm (DFRobot wiki)
-    spk: float = 40.0
-    spk_depth: float = 12.0              # MEASURE (module + speaker can)
-    # XIAO ESP32S3 Sense stack (Core listing 21 x 17.8 x 15 mm with expansion board)
-    xiao_l: float = 21.0
-    xiao_w: float = 17.8
-    xiao_h: float = 15.0
-    cam_board: float = 8.5               # MEASURE  camera module body
-    cam_aperture_d: float = 7.0          # lens clearance hole in eye
+    # Head camera/mic/amp board: DFRobot ESP32-S3 AI Camera DFR1154 (42 x 42 mm, Core/DFRobot listing)
+    cam_board: float = 42.0
+    cam_board_t: float = 1.6             # MEASURE
+    cam_back_h: float = 4.0              # MEASURE components behind the board
+    cam_lens_h: float = 5.0              # MEASURE lens front above the board front face
+    cam_lens_d: float = 6.0              # MEASURE lens front diameter
+    cam_lens_uv: tuple = (0.0, 0.0)      # MEASURE lens centre offset from board centre (Y, Z)
+    cam_fov_lens: float = 160.0          # DFRobot spec (diagonal/max, wide-angle lens)
+    cam_fov_design: float = 90.0         # full cone kept clear through eye; outside it is vignetted on purpose
     usb_c_overmold: tuple = (12.5, 7.0)  # MEASURE  cable plug overmold W x H
+    # Head speaker on the DFR1154 MX1.25 amp output: Adafruit Mini Oval 8 ohm 1 W (ADA3923 listing 30 x 20 x 5)
+    spk_l: float = 30.0
+    spk_h: float = 20.0
+    spk_t: float = 5.0
 
 
 @dataclass(frozen=True)
@@ -164,7 +173,6 @@ class Head:
 class Front:
     oled_z: float = 122.0
     touch_z: float = 92.0
-    spk_z: float = 62.0
     dist_z: float = 160.0
     rgb_z: float = 160.0
     rgb_y: float = 30.0
@@ -185,16 +193,17 @@ class Params:
 
 P = Params()
 
-# Rough masses (g) used ONLY for the static tip-angle estimate in validate.py.
+# Rough masses (g) used ONLY for the static tip-angle estimate in build.py.
 # Sources: ADA3777 listing 30.6 g; others are estimates -> weigh real parts.
 COMPONENT_MASS_G = {
     "power_bank": (190.0, "estimate - weigh yours"),
     "tt_motor_L": (30.6, "Core ADA3777 listing"),
     "tt_motor_R": (30.6, "Core ADA3777 listing"),
     "fs90_servo": (9.0, "estimate (9 g class)"),
-    "robo_pico_with_pico": (45.0, "estimate"),
-    "speaker_module": (15.0, "estimate"),
-    "xiao_sense": (8.0, "estimate"),
+    "controller_with_pico": (35.0, "estimate"),
+    "piicodev_buttons_x2": (10.0, "estimate"),
+    "camera_board": (20.0, "estimate"),
+    "head_speaker": (1.4, "ADA3923 listing"),
     "piicodev_modules_x6": (24.0, "estimate"),
     "cables": (40.0, "estimate"),
 }

@@ -50,5 +50,5 @@ Use these templates. Never fill in numbers you didn't measure.
 - Ethics: privacy of children's images and voices, AI content risks, cost of API usage, and what you did about each.
 
 ## 7. Project management
-- Time log; how the plan changed; risks that happened (the Robo Pico being out of stock, the budget shortfall) and how you responded.
+- Time log; how the plan changed; risks that happened (the first motor board going out of stock, the budget shortfall and the resulting scope decision) and how you responded.
 - Collaboration and help received (including from AI tools), stated honestly.
