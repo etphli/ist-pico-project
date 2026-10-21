@@ -51,6 +51,8 @@ def main():
     vectors = sorted((ROOT / "docs/images").rglob("*.svg"))
     for vector in vectors:
         try:
+            if any(line != line.rstrip() for line in vector.read_text().splitlines()):
+                failures.append(f"SVG has trailing whitespace: {vector.relative_to(ROOT)}")
             tree = ET.parse(vector)
             if not tree.findall(".//{http://www.w3.org/2000/svg}text"):
                 failures.append(f"SVG has no editable text: {vector.relative_to(ROOT)}")

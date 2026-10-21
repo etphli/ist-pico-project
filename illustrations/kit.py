@@ -389,6 +389,7 @@ class Canvas:
             self.fig.savefig(path, facecolor=BG, metadata={"Date": None, "Creator": None})
             src = path.read_text()
             src = re.sub(r"'DejaVu Sans'|DejaVu Sans", SVG_FONT_STACK, src)
+            src = "\n".join(line.rstrip() for line in src.splitlines()) + "\n"
             path.write_text(src)
             written.append(path)
         plt.close(self.fig)
