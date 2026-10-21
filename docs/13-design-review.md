@@ -10,7 +10,7 @@ Round history:
 
 | # | Objection | v0.2 response | Status |
 |---|---|---|---|
-| 1 | Budget: no recommending a raised cap or staged buying; research cheaper no-solder routes seriously | Re-sourced from Core's live catalogue: the motor board, preassembled camera/mic/amp board, PiicoDev Buttons, lever connectors and short wire replace spools and 10-packs. The full concept's priced hardware fell from AU$148.71 (with delivery) to **AU$121.78 before delivery**. It is still over. **No compliant full configuration found.** Reduced scopes are listed only as options needing acceptance ([08](08-bom-budget-sourcing.md) §4). | **Open: HOLD; user decision D1** |
+| 1 | Budget: no recommending a raised cap or staged buying; research cheaper no-solder routes seriously | Re-sourced from Core's live catalogue: the motor board, preassembled camera/mic/amp board, PiicoDev Buttons, lever connectors and short wire replace spools and 10-packs. The v0.2 full concept's priced hardware fell from AU$148.71 (with delivery) to **AU$121.78 before delivery**. The 21 October supplied-speaker correction reduces the current subtotal to AU$116.98. **No compliant full configuration found.** See [08](08-bom-budget-sourcing.md) and [15](15-cost-reduction-options.md). | **Open: HOLD; user decision D1** |
 | 2a | Servo at 4.6 V below the FS90's 4.8 V minimum | Cytron's own table shows Vservo = VIN on VIN-only supply, so the 4.6 V figure was wrong. Regardless, the topology changed: the servo is fed from the bank's 5 V nominal. The ~0.2 V margin is a **gate** (PG2 ≥ 4.8 V measured). Failing it means the servo stays disconnected, not that it is run out of rating. | **Open: gate PG2**. No lower-voltage servo with a manufacturer rating found. |
 | 2b | XIAO USB fed 4.6 V | The camera board is now powered by an ordinary USB cable from a bank port, through an in-line switch | Resolved in design; PG4 records it |
 | 2c | Stall current vs bank rating; PWM and sensors are not protection | Driver with stated over-current and thermal protection (DRV8833, Kitronik). Example motor stall figures approach the board's stated maximum; continuous limits and motor protection remain unresolved. Bank protection must be documented but cannot substitute for a motor-protection strategy (PG3). No firmware stall detection is claimed. | **Open:** bank protection unverified; servo branch has no hardware current limit |
@@ -30,7 +30,7 @@ Round history:
 4. **Kitronik regulator capacity** for the Pico 2 W plus 10 PiicoDev modules is not published (PG6).
 5. **Single master disconnect** not found solder-free (PG5). Interim: unplug both leads.
 6. **Charging interlock**: procedural only.
-7. **Speaker** out of stock; plug fit to the DFR1154 socket unconfirmed.
+7. **Supplied speaker** package and physical mount unconfirmed. The manufacturer package includes one, so the separately priced spare is no longer required. The CAD retains its old spare-speaker envelope until the supplied speaker is measured.
 8. Unpriced items: wire, screws, strap, O-rings, delivery for the full cart. Owned bank is AU$0 if compatible.
 9. All bought-part dimensions are placeholders ([12](12-measurement-calibration-checklist.md)).
 
@@ -55,3 +55,23 @@ The electrical documentation now uses 2 A per port as the reported limit and rem
 The AU$70 total cap, no-soldering requirement and requested functions remain unchanged. The historical comparison BOM remains over budget. A mechanically updated prototype is not a purchase-ready or electrically validated robot.
 
 Parent verification of v0.3: `scripts/cad.sh --no-render` and `scripts/cad.sh --bank-fit-only` passed. The legacy bank/column collision is detected while the new accommodation envelope clears the model. Fixed cavity bounds are independent of the nominal measured size: a 132 × 61 × 12 mm variant passed with resized fillers, while a 20 mm-thick variant was rejected. The full generated set contains 28 STL files, six preview PNGs, assembly metadata and the bank-fit report. Physical fit, strength and electrical operation remain untested.
+
+## Illustrated guide and viewer review, 21 October
+
+Claude Opus 5.5 at medium reasoning wrote the [illustrated assembly guide](14-illustrated-assembly-guide.md). The main agent, GPT-6.1 Sol, read it against the CAD source, pin plan, power gates, fastener list and test plan, then corrected it. A GPT-6.1 Sol subagent wrote the [section viewer](../cad/viewer/README.md), which the main agent reviewed independently.
+
+The review changed the following:
+
+- Removed provisional viewer wording and clarified how GitHub HTML downloads open locally.
+- Added the missing servo tab and horn hardware as unpriced B18. The 15 M3 count covers frame, shells, controller, head and hatch only.
+- Removed image-title numbers that conflicted with guide stage numbers. Added provisional caster print settings, clarified that STL files do not contain print settings, and corrected the column orientation wording.
+- Kept servo centring behind the electrical hold. A loose camera switch is only an unpowered fit trial, not completed retention.
+- Corrected the supplied-speaker purchase. The current priced subtotal is AU$116.98 before extras. [The conditional AU$92.27 option](15-cost-reduction-options.md) still needs button, mounting and cable validation and exceeds the cap.
+
+The review found an additional assembly risk. The [straight insertion-path probe](../cad/check_assembly_paths.py) reproduces collisions against the base: motor drop, 99.90 mm³ at +36 mm; lateral wheel press, 2989.51 mm³ at +11 mm; wheel raised from below, 110.17 mm³ at −14 mm. These are sampled placeholder-geometry paths, not an exhaustive proof that no sequence exists. Stage 5 blocks final base printing until a complete sequence is proved or the base changes. The earlier collision checks only established clearance at assembled positions.
+
+The viewer's final browser script passed 23 checks at 1280 × 800, including changes in the rendered pixels when cuts, direction and caps change. The main agent inspected its desktop quarter cut and 390 × 844 phone layout. Every embedded vertex and triangle index matches the current CAD. See [viewer evidence and limits](../cad/viewer/VERIFICATION.md). Mouse-pan and touch feel, and a downloaded file opened through a local file URL, were not automated.
+
+The guide was rendered from Markdown for review. All eleven linked images loaded and the desktop layout had no horizontal overflow. The main agent read all stages and inspected the labelled CAD images. `python3 scripts/check_docs.py` checks local links, PNG files, BOM maths and viewer freshness. Physical assembly, electrical operation and firmware remain untested. The atmospheric module mount, camera switch holder, servo hardware, insertion sequence, power protection and budget remain open.
+
+The preview update changes display shading and image layout, not the mechanical geometry. The main agent added crease-preserving smooth normals, softer edge lines, larger panels and higher-resolution output. The CAD checks and viewer source hashes still apply to the same geometry.

@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pip v0.3 | Section viewer</title>
+    <style>
+      :root {
+        font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+        color: #17334a;
+        background: #edf3f7;
+        font-size: 14px;
+        --ink: #17334a;
+        --blue: #235c89;
+        --line: #c8d7e2;
+        --paper: #fbfdff;
+        --muted: #536c7d;
+        --amber: #b3650e;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      body {
+        margin: 0;
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+      button,
+      select {
+        color: var(--ink);
+        background: white;
+        border: 1px solid #b6cbd9;
+        border-radius: 5px;
+        padding: 7px 10px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #e4eff7;
+      }
+      button:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      canvas:focus-visible {
+        outline: 3px solid #287fc0;
+        outline-offset: 2px;
+      }
+      input[type="checkbox"] {
+        accent-color: var(--blue);
+        width: 16px;
+        height: 16px;
+        margin: 0;
+      }
+      input[type="range"] {
+        accent-color: var(--blue);
+        width: 100%;
+        margin: 9px 0;
+      }
+      header {
+        height: 76px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+        border-bottom: 1px solid var(--line);
+        background: var(--paper);
+        gap: 16px;
+      }
+      h1 {
+        font-size: 24px;
+        letter-spacing: -0.7px;
+        margin: 0;
+        font-weight: 650;
+      }
+      header p {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .prototype {
+        color: #80511d;
+        background: #fff4df;
+        border: 1px solid #e8c78e;
+        padding: 7px 11px;
+        border-radius: 5px;
+        font-size: 12px;
+      }
+      .workspace {
+        height: calc(100dvh - 76px);
+        display: grid;
+        grid-template-columns: 280px minmax(320px, 1fr) 290px;
+      }
+      aside {
+        background: var(--paper);
+        overflow-y: auto;
+        padding: 19px;
+        border-right: 1px solid var(--line);
+      }
+      aside:last-child {
+        border-right: 0;
+        border-left: 1px solid var(--line);
+      }
+      h2 {
+        font-size: 16px;
+        margin: 0 0 12px;
+        font-weight: 650;
+      }
+      h3 {
+        font-size: 14px;
+        margin: 17px 0 10px;
+      }
+      p {
+        line-height: 1.5;
+      }
+      .hint {
+        color: var(--muted);
+        font-size: 12px;
+        margin: 8px 0 14px;
+      }
+      .cut {
+        border-top: 1px solid var(--line);
+        padding: 13px 0 9px;
+      }
+      .cut-head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+      }
+      .cut-head output {
+        margin-left: auto;
+        font-size: 12px;
+        font-weight: 400;
+        font-variant-numeric: tabular-nums;
+      }
+      .cut select {
+        width: 100%;
+        font-size: 12px;
+        padding: 6px;
+      }
+      .axis-x {
+        color: #b14445;
+      }
+      .axis-y {
+        color: #337b54;
+      }
+      .axis-z {
+        color: #356abb;
+      }
+      .row {
+        display: flex;
+        gap: 7px;
+        flex-wrap: wrap;
+        margin: 10px 0;
+      }
+      .row button {
+        flex: 1;
+        font-size: 12px;
+        white-space: nowrap;
+      }
+      .check {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        font-size: 13px;
+        padding: 6px 0;
+      }
+      .rule {
+        border-top: 1px solid var(--line);
+        padding-top: 14px;
+        margin-top: 12px;
+      }
+      #stage {
+        min-width: 0;
+        position: relative;
+        background: radial-gradient(ellipse at 45% 35%, #fff 0%, #dce9f2 100%);
+        overflow: hidden;
+      }
+      #stage canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+        touch-action: none;
+      }
+      #view-tools {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        right: 15px;
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        pointer-events: none;
+      }
+      #view-tools button {
+        pointer-events: auto;
+        font-size: 12px;
+        box-shadow: 0 2px 5px #17334a0c;
+      }
+      .stage-note {
+        position: absolute;
+        bottom: 15px;
+        left: 18px;
+        right: 18px;
+        pointer-events: none;
+        font-size: 12px;
+        color: #476071;
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+      }
+      .stage-note span {
+        background: #fafdffdc;
+        padding: 6px 9px;
+        border-radius: 4px;
+      }
+      .selected-info {
+        padding: 12px;
+        background: #eaf2f8;
+        border-left: 3px solid #387baa;
+        margin-bottom: 14px;
+        min-height: 137px;
+      }
+      .selected-info h3 {
+        margin: 0 0 4px;
+      }
+      .selected-info p {
+        font-size: 12px;
+        margin: 6px 0;
+      }
+      .badge {
+        font-size: 10px;
+        display: inline-block;
+        padding: 3px 5px;
+        border: 1px solid #b6c9d8;
+        border-radius: 3px;
+        color: #385d76;
+        background: #f7fbfe;
+      }
+      .badge.placeholder {
+        background: #fff0d6;
+        color: #86551f;
+        border-color: #e1c28c;
+      }
+      .search {
+        width: 100%;
+        border: 1px solid #b6cbd9;
+        border-radius: 5px;
+        padding: 8px 10px;
+        background: white;
+        color: var(--ink);
+      }
+      #parts {
+        margin-top: 10px;
+      }
+      .part-row {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        border-bottom: 1px solid #e1eaf0;
+        padding: 3px 0;
+      }
+      .part-row button {
+        flex: 1;
+        min-width: 0;
+        text-align: left;
+        padding: 7px 4px;
+        border: 0;
+        background: transparent;
+        font-size: 12px;
+      }
+      .part-row.selected {
+        background: #dfedf8;
+      }
+      .part-row .swatch {
+        width: 8px;
+        height: 20px;
+        border: 1px solid #536c7d44;
+        border-radius: 2px;
+        flex-shrink: 0;
+      }
+      .part-row small {
+        font-size: 9px;
+        color: #855523;
+        display: block;
+        padding-top: 2px;
+      }
+      .group {
+        font-size: 12px;
+        font-weight: 600;
+        color: #4c6475;
+        margin: 16px 0 5px;
+      }
+      .legend {
+        font-size: 11px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .legend i {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background: #ce913a;
+        vertical-align: middle;
+        margin-right: 5px;
+      }
+      .error {
+        position: absolute;
+        inset: 80px 30px auto;
+        padding: 20px;
+        background: white;
+        border: 1px solid #b65e45;
+        line-height: 1.6;
+      }
+      details {
+        margin-top: 17px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      summary {
+        cursor: pointer;
+        color: var(--ink);
+        font-weight: 600;
+      }
+      details p {
+        margin-bottom: 0;
+      }
+      .count {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      #part-count {
+        margin: 8px 0 0;
+      }
+      #selection-title {
+        text-transform: none;
+      }
+      #status {
+        max-width: 70%;
+      }
+      @media (max-width: 1050px) {
+        .workspace {
+          grid-template-columns: 240px minmax(280px, 1fr);
+        }
+        aside:last-child {
+          grid-column: 1/-1;
+          border-left: 0;
+          border-top: 1px solid var(--line);
+          max-height: 420px;
+        }
+        .workspace {
+          height: auto;
+          min-height: calc(100dvh - 76px);
+        }
+        #stage {
+          height: calc(100dvh - 76px);
+          min-height: 480px;
+        }
+        aside:first-child {
+          max-height: calc(100dvh - 76px);
+        }
+        #parts {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 0 18px;
+        }
+        .group {
+          grid-column: 1/-1;
+        }
+        .selected-info {
+          min-height: 0;
+        }
+      }
+      @media (max-width: 600px) {
+        header {
+          height: auto;
+          min-height: 94px;
+          padding: 14px 16px;
+        }
+        .prototype {
+          font-size: 10px;
+          padding: 6px;
+          max-width: 135px;
+        }
+        h1 {
+          font-size: 21px;
+        }
+        .workspace {
+          display: flex;
+          flex-direction: column;
+        }
+        #stage {
+          order: -1;
+          height: 59dvh;
+          min-height: 370px;
+        }
+        aside:first-child {
+          max-height: none;
+          border-right: 0;
+        }
+        .cut {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 4px 14px;
+        }
+        .cut-head {
+          grid-column: 1/-1;
+        }
+        .cut select {
+          align-self: center;
+        }
+        aside {
+          padding: 17px;
+        }
+        #parts {
+          grid-template-columns: 1fr;
+        }
+        .stage-note {
+          font-size: 10px;
+          left: 10px;
+          right: 10px;
+          bottom: 10px;
+        }
+        .stage-note span {
+          padding: 5px;
+        }
+        #view-tools {
+          top: 10px;
+          left: 10px;
+          right: 10px;
+        }
+        #view-tools button {
+          font-size: 11px;
+          padding: 6px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>Pip section viewer</h1>
+        <p>v0.3 prototype · assembled CAD · millimetres</p>
+      </div>
+      <span class="prototype"
+        >Design only<br />Purchased dimensions are placeholders</span
+      >
+    </header>
+    <main class="workspace">
+      <aside aria-label="Section controls">
+        <h2>Look inside</h2>
+        <p class="hint">
+          Enable a cut, then move its plane. Combine axes to inspect a quarter
+          or an octant.
+        </p>
+        <div id="cuts"></div>
+        <label class="check"
+          ><input type="checkbox" id="caps" checked />Colour the cut
+          faces</label
+        >
+        <div class="legend">
+          <i></i>Ochre = exposed printed material. Purchased envelopes keep
+          their own cut colour.
+        </div>
+        <div class="rule">
+          <h2>Visible groups</h2>
+          <div id="groups"></div>
+          <div class="row">
+            <button id="all-show">Show all</button
+            ><button id="shell-toggle">Hide covers</button>
+          </div>
+        </div>
+        <div class="rule">
+          <h2>View</h2>
+          <label class="check"
+            ><input type="checkbox" id="axes" checked />Reference axes and floor
+            grid</label
+          >
+          <div class="row">
+            <button id="fit">Fit visible</button
+            ><button id="reset">Reset all</button>
+          </div>
+          <div class="row"><button id="save">Save PNG</button></div>
+        </div>
+        <details>
+          <summary>Controls and limits</summary>
+          <p>
+            Drag to orbit. Shift-drag or right-drag to pan. Scroll to zoom.
+            Touch: one finger orbits, two fingers pan and pinch. Click a part to
+            inspect it. Focus the model and use arrow keys to orbit, + / − to
+            zoom, Home to fit.
+          </p>
+          <p>
+            +X points forward, +Y is the robot's left, +Z is up. The floor is
+            Z=0. Each cut retains the side shown by its selector. Hidden parts
+            are also absent from the cut faces.
+          </p>
+          <p>
+            Exact assembled triangles from the v0.3 parametric model, including
+            mirrored instances. Bought parts are PLACEHOLDER envelopes. The
+            atmospheric module placement, switch holder, cables, hook-and-loop
+            straps, screws, adhesives and keep-out volumes are not modelled
+            here. No physical fit, strength or printability is established.
+            Coincident faces can flicker at an exact boundary; move the plane
+            slightly.
+          </p>
+        </details>
+      </aside>
+      <section id="stage" aria-label="Interactive assembled robot">
+        <div id="view-tools">
+          <button data-preset="assembly">Assembly</button
+          ><button data-preset="x">X section</button
+          ><button data-preset="y">Y section</button
+          ><button data-preset="quarter">X + Y cut</button
+          ><button data-preset="inside">Covers off</button>
+        </div>
+        <div class="stage-note">
+          <span id="status" aria-live="polite">Loading CAD meshes…</span
+          ><span
+            ><b class="axis-x">X</b> forward &nbsp; <b class="axis-y">Y</b> left
+            &nbsp; <b class="axis-z">Z</b> up</span
+          >
+        </div>
+      </section>
+      <aside aria-label="Assembly parts">
+        <h2>Inspect a part</h2>
+        <div class="selected-info" id="selection">
+          <h3 id="selection-title">Select in the model or list</h3>
+          <p id="selection-type">
+            44 assembled entries, including 10 purchased envelope entries.
+          </p>
+          <p id="selection-size"></p>
+          <p id="selection-notes">
+            Use the covers toggle to reach the internal parts.
+          </p>
+          <div class="row" id="selection-actions" hidden>
+            <button id="fit-part">Fit part</button
+            ><button id="isolate">Isolate</button>
+          </div>
+        </div>
+        <input
+          id="search"
+          class="search"
+          type="search"
+          placeholder="Find a part…"
+          aria-label="Find a part"
+        />
+        <p id="part-count" class="count"></p>
+        <div id="parts"></div>
+      </aside>
+    </main>
+    <script>
+      /* THREE_LIBRARY */
+    </script>
+    <script id="model-data" type="application/json">
+      /* MODEL_DATA */
+    </script>
+    <script>
+      /* VIEWER_CODE */
+    </script>
+  </body>
+</html>

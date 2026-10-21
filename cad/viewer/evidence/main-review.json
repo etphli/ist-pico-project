@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-21",
+  "reviewer": "Main agent, GPT-6.1 Sol",
+  "desktop": {
+    "passed": 23,
+    "checks": [
+      "44 current registry entries and 57,330 triangles loaded",
+      "Reset restores all parts and disables every cut",
+      "Selection actions are hidden until a part is selected",
+      "Quarter preset independently enables X and Y",
+      "Quarter cut changes the rendered pixels",
+      "X slider changes X while retaining the Y position",
+      "Moving the X plane changes the rendered section",
+      "Y slider changes Y while retaining the X position",
+      "Y direction selector reverses the retained half",
+      "Reversing the Y cut changes the rendered half",
+      "All three cutting planes work together",
+      "Cut-face toggle changes the actual rendered image",
+      "Covers toggle removes four outer covers",
+      "Purchased-envelope group visibility hides every purchased envelope",
+      "Part search finds the named power bank",
+      "Selecting a purchased part labels it PLACEHOLDER",
+      "Isolate displays only the selected bank",
+      "Keyboard orbit changes the camera",
+      "Wheel zoom moves the camera closer",
+      "Reference axes toggle responds",
+      "Save PNG produces a named PNG from the rendered view",
+      "Page has no horizontal overflow at this viewport",
+      "Page loads no external resource dependencies"
+    ],
+    "viewport": [
+      1280,
+      800
+    ]
+  },
+  "mobile": {
+    "viewport": [
+      390,
+      844
+    ],
+    "scrollWidth": 390,
+    "horizontalOverflow": false,
+    "method": "T3 resize, DOM measurement, saved snapshot and visual inspection"
+  },
+  "sourceHashes": {
+    "pip_robot/params.py": "0b7960af5059f4c140146a2ffc47e7d6688e40914296925ce96e19a01074b563",
+    "pip_robot/prims.py": "ed28cd39d618845349356f6481f32c0209f463d348f2b01e288d550f4bfb6705",
+    "pip_robot/parts.py": "e938fa1b32eb11877d40fdd4ff91d61c3beaae90aaa062d801a992ea0b357b8a",
+    "pip_robot/assembly.py": "5f31cf5eab96ee874a7ac924cc84e370eaa69f40f44dba363fbf3d1881c6d5e5"
+  }
+}

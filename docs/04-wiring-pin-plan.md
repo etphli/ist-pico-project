@@ -56,7 +56,7 @@ Kitronik GP0/GP1/3V/GND terminals ── B7 prototyping cable (male pins)
 | W13 | Kitronik GP0 / GP1 / 3V / GND terminals | PiicoDev chain | B7 prototyping cable | Pin order: check the cable colour code |
 | W14 | Bank USB-A port 2 | USB-C in-line switch (B12) | B11 USB-A → USB-C cable | In-line switch mounted in the rear-upper body (holder not yet modelled) |
 | W15 | In-line switch USB-C male (28 cm) | DFR1154 USB-C | up through the deck slot and neck | ~60 mm service loop in the head, ~80 mm in the body (cable twist test T-PAN-3) |
-| W16 | DFR1154 speaker socket | Speaker | speaker's 1.25 mm plug | Confirm plug fit (B5) |
+| W16 | DFR1154 speaker socket | Manufacturer-supplied speaker | supplied speaker plug | Confirm retailer package, socket fit and speaker dimensions. B5 is an optional spare only. |
 | W17 | Pico USB | Laptop (programming only, rear shell off) | user's cable | Programming without the bank connected is preferred |
 
 ## 5. First-power checklist

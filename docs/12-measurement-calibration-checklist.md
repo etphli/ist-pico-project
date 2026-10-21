@@ -24,7 +24,7 @@ Do not open the bank or remove its case. Measure it as it is.
 | Q10 | USB-A → USB-C cable overmould: length beyond the port face, width and height | `plug_out2` | 32 × 16 × 9, + 12 bend | |
 | Q11 | Micro-USB charging plug overmould, same measurements | `plug_charge` | 25 × 11 × 7, + 15 bend | |
 
-After measuring, set the values and run `scripts/cad.sh --bank-fit-only`. It takes about 20 s. Then run the full `scripts/cad.sh` and reprint the tray fillers.
+After measuring, set the values and run `scripts/cad.sh --bank-fit-only`. It takes seconds. Then run the full `scripts/cad.sh` and reprint the tray fillers.
 
 - **Inside the band:** set `len_nom`, `w_nom` and `t_nom` to the measured values. The shims (31.8 − W/2 mm) and the front spacer (133.8 − L mm) regenerate at the new thickness. The fixed cavity and tray do not change. Near the upper size limits, a filler may become too thin to print; the build rejects shims below 1 mm and front spacers below 1.5 mm. Redesign the fillers and rear keepers in that case rather than bypassing the check.
 - **Outside the band, or a port outside the assumed zone:** the regression reports which keep-out is entered. The rails, plug sweep or hatch then need changing. Thinner fillers do not fix that.

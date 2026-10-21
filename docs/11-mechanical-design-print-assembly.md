@@ -1,5 +1,7 @@
 # 11 · Mechanical design, print plan and assembly (CAD v0.3 prototype)
 
+For the step-by-step build procedure and labelled images, use the [illustrated assembly guide](14-illustrated-assembly-guide.md). This page is the mechanical design reference.
+
 > **CAD v0.3 is a parametric prototype, not a final design.** Every bought-part dimension, hole position, button, switch and lens position is a **placeholder** (`# MEASURE` in [`params.py`](../cad/pip_robot/params.py)). v0.3 is laid out around the owned **MINISO QW01** power bank, using the user's **approximate** size of about 130 × 60 × 10 mm. That size has not been measured, and the bank has not been fitted. Do not print the full set until the parts are measured ([12](12-measurement-calibration-checklist.md), §A0 for the bank first) and the model is regenerated. Print the fit-test coupon first.
 
 ![Reference elevations](../cad/out/preview_front_reference.png)
@@ -11,8 +13,8 @@
 ## 1. Tooling and reproducibility
 
 - Python + [manifold3d](https://github.com/elalish/manifold) (guaranteed-manifold CSG). All dimensions are in `cad/pip_robot/params.py`.
-- `scripts/cad.sh` runs everything in a throwaway `uv` environment. It builds the parts, exports the STLs, re-checks them with trimesh, runs the geometry checks and the bank-fit regression, and renders the previews. Rendering takes about 3 minutes; `--no-render` skips it.
-- `scripts/cad.sh --bank-fit-only` reruns only the QW01 bank-fit regression (about 20 s, writes no files). Rerun it after entering the measured bank size.
+- `scripts/cad.sh` runs everything in a throwaway `uv` environment. It builds the parts, exports the STLs, re-checks them with trimesh, runs the geometry checks and the bank-fit regression, and renders the previews. Rendering takes several minutes; `--no-render` skips it.
+- `scripts/cad.sh --bank-fit-only` reruns only the QW01 bank-fit regression (seconds, writes no files). Rerun it after entering the measured bank size.
 - **Previews** are drawn from the exported meshes by a small per-pixel z-buffer rasteriser (`cad/render.py`), so openings show truthfully. The cross-sections are true slices of the solids. (v0.1's "red triangles" were a matplotlib depth-sorting artifact; the mesh was correct.)
 - No slicer was run, so there are no print-time or support numbers. Nothing has been printed.
 
@@ -80,7 +82,7 @@ Unchanged in v0.3.
 - **Slip clutch:** four spring tongues in the clutch disc click into eight notches in the head floor. They slip before the servo gears are forced. Tune `clutch_arm_t` (print 1.2 / 1.6 / 2.0 mm; T-PAN-2). After a slip, the commanded angle no longer equals the actual angle ([02](02-architecture.md) §4.1).
 - **Stops** at ±75° (pin in an arc groove). Firmware limit ±70°.
 - **Camera:** the DFR1154 board slides into a cradle on the head base. Its lens front sits 0.5 mm behind the eye frame. The left eye and the frame have a conical aperture for a **90° design FOV**, and the CAD checks that this cone is unobstructed (report §3c). The lens itself is 160° (DFRobot), so the outer field is deliberately masked by the eye. **The lens position on the board is a placeholder.**
-- **Speaker:** 30 × 20 × 5 mm speaker in side rails behind the eye frame, grille holes through the frame and cap under the right eye.
+- **Speaker:** the mount currently uses the earlier optional spare's 30 × 20 × 5 mm envelope, in side rails behind the eye frame. DFRobot lists a speaker in the DFR1154 package. Confirm that package, measure the supplied speaker and regenerate its mount before printing. Do not buy a duplicate speaker for this placeholder.
 - **Cable:** one USB-C lead (camera power) through a slot in the deck, up the neck and through the head floor slot, with service loops (T-PAN-3).
 
 ## 5. Shells, openings, service
@@ -122,6 +124,8 @@ All screws are **pan-head thread-forming screws for plastics**. They need a scre
 
 **Fastener total:** 15 × M3 (4 shell, 1 hatch, 4 frame, 2 head, 4 controller), 4 × M2.5 and 2 hook-and-loop straps. All unpriced. v0.2 had 14 × M3 and one strap.
 
+This total excludes the FS90's tab and horn hardware, B18. Its sizes and whether it is supplied are unconfirmed. The deck has provisional 1.8 mm pilot holes. Measure the servo and ledges before selecting screws or calling servo retention complete.
+
 ## 7. Parts list and print settings (PLA, 0.4 mm nozzle)
 
 | Part (STL in `cad/out/stl/`) | Qty | Colour | Layer / walls / infill | Orientation |
@@ -142,7 +146,8 @@ All screws are **pan-head thread-forming screws for plastics**. They need a scre
 | eye_left_camera, eye_right | 1 each | black | 0.12 / 3 / 100% | as exported |
 | drive_wheel_L / R | 1 each | dark | 0.2 / 4 / 40% | outer face down |
 | motor_strap | 4 | grey | 0.2 / 3 / 50% | as exported |
-| caster_fork_F / wheel_F / axle_F / clip_F | 2 each | grey/dark | see v0.1 notes | as exported |
+| caster_fork_F, caster_wheel_F | 2 each | grey/dark | provisional 0.2 / 4 / 40% | as exported; inspect supports in slicer |
+| caster_axle_F, caster_clip_F | 2 each | grey | provisional 0.12 / 4 / 100% | as exported; test split tip and clip strength on spares |
 | plunger_wake (white), plunger_move (dark) | 1 each | as named | 0.12 / 100% | as exported |
 | switch_actuator | 1 | dark | 0.12–0.2 / 100% | as exported |
 
@@ -150,12 +155,14 @@ Printed part count: 28 STL files (26 parts plus the coupon and pegs), 36 printed
 
 ## 8. Assembly sequence
 
+The [illustrated guide](14-illustrated-assembly-guide.md) adds detailed checkpoints. Its Stage 5 blocks final base printing until the motor and wheel insertion sequence is proved. Collision-free assembled positions do not establish an insertion path.
+
 1. Coupon → choose clearances → **measure the QW01 (docs/12 §A0)** → update `params.py` → `scripts/cad.sh --bank-fit-only` → full regenerate.
 2. Base: base modules on pegs; motors in cradles with straps; wheels with tyres; casters with clips and axles.
 3. Columns into the base, **screwed from below** (lower ends at y ±43, jogs inward). Thread both bank straps through the tray slots. Fit the tray. Rear upright into the tray.
 4. Controller (with Pico) and both PiicoDev Buttons screwed to the upright. Wiring per [04](04-wiring-pin-plan.md), only after the gates in [05](05-power-budget-charging.md).
 5. Deck onto the columns and upright, **screwed from above**. Servo onto its ledges. Camera USB lead through the deck slot.
-6. Bank, with the front shell off: front spacer against the front wall. Slide the bank in port-end first under the upright arch until it meets the spacer. Fit both side shims so their keepers hook behind the rear corners. Close both straps over the bank. Plug both robot leads in and route them up the left (+Y) side behind the upright.
+6. Bank, with the front shell off and all power disconnected: fit the front spacer. Keep the port end rearward, angle it under the upright arch, lower the bank and slide it forward to the spacer. This is an unverified fit sequence; stop if it needs force. Fit both side shims and close both straps. Leave both output leads disconnected during the dry build. Connect them only after the electrical gates clear the circuit, routing them up the left (+Y) side behind the upright.
 7. Head: eyes into the cap from inside. Camera board and speaker into the head-base cradles. Horn + clutch on the servo (servo centred). Cap onto the base (2 screws from below). Lower the head onto the neck until the hooks snap. Check rotation and stops.
 8. Front shell: modules into pockets; connect the touch cable; seat the ribs; screws from below. Rear shell: plungers and actuator; seat; screws from below. Rear hatch: tongues in, swing closed, 1 screw. Check that it closes without pressing on the plugs (docs/12 Q15).
 9. Bring-up checks in [09](09-build-plan-milestones-tests.md) §2.

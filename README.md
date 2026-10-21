@@ -5,9 +5,11 @@
 Pip is a friendly, rounded, white companion robot for children aged 5–8 that encourages **off-screen play**. The design: Pip follows a selected child on four wheels, pans its head to look at them, asks questions on a belly screen, takes answers from touch pads or by voice, and talks through a web AI model reached over Wi-Fi via a nearby laptop. It is built around a **Raspberry Pi Pico 2 WH** and the **PiicoDev Starter Kit**, with **no soldering**.
 
 > **Status (2026-10-21): design v0.3. Design only; firmware not implemented. Purchase status: HOLD.**
-> No configuration meeting every requirement within the **AU$70 total** was found. The full concept's priced hardware is AU$121.78 before delivery and unpriced items. Reduced-scope options are listed for the user's decision ([docs/08](docs/08-bom-budget-sourcing.md)). The power design has verification gates that must pass before wiring ([docs/05](docs/05-power-budget-charging.md)). The CAD is a parametric prototype with placeholder dimensions for bought parts. Review status: [docs/13](docs/13-design-review.md).
+> No configuration meeting every requirement within the **AU$70 total** was found. The full concept's priced hardware is AU$116.98 before delivery and unpriced items. Reduced-scope options are listed for the user's decision ([docs/08](docs/08-bom-budget-sourcing.md)). The power design has verification gates that must pass before wiring ([docs/05](docs/05-power-budget-charging.md)). The CAD is a parametric prototype with placeholder dimensions for bought parts. Review status: [docs/13](docs/13-design-review.md).
 
 ![Pip CAD v0.3 reference elevations](cad/out/preview_front_reference.png)
+
+Start with the [illustrated assembly guide](docs/14-illustrated-assembly-guide.md). Inspect the internals in the [interactive 3D section viewer](cad/viewer/index.html), or read [how to open and edit the viewer](cad/viewer/README.md). GitHub displays HTML as source, so download the repository and open the viewer locally. The guide is editable Markdown, and the viewer includes its editable source and geometry generator.
 
 ## Key facts
 
@@ -20,7 +22,7 @@ Pip is a friendly, rounded, white companion robot for children aged 5–8 that e
 - **Not claimed:** motor-stall detection, reliable lift detection, edge detection, automatic reversing. Supervised floor use only ([docs/06](docs/06-safety.md)).
 - **AI split:** the Pico runs control and safety. The laptop runs tracking and speech locally and calls an LLM on OpenRouter (provider-neutral). No API calls were made and no keys exist in this repo.
 
-The v0.3 layout uses the bank's approximate dimensions, a fixed accommodation envelope, removable fillers, two retention straps and a screw-retained rear service hatch. The model assumes the required ports face the rear hatch. Exact dimensions, mass, port positions and electrical load tests are still needed before final printing or wiring. The budget remains AU$70 total; the AU$121.78 comparison BOM is a historical 19 October estimate, not an approved order.
+The v0.3 layout uses the bank's approximate dimensions, a fixed accommodation envelope, removable fillers, two retention straps and a screw-retained rear service hatch. The model assumes the required ports face the rear hatch. Exact dimensions, mass, port positions and electrical load tests are still needed before final printing or wiring. The budget remains AU$70 total. The AU$116.98 comparison BOM uses 19 October prices with a duplicate speaker removed on 21 October. It is not an approved order.
 
 ## Documentation
 
@@ -40,12 +42,14 @@ The v0.3 layout uses the bank's approximate dimensions, a fixed accommodation en
 | 11 | [Mechanical design, retention, print and assembly](docs/11-mechanical-design-print-assembly.md) |
 | 12 | [Measurement and calibration checklist](docs/12-measurement-calibration-checklist.md) |
 | 13 | [Engineering review status](docs/13-design-review.md) |
+| 14 | [Illustrated assembly guide](docs/14-illustrated-assembly-guide.md) |
+| 15 | [Cost reductions that retain the requested functions](docs/15-cost-reduction-options.md) |
 | — | [Sources](docs/sources.md) |
 
 ## CAD
 
 ```bash
-scripts/cad.sh              # build, check, render (~3 min)
+scripts/cad.sh              # build, check, render (several minutes)
 scripts/cad.sh --no-render  # build and check only (seconds)
 ```
 

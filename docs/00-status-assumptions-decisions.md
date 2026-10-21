@@ -63,7 +63,7 @@ User update, 2026-10-20: owned MINISO QW01, 10,000 mAh; approximately 130 × 60 
 | Camera person-tracking | DFR1154 + laptop tracker | Lens position placeholder; 160° lens needs calibration |
 | Two rear buttons | 2 PiicoDev Buttons + plungers | Second button address method to confirm |
 | Screen in the middle | Kit OLED in the belly | Small (23 × 11 mm active) |
-| Onboard spoken conversation | DFR1154 mic + amp + speaker; laptop bridge; OpenRouter | Speaker out of stock; echo not yet tested |
+| Onboard spoken conversation | DFR1154 mic + amp + supplied speaker; laptop bridge; OpenRouter | Confirm retailer package and supplied speaker mount; echo not yet tested |
 | Follow a person | Camera bearing + ToF range with alignment, freshness and plausibility gates | ToF does not identify the person ([02](02-architecture.md) §4.2) |
 | No soldering | All plug, terminal or lever connections | Kitronik GPIO terminals must accept the cable pins (verify) |
 | ≤ AU$70 | **Not met** | **HOLD** |

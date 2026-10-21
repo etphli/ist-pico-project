@@ -64,7 +64,7 @@ Before this bank can power the complete concept, select and document a solder-fr
 
 Moving the servo to the camera branch would reduce output-1 demand but would not, by itself, solve two simultaneous motor stalls or the unknown combined limit. It is not adopted as an unverified fix. Do not parallel the bank outputs.
 
-The current mechanical and functional design is preserved while these electrical choices remain open. New electrical parts must also fit the no-soldering requirement and AU$70 total budget. The existing AU$121.78 comparison BOM already exceeds that cap.
+The current mechanical and functional design is preserved while these electrical choices remain open. New electrical parts must also fit the no-soldering requirement and AU$70 total budget. The existing AU$116.98 comparison BOM already exceeds that cap.
 
 ## 5. Gates before wiring and driving
 

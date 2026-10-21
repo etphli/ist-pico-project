@@ -1,0 +1,993 @@
+{
+  "version": "0.3-prototype",
+  "units": "mm",
+  "coordinateSystem": "+X forward, +Y robot left, +Z up",
+  "bounds": [
+    [
+      -102.0,
+      -97.49508666992188,
+      0.0
+    ],
+    [
+      97.5,
+      97.49508666992188,
+      300.0
+    ]
+  ],
+  "sourceHashes": {
+    "pip_robot/params.py": "0b7960af5059f4c140146a2ffc47e7d6688e40914296925ce96e19a01074b563",
+    "pip_robot/prims.py": "ed28cd39d618845349356f6481f32c0209f463d348f2b01e288d550f4bfb6705",
+    "pip_robot/parts.py": "e938fa1b32eb11877d40fdd4ff91d61c3beaae90aaa062d801a992ea0b357b8a",
+    "pip_robot/assembly.py": "5f31cf5eab96ee874a7ac924cc84e370eaa69f40f44dba363fbf3d1881c6d5e5"
+  },
+  "parts": [
+    {
+      "name": "base_plate",
+      "label": "base plate",
+      "kind": "printed",
+      "instance": false,
+      "group": "Body structure",
+      "colour": "#9aa3ad",
+      "notes": "Flat side down. Support ON for caster tower roofs only (enforcer).",
+      "bounds": [
+        [
+          -92.19999694824219,
+          -92.19999694824219,
+          14.0
+        ],
+        [
+          92.19999694824219,
+          92.19999694824219,
+          71.0
+        ]
+      ],
+      "triangles": 10274
+    },
+    {
+      "name": "tray",
+      "label": "tray",
+      "kind": "printed",
+      "instance": false,
+      "group": "Body structure",
+      "colour": "#9aa3ad",
+      "notes": "QW01 cradle. Upside down (rails on bed, legs up); support under the plate. 2 hook-and-loop straps through the slots.",
+      "bounds": [
+        [
+          -89.84697723388672,
+          -47.0,
+          15.199999809265137
+        ],
+        [
+          93.82077026367188,
+          47.0,
+          55.0
+        ]
+      ],
+      "triangles": 1852
+    },
+    {
+      "name": "bank_shim_L",
+      "label": "bank shim L",
+      "kind": "printed",
+      "instance": false,
+      "group": "Body structure",
+      "colour": "#9aa3ad",
+      "notes": "Removable side shim + low rear corner keeper. Thickness generated from Battery.w_nom: regenerate after measuring.",
+      "bounds": [
+        [
+          -49.79999923706055,
+          26.0,
+          49.0
+        ],
+        [
+          82.5,
+          32.099998474121094,
+          58.0
+        ]
+      ],
+      "triangles": 46
+    },
+    {
+      "name": "bank_shim_R",
+      "label": "bank shim R",
+      "kind": "printed",
+      "instance": false,
+      "group": "Body structure",
+      "colour": "#9aa3ad",
+      "notes": "Mirror of bank_shim_L.",
+      "bounds": [
+        [
+          -49.79999923706055,
+          -32.099998474121094,
+          49.0
+        ],
+        [
+          82.5,
+          -26.0,
+          58.0
+        ]
+      ],
+      "triangles": 46
+    },
+    {
+      "name": "bank_front_spacer",
+      "label": "bank front spacer",
+      "kind": "printed",
+      "instance": false,
+      "group": "Body structure",
+      "colour": "#9aa3ad",
+      "notes": "Sets the port end on the design plane. Thickness generated from Battery.len_nom: regenerate after measuring.",
+      "bounds": [
+        [
+          82.80000305175781,
+          -32.099998474121094,
+          49.0
+        ],
+        [
+          86.5999984741211,
+          32.099998474121094,
+          59.0
+        ]
+      ],
+      "triangles": 28
+    },
+    {
+      "name": "column_L",
+      "label": "column L",
+      "kind": "printed",
+      "instance": false,
+      "group": "Body structure",
+      "colour": "#9aa3ad",
+      "notes": "Print lying down (jog flat on the bed) for bending strength. Same part left/right (right = left turned 180 deg about its long side).",
+      "bounds": [
+        [
+          18.0,
+          21.0,
+          15.199999809265137
+        ],
+        [
+          30.0,
+          49.0,
+          183.0
+        ]
+      ],
+      "triangles": 980
+    },
+    {
+      "name": "rear_upright",
+      "label": "rear upright",
+      "kind": "printed",
+      "instance": false,
+      "group": "Body structure",
+      "colour": "#9aa3ad",
+      "notes": "Print flat. Carries the controller board (4x M3) and two PiicoDev Buttons (M2.5).",
+      "bounds": [
+        [
+          -38.0,
+          -52.7599983215332,
+          47.20000076293945
+        ],
+        [
+          -30.0,
+          48.0,
+          183.0
+        ]
+      ],
+      "triangles": 2044
+    },
+    {
+      "name": "top_deck",
+      "label": "top deck",
+      "kind": "printed",
+      "instance": false,
+      "group": "Body structure",
+      "colour": "#9aa3ad",
+      "notes": "Deck down, neck up. Servo ledges are bridges - check first layers.",
+      "bounds": [
+        [
+          -48.57450485229492,
+          -48.57450485229492,
+          180.0
+        ],
+        [
+          48.57450485229492,
+          48.57450485229492,
+          216.0
+        ]
+      ],
+      "triangles": 2818
+    },
+    {
+      "name": "front_shell",
+      "label": "front shell",
+      "kind": "printed",
+      "instance": false,
+      "group": "Outer covers",
+      "colour": "#f4f3ef",
+      "notes": "Print seam-face down. Needs tree supports for the shoulder. White PLA.",
+      "bounds": [
+        [
+          0.15000000596046448,
+          -97.49508666992188,
+          14.0
+        ],
+        [
+          97.5,
+          97.49508666992188,
+          191.0
+        ]
+      ],
+      "triangles": 4704
+    },
+    {
+      "name": "rear_shell",
+      "label": "rear shell",
+      "kind": "printed",
+      "instance": false,
+      "group": "Outer covers",
+      "colour": "#f4f3ef",
+      "notes": "Print seam-face down. Tree supports. White PLA.",
+      "bounds": [
+        [
+          -97.16166687011719,
+          -97.49508666992188,
+          14.0
+        ],
+        [
+          -0.15000000596046448,
+          97.49508666992188,
+          191.0
+        ]
+      ],
+      "triangles": 4112
+    },
+    {
+      "name": "head_cap",
+      "label": "head cap",
+      "kind": "printed",
+      "instance": false,
+      "group": "Outer covers",
+      "colour": "#f4f3ef",
+      "notes": "Open side down; tree supports for the top. White PLA.",
+      "bounds": [
+        [
+          -46.0,
+          -60.0,
+          214.0
+        ],
+        [
+          46.0,
+          60.0,
+          300.0
+        ]
+      ],
+      "triangles": 3950
+    },
+    {
+      "name": "head_base",
+      "label": "head base",
+      "kind": "printed",
+      "instance": false,
+      "group": "Head internals",
+      "colour": "#9aa3ad",
+      "notes": "Skirt ring down; supports under the floor overhang and the snap hooks.",
+      "bounds": [
+        [
+          -43.29999923706055,
+          -57.29999923706055,
+          202.0
+        ],
+        [
+          43.29999923706055,
+          57.29999923706055,
+          279.0
+        ]
+      ],
+      "triangles": 5032
+    },
+    {
+      "name": "clutch_disc",
+      "label": "clutch disc",
+      "kind": "printed",
+      "instance": false,
+      "group": "Head internals",
+      "colour": "#9aa3ad",
+      "notes": "Print 3 variants of clutch_arm_t (1.2/1.6/2.0) and test slip torque.",
+      "bounds": [
+        [
+          -17.200000762939453,
+          -15.173417091369629,
+          214.10000610351562
+        ],
+        [
+          17.200000762939453,
+          15.173417091369629,
+          217.89999389648438
+        ]
+      ],
+      "triangles": 1496
+    },
+    {
+      "name": "eye_left_camera",
+      "label": "eye left camera",
+      "kind": "printed",
+      "instance": false,
+      "group": "Head internals",
+      "colour": "#202326",
+      "notes": "Black PLA. Inserted from inside the cap. Camera FOV aperture.",
+      "bounds": [
+        [
+          42.099998474121094,
+          9.0,
+          242.0
+        ],
+        [
+          47.0,
+          44.65526580810547,
+          278.0
+        ]
+      ],
+      "triangles": 718
+    },
+    {
+      "name": "eye_right",
+      "label": "eye right",
+      "kind": "printed",
+      "instance": false,
+      "group": "Head internals",
+      "colour": "#202326",
+      "notes": "Black PLA. Inserted from inside the cap.",
+      "bounds": [
+        [
+          42.099998474121094,
+          -44.65526580810547,
+          242.0
+        ],
+        [
+          47.0,
+          -9.0,
+          278.0
+        ]
+      ],
+      "triangles": 1154
+    },
+    {
+      "name": "drive_wheel_L",
+      "label": "drive wheel L",
+      "kind": "printed",
+      "instance": false,
+      "group": "Drive and casters",
+      "colour": "#202326",
+      "notes": "Fit O-ring / thick rubber band tyre in groove, or TPU tyre if available.",
+      "bounds": [
+        [
+          -32.5,
+          52.0,
+          0.0
+        ],
+        [
+          32.5,
+          73.0,
+          65.0
+        ]
+      ],
+      "triangles": 3210
+    },
+    {
+      "name": "drive_wheel_R",
+      "label": "drive wheel R",
+      "kind": "printed",
+      "instance": false,
+      "group": "Drive and casters",
+      "colour": "#202326",
+      "notes": "Printed assembly instance.",
+      "bounds": [
+        [
+          -32.5,
+          -73.0,
+          0.0
+        ],
+        [
+          32.5,
+          -52.0,
+          65.0
+        ]
+      ],
+      "triangles": 3210
+    },
+    {
+      "name": "motor_strap",
+      "label": "motor strap",
+      "kind": "printed",
+      "instance": false,
+      "group": "Drive and casters",
+      "colour": "#9aa3ad",
+      "notes": "Printed assembly instance.",
+      "bounds": [
+        [
+          -14.0,
+          29.350000381469727,
+          38.75
+        ],
+        [
+          -6.0,
+          52.79999923706055,
+          45.900001525878906
+        ]
+      ],
+      "triangles": 100
+    },
+    {
+      "name": "caster_fork_F",
+      "label": "caster fork F",
+      "kind": "printed",
+      "instance": false,
+      "group": "Drive and casters",
+      "colour": "#9aa3ad",
+      "notes": "Same part front/rear.",
+      "bounds": [
+        [
+          52.0,
+          -8.300000190734863,
+          6.5
+        ],
+        [
+          71.0,
+          8.300000190734863,
+          38.5
+        ]
+      ],
+      "triangles": 1080
+    },
+    {
+      "name": "caster_wheel_F",
+      "label": "caster wheel F",
+      "kind": "printed",
+      "instance": false,
+      "group": "Drive and casters",
+      "colour": "#202326",
+      "notes": "Printed assembly instance.",
+      "bounds": [
+        [
+          47.0,
+          -4.5,
+          1.5
+        ],
+        [
+          69.0,
+          4.5,
+          23.5
+        ]
+      ],
+      "triangles": 416
+    },
+    {
+      "name": "caster_axle_F",
+      "label": "caster axle F",
+      "kind": "printed",
+      "instance": false,
+      "group": "Drive and casters",
+      "colour": "#9aa3ad",
+      "notes": "Exported lying on its side (layers along the pin). PETG preferred if available.",
+      "bounds": [
+        [
+          54.0,
+          -10.300000190734863,
+          10.5
+        ],
+        [
+          62.0,
+          9.699999809265137,
+          16.5
+        ]
+      ],
+      "triangles": 248
+    },
+    {
+      "name": "caster_clip_F",
+      "label": "caster clip F",
+      "kind": "printed",
+      "instance": false,
+      "group": "Drive and casters",
+      "colour": "#9aa3ad",
+      "notes": "Printed assembly instance.",
+      "bounds": [
+        [
+          59.356300354003906,
+          -7.0,
+          34.900001525878906
+        ],
+        [
+          73.0,
+          7.0,
+          36.29999923706055
+        ]
+      ],
+      "triangles": 724
+    },
+    {
+      "name": "plunger_wake",
+      "label": "plunger wake",
+      "kind": "printed",
+      "instance": false,
+      "group": "Body structure",
+      "colour": "#f4f3ef",
+      "notes": "Rear button A: wake/sleep (PiicoDev Button, I2C).",
+      "bounds": [
+        [
+          -87.22724151611328,
+          -46.5,
+          85.5
+        ],
+        [
+          -49.400001525878906,
+          -33.5,
+          98.5
+        ]
+      ],
+      "triangles": 636
+    },
+    {
+      "name": "plunger_move",
+      "label": "plunger move",
+      "kind": "printed",
+      "instance": false,
+      "group": "Body structure",
+      "colour": "#202326",
+      "notes": "Rear button B: movement enable (PiicoDev Button, I2C). Different colour on purpose.",
+      "bounds": [
+        [
+          -95.3358154296875,
+          -18.5,
+          85.5
+        ],
+        [
+          -49.400001525878906,
+          -5.5,
+          98.5
+        ]
+      ],
+      "triangles": 636
+    },
+    {
+      "name": "rear_hatch",
+      "label": "rear hatch",
+      "kind": "printed",
+      "instance": false,
+      "group": "Outer covers",
+      "colour": "#f4f3ef",
+      "notes": "Bank service hatch, pod face down; support under the bottom tongues. 1 x M3 x 8 into the shell ledge.",
+      "bounds": [
+        [
+          -102.0,
+          -34.0,
+          35.0
+        ],
+        [
+          -87.2769546508789,
+          34.0,
+          82.0
+        ]
+      ],
+      "triangles": 2002
+    },
+    {
+      "name": "switch_actuator",
+      "label": "switch actuator",
+      "kind": "printed",
+      "instance": false,
+      "group": "Body structure",
+      "colour": "#202326",
+      "notes": "CONCEPT - fork geometry must be re-made after measuring the switch.",
+      "bounds": [
+        [
+          -89.40250396728516,
+          -25.5,
+          117.5
+        ],
+        [
+          -43.099998474121094,
+          -14.5,
+          126.5
+        ]
+      ],
+      "triangles": 70
+    },
+    {
+      "name": "column_R",
+      "label": "column R",
+      "kind": "printed",
+      "instance": true,
+      "group": "Body structure",
+      "colour": "#9aa3ad",
+      "notes": "Printed assembly instance.",
+      "bounds": [
+        [
+          18.0,
+          -49.0,
+          15.199999809265137
+        ],
+        [
+          30.0,
+          -21.0,
+          183.0
+        ]
+      ],
+      "triangles": 980
+    },
+    {
+      "name": "caster_fork_R",
+      "label": "caster fork R",
+      "kind": "printed",
+      "instance": true,
+      "group": "Drive and casters",
+      "colour": "#9aa3ad",
+      "notes": "Printed assembly instance.",
+      "bounds": [
+        [
+          -80.0,
+          -8.300000190734863,
+          6.5
+        ],
+        [
+          -61.0,
+          8.300000190734863,
+          38.5
+        ]
+      ],
+      "triangles": 1080
+    },
+    {
+      "name": "caster_wheel_R",
+      "label": "caster wheel R",
+      "kind": "printed",
+      "instance": true,
+      "group": "Drive and casters",
+      "colour": "#202326",
+      "notes": "Printed assembly instance.",
+      "bounds": [
+        [
+          -85.0,
+          -4.5,
+          1.5
+        ],
+        [
+          -63.0,
+          4.5,
+          23.5
+        ]
+      ],
+      "triangles": 416
+    },
+    {
+      "name": "caster_axle_R",
+      "label": "caster axle R",
+      "kind": "printed",
+      "instance": true,
+      "group": "Drive and casters",
+      "colour": "#9aa3ad",
+      "notes": "Printed assembly instance.",
+      "bounds": [
+        [
+          -78.0,
+          -10.300000190734863,
+          10.5
+        ],
+        [
+          -70.0,
+          9.699999809265137,
+          16.5
+        ]
+      ],
+      "triangles": 248
+    },
+    {
+      "name": "caster_clip_R",
+      "label": "caster clip R",
+      "kind": "printed",
+      "instance": true,
+      "group": "Drive and casters",
+      "colour": "#9aa3ad",
+      "notes": "Printed assembly instance.",
+      "bounds": [
+        [
+          -72.6436996459961,
+          -7.0,
+          34.900001525878906
+        ],
+        [
+          -59.0,
+          7.0,
+          36.29999923706055
+        ]
+      ],
+      "triangles": 724
+    },
+    {
+      "name": "motor_strap_2",
+      "label": "motor strap 2",
+      "kind": "printed",
+      "instance": true,
+      "group": "Drive and casters",
+      "colour": "#9aa3ad",
+      "notes": "Printed assembly instance.",
+      "bounds": [
+        [
+          -49.0,
+          29.350000381469727,
+          38.75
+        ],
+        [
+          -41.0,
+          52.79999923706055,
+          45.900001525878906
+        ]
+      ],
+      "triangles": 100
+    },
+    {
+      "name": "motor_strap_3",
+      "label": "motor strap 3",
+      "kind": "printed",
+      "instance": true,
+      "group": "Drive and casters",
+      "colour": "#9aa3ad",
+      "notes": "Printed assembly instance.",
+      "bounds": [
+        [
+          -14.0,
+          -52.79999923706055,
+          38.75
+        ],
+        [
+          -6.0,
+          -29.350000381469727,
+          45.900001525878906
+        ]
+      ],
+      "triangles": 100
+    },
+    {
+      "name": "motor_strap_4",
+      "label": "motor strap 4",
+      "kind": "printed",
+      "instance": true,
+      "group": "Drive and casters",
+      "colour": "#9aa3ad",
+      "notes": "Printed assembly instance.",
+      "bounds": [
+        [
+          -49.0,
+          -52.79999923706055,
+          38.75
+        ],
+        [
+          -41.0,
+          -29.350000381469727,
+          45.900001525878906
+        ]
+      ],
+      "triangles": 100
+    },
+    {
+      "name": "ref_power_bank",
+      "label": "MINISO QW01 power bank",
+      "kind": "placeholder",
+      "instance": false,
+      "group": "Purchased envelopes",
+      "colour": "#e0a040",
+      "notes": "Purchased-part PLACEHOLDER envelope. Measure the real item before confirming fit.",
+      "bounds": [
+        [
+          -47.5,
+          -30.0,
+          49.0
+        ],
+        [
+          82.5,
+          30.0,
+          59.0
+        ]
+      ],
+      "triangles": 1052
+    },
+    {
+      "name": "ref_tt_motor_L",
+      "label": "Left TT motor",
+      "kind": "placeholder",
+      "instance": false,
+      "group": "Purchased envelopes",
+      "colour": "#e8c000",
+      "notes": "Purchased-part PLACEHOLDER envelope. Measure the real item before confirming fit.",
+      "bounds": [
+        [
+          -59.0,
+          23.200000762939453,
+          21.25
+        ],
+        [
+          11.0,
+          60.0,
+          43.75
+        ]
+      ],
+      "triangles": 140
+    },
+    {
+      "name": "ref_tt_motor_R",
+      "label": "Right TT motor",
+      "kind": "placeholder",
+      "instance": false,
+      "group": "Purchased envelopes",
+      "colour": "#e8c000",
+      "notes": "Purchased-part PLACEHOLDER envelope. Measure the real item before confirming fit.",
+      "bounds": [
+        [
+          -59.0,
+          -60.0,
+          21.25
+        ],
+        [
+          11.0,
+          -23.200000762939453,
+          43.75
+        ]
+      ],
+      "triangles": 140
+    },
+    {
+      "name": "ref_controller",
+      "label": "Controller + Pico + switch",
+      "kind": "placeholder",
+      "instance": false,
+      "group": "Purchased envelopes",
+      "colour": "#2a7a3a",
+      "notes": "Purchased-part PLACEHOLDER envelope. Measure the real item before confirming fit.",
+      "bounds": [
+        [
+          -61.599998474121094,
+          -31.5,
+          118.0
+        ],
+        [
+          -38.0,
+          31.5,
+          153.0
+        ]
+      ],
+      "triangles": 44
+    },
+    {
+      "name": "ref_buttons",
+      "label": "Rear PiicoDev buttons, pair",
+      "kind": "placeholder",
+      "instance": false,
+      "group": "Purchased envelopes",
+      "colour": "#c03030",
+      "notes": "Purchased-part PLACEHOLDER envelope. Measure the real item before confirming fit.",
+      "bounds": [
+        [
+          -49.099998474121094,
+          -52.70000076293945,
+          79.30000305175781
+        ],
+        [
+          -38.0,
+          0.699999988079071,
+          104.69999694824219
+        ]
+      ],
+      "triangles": 248
+    },
+    {
+      "name": "ref_servo",
+      "label": "FS90 servo + horn",
+      "kind": "placeholder",
+      "instance": false,
+      "group": "Purchased envelopes",
+      "colour": "#3060c0",
+      "notes": "Purchased-part PLACEHOLDER envelope. Measure the real item before confirming fit.",
+      "bounds": [
+        [
+          -21.850000381469727,
+          -6.050000190734863,
+          187.60000610351562
+        ],
+        [
+          16.0,
+          6.050000190734863,
+          214.0500030517578
+        ]
+      ],
+      "triangles": 120
+    },
+    {
+      "name": "ref_cam_board",
+      "label": "Camera / mic / amplifier board",
+      "kind": "placeholder",
+      "instance": false,
+      "group": "Purchased envelopes",
+      "colour": "#2a7a3a",
+      "notes": "Purchased-part PLACEHOLDER envelope. Measure the real item before confirming fit.",
+      "bounds": [
+        [
+          28.200000762939453,
+          6.0,
+          239.0
+        ],
+        [
+          38.79999923706055,
+          48.0,
+          281.0
+        ]
+      ],
+      "triangles": 156
+    },
+    {
+      "name": "ref_head_speaker",
+      "label": "Head speaker",
+      "kind": "placeholder",
+      "instance": false,
+      "group": "Purchased envelopes",
+      "colour": "#e0a040",
+      "notes": "Purchased-part PLACEHOLDER envelope. Measure the real item before confirming fit.",
+      "bounds": [
+        [
+          34.099998474121094,
+          -42.0,
+          221.0
+        ],
+        [
+          39.099998474121094,
+          -12.0,
+          241.0
+        ]
+      ],
+      "triangles": 12
+    },
+    {
+      "name": "ref_front_modules",
+      "label": "Front modules, five envelopes",
+      "kind": "placeholder",
+      "instance": false,
+      "group": "Purchased envelopes",
+      "colour": "#c03030",
+      "notes": "Purchased-part PLACEHOLDER envelope. Measure the real item before confirming fit.",
+      "bounds": [
+        [
+          34.57517623901367,
+          -42.70000076293945,
+          79.30000305175781
+        ],
+        [
+          89.97689056396484,
+          42.70000076293945,
+          172.6999969482422
+        ]
+      ],
+      "triangles": 60
+    },
+    {
+      "name": "ref_base_modules",
+      "label": "Base modules, two envelopes",
+      "kind": "placeholder",
+      "instance": false,
+      "group": "Purchased envelopes",
+      "colour": "#c03030",
+      "notes": "Purchased-part PLACEHOLDER envelope. Measure the real item before confirming fit.",
+      "bounds": [
+        [
+          -32.70000076293945,
+          -12.699999809265137,
+          19.5
+        ],
+        [
+          34.70000076293945,
+          12.699999809265137,
+          22.5
+        ]
+      ],
+      "triangles": 24
+    }
+  ]
+}

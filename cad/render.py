@@ -22,6 +22,36 @@ import numpy as np
 BG = np.array([0.97, 0.97, 0.96])
 
 
+def _corner_normals(tris, crease_deg=32):
+    """Area-weighted display normals, with sharp edges preserved. Meshes stay unchanged."""
+    face_vectors = np.cross(tris[:, 1] - tris[:, 0], tris[:, 2] - tris[:, 0])
+    unit = face_vectors / (np.linalg.norm(face_vectors, axis=1, keepdims=True) + 1e-12)
+    _, vertex_ids = np.unique(tris.reshape(-1, 3), axis=0, return_inverse=True)
+    order = np.argsort(vertex_ids, kind="stable")
+    boundaries = np.r_[0, np.flatnonzero(np.diff(vertex_ids[order])) + 1, len(order)]
+    result = np.empty((len(tris) * 3, 3))
+    threshold = math.cos(math.radians(crease_deg))
+    for start, stop in zip(boundaries[:-1], boundaries[1:]):
+        corners = order[start:stop]
+        faces = corners // 3
+        adjacent = unit[faces]
+        weights = (adjacent @ adjacent.T >= threshold).astype(float)
+        normal = weights @ face_vectors[faces]
+        result[corners] = normal / (np.linalg.norm(normal, axis=1, keepdims=True) + 1e-12)
+    return result.reshape(-1, 3, 3)
+
+
+def _studio_brightness(normals, basis):
+    r, u, d = basis
+    nv = np.stack([normals @ r, normals @ u, normals @ d], axis=-1)
+    nv[nv[..., 2] < 0] *= -1
+    key = np.array([-0.45, 0.65, 0.70])
+    fill = np.array([0.65, 0.15, 0.55])
+    key /= np.linalg.norm(key)
+    fill /= np.linalg.norm(fill)
+    return 0.32 + 0.51 * np.clip(nv @ key, 0, 1) + 0.17 * np.clip(nv @ fill, 0, 1)
+
+
 # --------------------------------------------------------------------------- geometry
 def _tris(m):
     mesh = m.to_mesh()
@@ -132,24 +162,39 @@ def render(items, elev, azim, px_per_mm=3.0, bounds=None, ss=2, edges=True, bg=B
     def layer(group):
         tris = np.vstack([t for t, *_ in group])
         cols = np.vstack([np.tile(_hex(c), (len(t), 1)) for t, c, *_ in group])
+        brightness = np.vstack([_studio_brightness(_corner_normals(t), basis) for t, *_ in group])
         p2 = np.stack([(tris @ r - bx0) * s, (by1 - tris @ u) * s], axis=-1)
         dep, tid = _raster(p2, tris @ d, W, H)
         fc, nv = _shade(tris, cols, basis)
-        return dep, tid, fc, nv
+        return dep, tid, cols, nv, p2, brightness
+
+    def shaded_pixels(tid, cols, p2, brightness, hit):
+        yy, xx = np.nonzero(hit)
+        ids = tid[hit]
+        p = p2[ids]
+        ax, ay = p[:, 0, 0], p[:, 0, 1]
+        bx, by = p[:, 1, 0], p[:, 1, 1]
+        cx, cy = p[:, 2, 0], p[:, 2, 1]
+        qx, qy = xx + 0.5, yy + 0.5
+        area = (bx - ax) * (cy - ay) - (by - ay) * (cx - ax)
+        w0 = ((bx - qx) * (cy - qy) - (by - qy) * (cx - qx)) / area
+        w1 = ((cx - qx) * (ay - qy) - (cy - qy) * (ax - qx)) / area
+        shade = w0 * brightness[ids, 0] + w1 * brightness[ids, 1] + (1 - w0 - w1) * brightness[ids, 2]
+        return np.clip(cols[ids] * shade[:, None], 0, 1)
 
     img = np.tile(bg, (H, W, 1))
     dep_o = np.full((H, W), -np.inf)
     if opaque:
-        dep_o, tid, fc, nv = layer(opaque)
+        dep_o, tid, cols, nv, p2, brightness = layer(opaque)
         hit = tid >= 0
-        img[hit] = fc[tid[hit]]
+        img[hit] = shaded_pixels(tid, cols, p2, brightness, hit)
         if edges:
             img = _edges(img, tid, nv, dep_o, s)
     if trans:
         for t, c, a in trans:
-            dep_t, tid_t, fc_t, nv_t = layer([(t, c)])
+            dep_t, tid_t, cols_t, nv_t, p2_t, brightness_t = layer([(t, c)])
             front = (tid_t >= 0) & (dep_t > dep_o)
-            img[front] = (1 - a) * img[front] + a * fc_t[tid_t[front]]
+            img[front] = (1 - a) * img[front] + a * shaded_pixels(tid_t, cols_t, p2_t, brightness_t, front)
             if edges:
                 e = _edge_mask(tid_t, nv_t, dep_t, s) & front
                 img[e] = 0.75 * img[e]
@@ -179,7 +224,7 @@ def _edge_mask(tid, nv, dep, s):
 def _edges(img, tid, nv, dep, s):
     e = _edge_mask(tid, nv, dep, s)
     img = img.copy()
-    img[e] = img[e] * 0.35
+    img[e] = img[e] * 0.65
     return img
 
 
@@ -195,7 +240,7 @@ def _items(built, parts, names=None, alpha=None, skip=()):
 
 def _show(ax, img, ext, title):
     ax.imshow(img, extent=ext, interpolation="lanczos")
-    ax.set_title(title, fontsize=9)
+    ax.set_title(title, fontsize=11, color="#213c50", pad=12)
     ax.set_axis_off()
 
 
@@ -210,28 +255,26 @@ def render_all(built, parts, out, keepouts=None):
     full = _items(built, parts)
 
     # --- assembly
-    fig, axs = plt.subplots(1, 4, figsize=(18, 6.2), dpi=110)
-    for ax, (el, az, t) in zip(axs, [(0, 0, "front (orthographic)"), (14, 32, "front-left"),
+    fig, axs = plt.subplots(2, 2, figsize=(14, 15), dpi=180)
+    for ax, (el, az, t) in zip(axs.flat, [(0, 0, "front (orthographic)"), (14, 32, "front-left"),
                                      (14, 148, "rear-left (buttons, switch, bank hatch)"), (10, 90, "left side")]):
-        img, ext, _ = render(full, el, az, px_per_mm=2.6)
+        img, ext, _ = render(full, el, az, px_per_mm=3.8)
         _show(ax, img, ext, t)
-    fig.suptitle(f"Pip CAD v{ver} PROTOTYPE - assembled (placeholder dimensions, not fit-verified). "
-                 "Red/green/blue/orange = bought-part envelopes seen through openings.", fontsize=10)
-    fig.tight_layout()
+    fig.suptitle(f"Pip | assembled views\nCAD {ver} · purchased parts are placeholder envelopes · physical fit unverified", fontsize=16, color="#213c50")
+    fig.tight_layout(rect=(.015, .035, .985, .94), h_pad=3, w_pad=3)
     fig.savefig(out / "preview_assembly.png")
     plt.close(fig)
 
     # --- x-ray
     shells = {"front_shell": 0.16, "rear_shell": 0.16, "head_cap": 0.16}
     xray = _items(built, parts, alpha=shells)
-    fig, axs = plt.subplots(1, 3, figsize=(16, 6), dpi=110)
+    fig, axs = plt.subplots(1, 3, figsize=(18, 8), dpi=180)
     for ax, (el, az, t) in zip(axs, [(15, 35, "x-ray front-left"), (15, 145, "x-ray rear-left"), (89.9, 180.0, "x-ray top (face toward top of page)")]):
-        img, ext, _ = render(xray, el, az, px_per_mm=2.6)
+        img, ext, _ = render(xray, el, az, px_per_mm=3.8)
         _show(ax, img, ext, t)
-    fig.suptitle(f"Pip CAD v{ver} - internals (shells and head cap transparent). Green = controller board / camera board, "
-                 "red = PiicoDev modules + rear buttons, orange = power bank / head speaker, yellow = TT motors, blue = servo",
-                 fontsize=9)
-    fig.tight_layout()
+    fig.suptitle(f"Pip | inside the body and head\nCAD {ver} · translucent covers · coloured blocks are purchased-part envelopes", fontsize=16, color="#213c50")
+    fig.text(.5, .015, "Green: boards   Red: PiicoDev modules   Orange: bank and speaker   Yellow: motors   Blue: servo", ha="center", fontsize=11, color="#52616b")
+    fig.tight_layout(rect=(.015, .035, .985, .94), h_pad=3, w_pad=3)
     fig.savefig(out / "preview_xray.png")
     plt.close(fig)
 
@@ -240,24 +283,33 @@ def render_all(built, parts, out, keepouts=None):
     if keepouts:
         _bank_fit(built, parts, out, plt, pt, params, keepouts)
 
+    _parts_sheet(built, parts, out, plt, params)
+
+
+def _parts_sheet(built, parts, out, plt, params):
+    ver = params.VERSION
+
     # --- printable parts
     printable = [p for p in parts if p.kind in ("print", "cal")]
-    cols = 6
+    cols = 4
     rows = int(np.ceil(len(printable) / cols))
-    fig = plt.figure(figsize=(17, 3.0 * rows), dpi=100)
+    fig = plt.figure(figsize=(15, 3.3 * rows), dpi=160)
     for i, p in enumerate(printable):
         ax = fig.add_subplot(rows, cols, i + 1)
-        img, ext, _ = render([(_tris(built[p.name]), p.colour, 1.0)], 22, 35, px_per_mm=4.0 if p.name not in (
-            "front_shell", "rear_shell", "base_plate") else 1.8)
-        _show(ax, img, ext, f"{p.name}  x{p.qty}")
-    fig.suptitle(f"Pip CAD v{ver} - printable parts (assembly orientation; STLs are exported in print orientation)", fontsize=11)
-    fig.tight_layout()
+        tris = _tris(built[p.name])
+        right, up, _ = _basis(22, 35)
+        span = max(np.ptp(tris @ right), np.ptp(tris @ up)) + 12
+        resolution = min(24.0, 650.0 / span)
+        img, ext, _ = render([(tris, p.colour, 1.0)], 22, 35, px_per_mm=resolution)
+        _show(ax, img, ext, f"{p.name.replace('_', ' ')}  ×{p.qty}")
+    fig.suptitle(f"Pip | printable parts\nCAD {ver} · individual views are not to scale · assembly orientation shown", fontsize=16, color="#213c50")
+    fig.tight_layout(rect=(.015, .035, .985, .94), h_pad=3, w_pad=3)
     fig.savefig(out / "preview_parts.png")
     plt.close(fig)
 
 
 def _label(ax, xy, text, xytext, color="#111"):
-    ax.annotate(text, xy=xy, xytext=xytext, fontsize=7.5, color=color,
+    ax.annotate(text, xy=xy, xytext=xytext, fontsize=10, color=color,
                 arrowprops=dict(arrowstyle="-", lw=0.7, color=color),
                 bbox=dict(boxstyle="round,pad=0.2", fc="white", ec="none", alpha=0.85))
 
@@ -268,7 +320,8 @@ def _front_reference(built, parts, out, plt, pt, params):
     P = params.P
     BD, F, H = P.boards, P.front, P.head
     dark = np.array([0.10, 0.14, 0.24])
-    fig, axs = plt.subplots(1, 4, figsize=(20, 7.2), dpi=110)
+    fig, axs = plt.subplots(2, 2, figsize=(15, 17), dpi=180)
+    axs = axs.ravel()
 
     img, ext, _ = render(_items(built, parts), 0, 0, px_per_mm=3.0)
     _show(axs[0], img, ext, "A. Front elevation, assembled (viewer's right = robot's left, +Y)")
@@ -301,8 +354,8 @@ def _front_reference(built, parts, out, plt, pt, params):
     _label(ax, (-su, BD.ctrl_bottom_z + sv), "power switch actuator", (-su + 20, BD.ctrl_bottom_z + sv + 30))
     hz = (P.hatch.z0 + P.hatch.z1) / 2
     _label(ax, (0, hz), "bank service hatch\n(adult, 1 x M3)", (-75, hz - 30))
-    fig.suptitle(f"Pip CAD v{params.VERSION} - reference elevations (orthographic, axes in mm; placeholder positions)", fontsize=11)
-    fig.tight_layout()
+    fig.suptitle(f"Pip | reference elevations\nCAD {params.VERSION} · orthographic views · dimensions and placements need physical verification", fontsize=16, color="#213c50")
+    fig.tight_layout(rect=(.015, .035, .985, .94), h_pad=3, w_pad=3)
     fig.savefig(out / "preview_front_reference.png")
     plt.close(fig)
 
@@ -327,7 +380,7 @@ def _sections(built, parts, out, plt, pt, params):
     BD = P.boards
     colours = {p.name: p.colour for p in parts}
     skip = {"fit_test_coupon", "fit_test_pegs"}
-    fig, axs = plt.subplots(1, 3, figsize=(20, 7.5), dpi=110)
+    fig, axs = plt.subplots(1, 3, figsize=(21, 9), dpi=180)
 
     # A. horizontal section through the camera axis (top view, +X up the page)
     ax = axs[0]
@@ -380,7 +433,7 @@ def _sections(built, parts, out, plt, pt, params):
     axs[2].text(lx + 1, lz + 17, f"design FOV {BD.cam_fov_design:.0f} deg", fontsize=7, color="#d02020")
     fig.suptitle(f"Pip CAD v{params.VERSION} - true cross-sections (manifold slices; colours as in the assembly). "
                  "Placeholder positions for bought parts.", fontsize=11)
-    fig.tight_layout()
+    fig.tight_layout(rect=(.015, .035, .985, .94), h_pad=3, w_pad=3)
     fig.savefig(out / "preview_sections.png")
     plt.close(fig)
 
@@ -408,7 +461,7 @@ def _bank_fit(built, parts, out, plt, pt, params, keep):
               "K4": ("#8a2be2", ":", "K4 access path (hatch off)"),
               "K5": ("#1a9a50", "-.", "K5 lead route"),
               "K6": ("#b07000", ":", "K6 strap path")}
-    fig, axs = plt.subplots(1, 3, figsize=(21, 7.4), dpi=110)
+    fig, axs = plt.subplots(1, 3, figsize=(21, 9), dpi=180)
 
     # A. plan section through the bank
     ax = axs[0]
@@ -462,6 +515,6 @@ def _bank_fit(built, parts, out, plt, pt, params, keep):
     _label(ax, (0, P.hatch.z1 - 4), "hatch screw ledge (behind the opening top)", (30, P.hatch.z1 + 40))
     fig.suptitle(f"Pip CAD v{params.VERSION} - MINISO QW01 cradle and keep-outs (APPROXIMATE bank size; "
                  "not a physical fit check)", fontsize=11)
-    fig.tight_layout()
+    fig.tight_layout(rect=(.015, .035, .985, .94), h_pad=3, w_pad=3)
     fig.savefig(out / "preview_bank_fit.png")
     plt.close(fig)

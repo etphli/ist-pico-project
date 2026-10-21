@@ -1,5 +1,13 @@
 # Sources (accessed 2026-10-19)
 
+## Cost correction checked 2026-10-21
+
+- [DFRobot DFR1154 manufacturer product page](https://www.dfrobot.com/product-2899.html), read directly. Shipping list includes one camera board, one speaker and one Gravity cable. This corrects the earlier package uncertainty. Retailer bundle confirmation and physical speaker measurements remain pending.
+- [Core mini pushbutton COM-00097](https://core-electronics.com.au/mini-push-button-switch.html), read directly. AU$0.52 including GST, listed in stock and breadboard-friendly. The proposed two-button analogue interface has not been built or tested. The page advertises standard delivery from AU$7, not a quote for Pip's cart.
+- [Raspberry Pi Pico 2 datasheet](https://datasheets.raspberrypi.com/pico/pico-2-datasheet.pdf), GPIO and ADC pin reference for the proposed GP28 button interface.
+
+The sections below record the earlier research dates. Price and stock observations are not current-cart guarantees.
+
 Type: **M** = manufacturer document (used for technical facts); **R** = retailer live page (used for price/stock, and for technical facts only where marked "retailer only"); **S** = search-engine extract (not relied on for decisions).
 Status: **V** = read directly that day; **X** = could not be fetched.
 

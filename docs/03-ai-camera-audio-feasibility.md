@@ -17,7 +17,7 @@ Suggested wording for school evidence: *"Pip's conversation text comes from a cl
 
 | Option | Camera | Mic | Speaker drive | Price (Core, 2026-10-19) | Verdict |
 |---|---|---|---|---|---|
-| **DFRobot ESP32-S3 AI Camera DFR1154** (full concept) | OV3660, 2 MP, 160° wide-angle, IR-sensitive with IR LEDs (DFRobot) | PDM mic on board | MAX98357 I2S amp, MX1.25 speaker socket (speaker not listed as included) | 37.23 + speaker 4.80 (out of stock) | Selected: one preassembled board, USB-C powered, 42 × 42 mm fits behind an eye |
+| **DFRobot ESP32-S3 AI Camera DFR1154** (full concept) | OV3660, 2 MP, 160° wide-angle, IR-sensitive with IR LEDs (DFRobot) | PDM mic on board | MAX98357 I2S amp, MX1.25 speaker socket, supplied speaker listed by manufacturer | 37.23 | Selected board and supplied speaker. Confirm retailer package and measure speaker before printing its mount. |
 | Seeed XIAO ESP32S3 Sense | OV5640 on current Sense boards (Seeed wiki) | digital mic | none: needs a separate speaker module and cable | 30.60 + ≥ 9.51 | Second choice. More parts and more cost. |
 | ESP32-CAM-type boards | yes | no | no | not priced | Rejected: no mic |
 | Waveshare ESP32-S3 2" display board with camera | yes | not listed | not listed | 30.45 | Rejected: no mic listed |

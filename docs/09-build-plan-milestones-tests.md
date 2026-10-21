@@ -1,5 +1,7 @@
 # 09 · Build plan, milestones, test plan and evaluation
 
+Follow the [illustrated assembly guide](14-illustrated-assembly-guide.md) for the build procedure. This page defines milestones and the test record.
+
 **Status: design only. Firmware not implemented. Purchases on HOLD** ([00](00-status-assumptions-decisions.md) D1). The deadline is unknown, so milestones are in relative weeks. All result columns are **blank on purpose**: fill them only with real measurements.
 
 ## 1. Milestones

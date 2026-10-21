@@ -18,9 +18,9 @@ Pip is a small, rounded robot that gets children aged 5–8 playing away from sc
 | F6 | M | Two rear buttons: wake and movement enable | Two PiicoDev Buttons behind printed rear plungers (A white = wake/sleep, B dark = movement enable). The body power switch is separate. | designed | T-UI-1..4 |
 | F7 | M | Screen in the middle of the body for questions | Kit OLED 128×64 behind a belly window; 3 touch pads below | designed | T-UI-5..6 |
 | F8 | M | Web AI over Wi-Fi: follow a person, spoken conversation, react to sensors | Laptop bridge + OpenRouter; sensor events in prompts | designed | T-AI |
-| F9 | M | Microphone and speaker on the robot | DFR1154 mic and amplifier + 1 W speaker in the head | designed; speaker out of stock | T-AUD |
+| F9 | M | Microphone and speaker on the robot | DFR1154 mic, amplifier and supplied speaker in the head | designed; retailer package and speaker mount unverified | T-AUD |
 | F10 | M | No soldering | Plug, socket, screw terminal and lever connections only ([04](04-wiring-pin-plan.md)) | designed | Inspection |
-| F11 | M | Extra hardware ≤ AU$70 total incl. delivery | **Not met.** Priced hardware AU$121.78 before delivery and unpriced items. No compliant full configuration found. | **not met → HOLD** | [08](08-bom-budget-sourcing.md) |
+| F11 | M | Extra hardware ≤ AU$70 total incl. delivery | **Not met.** Priced hardware AU$116.98 before delivery and unpriced items. No compliant full configuration found. | **not met → HOLD** | [08](08-bom-budget-sourcing.md) |
 | F12 | S | Honest non-AI mode when offline | Pico-only games; says it is offline | designed | T-OFF |
 | F13 | S | Encourages off-screen play | Tiny prompt-only OLED; physical activities; session timer | designed | User test |
 | F14 | S | Motion only after a deliberate enable; stops on detected faults | Supervisor ([02](02-architecture.md) §5). **Not provided:** stall detection, reliable lift detection, edge detection. | designed with stated limits | T-SAF |
