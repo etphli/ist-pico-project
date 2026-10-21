@@ -4,9 +4,9 @@ This guide takes a beginner through building Pip from printed parts and plug-in 
 
 > **Read this first.**
 >
-> - **Pip has not been built.** Every picture here is a render of the v0.3 CAD model. None of them is a photo. Bought parts appear as simple placeholder blocks ("envelopes") whose sizes come from listings, not from measured parts.
+> - **Pip has not been built.** The pictures are CAD renders and labelled instructional diagrams, not photos of a built robot. Bought parts in the CAD appear as simple placeholder blocks ("envelopes") whose sizes come from listings, not measured parts. Exploded views explain final relationships; they do not prove an insertion sequence.
 > - **Purchases are on HOLD** ([00](00-status-assumptions-decisions.md) D1). The full-concept comparison is AU$116.98 before delivery and unpriced items ([08](08-bom-budget-sourcing.md)). The optional savings proposal comes to AU$92.27 plus unpriced items ([15](15-cost-reduction-options.md)). Neither is an approved order, and neither meets the AU$70 cap.
-> - **Wiring and power are on HOLD.** The body branch's estimated fault current, 3.3–4.1 A, exceeds the QW01's reported 5 V / 2 A per port. The bank's combined output limit is unknown ([05](05-power-budget-charging.md) §3). Until a protected power design exists and gates PG1–PG7 pass, do **not** connect or power the motor circuit.
+> - **Wiring and power are on HOLD.** The body branch's estimated fault current, 3.3–4.1 A, exceeds the QW01's reported 5 V / 2 A per port. The bank's combined output limit is unknown ([05](05-power-budget-charging.md) §3). Do **not** connect or power the current motor circuit. A protected redesign may be tested only under the approved bench plan in Stages 14–15. Normal operation waits for gates PG1–PG7 to pass.
 > - **No firmware exists.** Stage 16 describes future work only.
 > - **What you may do now:** measure the parts you own, print the fit coupon, and dry-assemble the printed parts with the bank **disconnected**, once the measurements are in the CAD.
 
@@ -19,6 +19,8 @@ Stage labels used below:
 | **FUTURE** | Depends on firmware or software that does not exist yet. |
 
 The build stages list parts, tools, steps and checkpoints. Do not pass an unresolved STOP or HOLD to complete the robot. You can still measure owned parts and inspect the model independently.
+
+Figure labels such as Detail 4 or Wiring 2 identify pictures. Follow the Stage headings for the build order. Open an image separately to zoom in on its labels.
 
 Inspect the same CAD in the [interactive section viewer](../cad/viewer/index.html). Download the HTML file before opening it locally, because GitHub displays HTML as source. Use its independent X, Y and Z cuts to inspect parts. Read [the viewer's editing instructions](../cad/viewer/README.md) to change its controls or regenerate its geometry.
 
@@ -41,6 +43,8 @@ Pip is a supervised school prototype. It is not a certified toy ([06](06-safety.
 ---
 
 ## Stage 1 — Tools and inventory
+
+![Tools and inventory checklist with separate owned parts and planned purchases](images/assembly-detail/01-tools-inventory.png)
 
 ### Tools
 
@@ -96,6 +100,8 @@ Lay out and label everything you have. Tick what is actually in hand.
 
 ## Stage 2 — Measure bought parts and the QW01 (before printing the full set)
 
+![Measure the QW01 dimensions, port layout, connector clearance and output labels before resizing the fillers](images/assembly-detail/02-measure-bank.png)
+
 The CAD uses placeholder sizes for every bought part. Measure before printing the full set to avoid reprints. The earlier 0.6 kg filament figure is an estimate, not a slicer result.
 
 **Parts:** every bought or owned part in hand. **Tools:** calipers, scale, masking tape.
@@ -145,6 +151,8 @@ Use [12](12-measurement-calibration-checklist.md) §A. The table shows which pri
 
 ## Stage 3 — Print and test the fit coupon
 
+![Actual CAD coupon and test pegs, with labelled clearance variants](images/assembly-detail/03-coupon-and-print.png)
+
 The coupon is a small plate with four clearance variants of each important fit. It shows how your printer's holes and pegs come out.
 
 **Parts:** `fit_test_coupon.stl`, `fit_test_pegs.stl`. **Tools:** calipers, a TT motor (if bought), screws, drill or pin vice.
@@ -162,6 +170,8 @@ The coupon is a small plate with four clearance variants of each important fit. 
 ---
 
 ## Stage 4 — Update the CAD and print the parts
+
+**Before the full print:** clear the motor/wheel insertion-path STOP in Stage 5, measure bought parts in Stage 2 and resolve each affected mount. The table is the intended print set after those checks. While they remain open, print only the calibration coupon and specifically approved fit sections or bank-fit pieces.
 
 1. Enter the measured values in [`params.py`](../cad/pip_robot/params.py). Each row in [12](12-measurement-calibration-checklist.md) names its parameter. Coupon results go in `Print.clearance` and `M3_PILOT_R` in `parts.py`.
 2. Run `scripts/cad.sh --bank-fit-only`. Fix anything it reports before continuing.
@@ -193,11 +203,13 @@ The coupon is a small plate with four clearance variants of each important fit. 
 
 Settings follow [11](11-mechanical-design-print-assembly.md) §7, with provisional caster settings added here. "As exported" describes orientation only. STL files contain no layer, wall or infill settings. Keep the orientation each file loads in, then inspect the sliced layers and supports. No slicer has been run, so print times and support amounts are unknown. Bounding boxes fit a 220 × 220 × 250 mm build volume. The base plate, tray and both shells do not fit a 180 mm bed. Splitting them needs joining features and strength checks before use.
 
-**Checkpoint:** all 36 pieces are printed, supports removed, holes cleaned. Each part is labelled.
+**Checkpoint after the print prerequisites are cleared:** all 36 pieces are printed, supports removed, holes cleaned. Each part is labelled. Until then, record only the calibration or fit pieces actually printed.
 
 ---
 
 ## Stage 5 — Drive base: motors, wheels and casters
+
+![Actual CAD caster parts separated for inspection, with their assembled location shown](images/assembly-detail/04-caster-exploded.png)
 
 ![Stage 5: drive base](images/assembly/01-drive-base.png)
 
@@ -224,6 +236,8 @@ Settings follow [11](11-mechanical-design-print-assembly.md) §7, with provision
 
 ## Stage 6 — Columns, bank straps, tray and rear upright
 
+![Frame and underside fastener locations, with the 15 M3 screws counted](images/assembly-detail/05-frame-fasteners.png)
+
 ![Stage 6: frame](images/assembly/02-frame.png)
 
 **Parts:** 2 × column, 2 hook-and-loop straps, tray, rear_upright, **2 × M3 × 12**. Use the same column STL twice. Keep the lower peg down and rotate the second column 180° about the vertical axis so its jog leans inward on the other side. **Tools:** screwdriver.
@@ -245,6 +259,8 @@ Settings follow [11](11-mechanical-design-print-assembly.md) §7, with provision
 
 ## Stage 7 — Controller and rear buttons (mechanical only)
 
+![Rear Button mounts, plungers and shell fit details](images/assembly-detail/07-buttons-and-shells.png)
+
 ![Stage 7: controller and buttons](images/assembly/04-controller.png)
 
 **Parts:** Kitronik 5331 with the Pico 2 WH seated, 2 PiicoDev Buttons, **4 × M3 × 8**, **4 × M2.5 × 6**. **Tools:** screwdriver.
@@ -252,9 +268,9 @@ Settings follow [11](11-mechanical-design-print-assembly.md) §7, with provision
 1. With all power removed, match the Pico's orientation to the Kitronik board's Pico outline and manufacturer instructions. Check both rows of header pins enter the matching sockets without an offset. Press evenly without bending pins. Check the controller holes line up with the four upright standoffs, row E5. If the orientation or holes are unclear, **STOP**.
 2. Screw the controller to the rear face of the upright with 4 × M3 × 8, **Pico side facing the rear**.
 3. Fit the two Buttons on the robot's right side (−Y), low on the upright, with 2 × M2.5 × 6 each. **Button A (wake)** is the outer one, behind the white plunger. **Button B (movement enable)** is nearer the centre, behind the dark plunger. The hole positions are assumed (row E6). If they do not line up, **STOP**.
-4. The second Button needs a different I2C address from the first. Check Core's method for changing it. If it needs a solder jumper, **STOP** and re-plan ([04](04-wiring-pin-plan.md) §3).
+4. Set the Button ID switches with power removed, before mounting: A all OFF gives 0x42; B switch 1 ON and 2–4 OFF gives 0x09. Follow the photos-and-log procedure in [16](16-wire-by-wire-assembly.md) Stage 5. This method needs no solder. The addresses still need a later scan to confirm no clashes.
 
-**HOLD:** do not connect any wire to the Kitronik terminals. The connection list in [04](04-wiring-pin-plan.md) §4 is not cleared for assembly.
+**HOLD:** do not connect any wire to the Kitronik terminals. The connection list in [04](04-wiring-pin-plan.md) §5 is not cleared for assembly.
 
 **Checkpoint:** board and Buttons are firm. The Pico's USB socket can be reached from behind. Nothing is wired.
 
@@ -315,6 +331,8 @@ For Q14 and Q15, use the plugs with **nothing connected at their far ends**. The
 
 ## Stage 10 — Head: eyes, camera and speaker
 
+![Head eyes, speaker grille and clutch details from the actual CAD](images/assembly-detail/11-clutch-and-eyes.png)
+
 ![Stage 10: head internals, cap transparent](images/assembly/06-head.png)
 
 **Parts:** head_cap, head_base, eye_left_camera, eye_right, DFR1154 camera board, the speaker supplied with it, the USB-C lead from the in-line switch cable, **2 × M3 × 10**. **Tools:** screwdriver.
@@ -335,6 +353,8 @@ For Q14 and Q15, use the plugs with **nothing connected at their far ends**. The
 ---
 
 ## Stage 11 — Head onto the neck (dry fit)
+
+![Head and neck detail, including servo, horn and clutch relationships](images/assembly-detail/06-head-neck-detail.png)
 
 **Parts:** assembled head, clutch disc with horn (from Stage 8). **Tools:** none.
 
@@ -357,6 +377,9 @@ For Q14 and Q15, use the plugs with **nothing connected at their far ends**. The
 
 ## Stage 12 — Shell modules, plungers, switch actuator and cable routing
 
+![Proposed cable routes and service loops; wire paths are not modelled](images/assembly-detail/08-cable-route.png)
+![Shell closure and screw locations, shown separated for inspection](images/assembly-detail/12-shell-closure.png)
+
 ![Stage 12: closed shells](images/assembly/07-shells.png)
 
 **Parts:** front_shell, rear_shell, OLED, touch, ToF distance, RGB LED and buzzer modules, PiicoDev cables, plunger_wake (white), plunger_move (dark), switch_actuator, **4 × M3 × 10**. **Tools:** screwdriver. Hot glue is allowed for a loose module; it is not soldering.
@@ -373,8 +396,8 @@ For Q14 and Q15, use the plugs with **nothing connected at their far ends**. The
    | RGB LED | Left cheek | Behind the thin white diffuser |
    | Buzzer | Right cheek | Behind the holes |
 
-2. Plug the front modules into one chain with PiicoDev cables, following [04](04-wiring-pin-plan.md) §3. The 200 mm cable from the base modules to the touch module is the disconnect point for removing the front shell. **HOLD:** nothing connects to the Kitronik terminals and nothing is powered. This step only checks that the cables reach.
-3. **Not modelled:** the atmospheric sensor has no mount in v0.3 ([04](04-wiring-pin-plan.md) §3 places it on the upright near the vents). Leave it out until a mount exists.
+2. Plug the front modules into one chain with PiicoDev cables, following [04](04-wiring-pin-plan.md) §6 and [16](16-wire-by-wire-assembly.md) Stage 6. Cable C5 from the colour module to touch is the front-shell disconnect. A 200 mm cable is planned; choose the shortest owned cable that reaches with slack and allows removal. **HOLD:** nothing connects to the Kitronik terminals and nothing is powered. This step only checks that the cables reach.
+3. **Not modelled:** the atmospheric sensor has no mount in v0.3 ([04](04-wiring-pin-plan.md) §6 places it on the upright near the vents). Leave it out until a mount exists.
 4. Seat the front shell's two ribs in the base notches. Turn Pip over and drive 2 × M3 × 10 up through the base into the shell bosses.
 
 ### Rear shell
@@ -412,16 +435,22 @@ For Q14 and Q15, use the plugs with **nothing connected at their far ends**. The
 
 ## Stage 14 — Power-off connection verification (HOLD)
 
+![Logical connection map for the four PiicoDev breakout conductors](images/wiring/02-piicodev-breakout.png)
+
+*Wire colours and GPIO labels are shown. Physical terminal order comes from the delivered board.*
+
 **HOLD.** The body branch is not cleared for assembly ([05](05-power-budget-charging.md) §3–4). This stage lists what must be true before any wire is connected. It is not an instruction to wire now.
+
+Use the [wire-by-wire tutorial](16-wire-by-wire-assembly.md) for terminal identification, W1–W17, C1–C9, strip lengths, tool selection and log sheets. It separates unpowered fit checks from blocked electrical assembly.
 
 Before any wiring session:
 
-- [ ] A protected body-branch power design is selected and documented, and PG1 and PG3 are passed ([05](05-power-budget-charging.md) §4–5).
-- [ ] The connection list in [04](04-wiring-pin-plan.md) §4 is updated for that design and marked as cleared.
+- [ ] A protected body-branch power design is selected and documented, and the applicable paper prerequisites and bench plan are approved. Measured gates run during the approved bring-up ([05](05-power-budget-charging.md) §4–5).
+- [ ] The connection list in [04](04-wiring-pin-plan.md) §5 is updated for that design and marked as cleared.
 - [ ] Every terminal label, polarity mark and connector on the parts **as delivered** has been checked against that list. Do not rely on listing photos.
 - [ ] Both bank leads are unplugged and the body switch is off.
-- [ ] No motor or supply current runs through the Pico pins, PiicoDev cables or jumper pins ([04](04-wiring-pin-plan.md) §1).
-- [ ] The two USB outputs are never joined or combined.
+- [ ] No motor or servo current runs through GPIO pins, PiicoDev cables or signal jumpers. PiicoDev modules use their own 3.3 V supply leg, subject to PG6 ([04](04-wiring-pin-plan.md) §2).
+- [ ] No added wire or Y cable joins the two USB outputs. Their internal connection in the bank is unknown.
 - [ ] Each connection is photographed and checked against the list by a second person.
 
 **Checkpoint:** a signed record that every box is ticked. Until then, stop here.
@@ -429,6 +458,8 @@ Before any wiring session:
 ---
 
 ## Stage 15 — Gated bench bring-up (HOLD)
+
+![Logical overview of the two bank-powered branches, including the live servo branch upstream of the body switch](images/wiring/01-power-overview.png)
 
 When Stage 14 is complete, bring-up follows [09](09-build-plan-milestones-tests.md) §2. The order is:
 
@@ -441,11 +472,11 @@ When Stage 14 is complete, bring-up follows [09](09-build-plan-milestones-tests.
 
 | Step | Needs first | Status |
 |---|---|---|
-| Meter the body supply with only the bank connected ([04](04-wiring-pin-plan.md) §5 step 1) | PG1, approved branch design | Blocked |
-| Controller on, wheels off the ground, motors still | Above + PG6, PG7 | Blocked |
-| PiicoDev bus scan | Above + firmware (Stage 16) | Blocked |
-| Servo connected; supply checked during head motion | PG2, PG3 | Blocked |
-| Camera branch connected; supply checked under video and audio | PG4 | Blocked |
+| Meter the body supply with only the adapter connected ([16](16-wire-by-wire-assembly.md) Stage 13) | Approved protected design and bench plan; documented bank limits | Blocked |
+| Controller-only bring-up, motors disconnected | Above + approved safe-boot diagnostic; measure PG6/PG7 as applicable | Blocked |
+| PiicoDev bus scan | Above + bus interface plan, GP0/GP1 diagnostic code; verify PG6 | Blocked |
+| Servo connected; supply checked during head motion | Selected harness, pinout and approved PG2/PG3 test plan; record PG2 result | Blocked |
+| Camera branch connected; supply checked under video and audio | Known branch ratings and approved PG4 test plan; record PG4 result | Blocked |
 | Driving on the floor | All PG gates, T-SAF tests | Blocked |
 
 Do not test past any component's known rating to find its limit, and do not stall the motors by hand ([05](05-power-budget-charging.md) §5).
@@ -454,7 +485,9 @@ Do not test past any component's known rating to find its limit, and do not stal
 
 ## Stage 16 — Firmware and laptop commissioning (FUTURE)
 
-**FUTURE.** No firmware or bridge software exists for Pip. This guide gives no file names, commands or settings, because none have been written.
+![Planned Pico, camera-board, laptop and web AI roles, with local feedback loops](images/assembly-detail/13-software-and-feedback.png)
+
+**FUTURE.** Pip application firmware and bridge software have not been implemented. The reference address-scan snippet in [16](16-wire-by-wire-assembly.md) is a separate, unrun diagnostic example. Initial Pico programming uses the standalone setup in that guide; USB power does not clear any robot power gate.
 
 The software that has to be written and tested ([02](02-architecture.md), [03](03-ai-camera-audio-feasibility.md)):
 
@@ -468,13 +501,15 @@ The software that has to be written and tested ([02](02-architecture.md), [03](0
 - A servo-centring routine. Stages 8 and 11 need it to fit the horn.
 - DFR1154 firmware for camera streaming, microphone and speaker playback.
 - The laptop bridge: tracking, speech, AI provider link with an adult-owned key and a credit limit.
-- The second PiicoDev Button's address change.
+- Scanned address confirmation for both PiicoDev Buttons after the physical switch settings in Stage 7.
 
 The AU$0 bench loops in [09](09-build-plan-milestones-tests.md) M0 use owned kit parts on the kit's own board. They can start independently of this build.
 
 ---
 
 ## Stage 17 — Calibration and tests
+
+![Test sequence and blank evidence record, with no invented pass results](images/assembly-detail/10-test-and-record.png)
 
 Result columns stay blank until a real measurement is taken ([09](09-build-plan-milestones-tests.md) §3).
 
@@ -497,6 +532,8 @@ Result columns stay blank until a real measurement is taken ([09](09-build-plan-
 ---
 
 ## Stage 18 — Charging and service
+
+![Charging sequence with both robot output plugs removed before connecting micro-USB input](images/assembly-detail/09-charging-sequence.png)
 
 **Charging (adult only).** This assumes all ports face the rear hatch (Q5). Full procedure: [05](05-power-budget-charging.md) §6 and [11](11-mechanical-design-print-assembly.md) §2b.
 
@@ -569,6 +606,7 @@ Keep these for the school record ([10](10-school-evidence-rubric.md)). Record on
 ## Edit this guide
 
 - **Text:** edit this file, `docs/14-illustrated-assembly-guide.md`. Keep one `## Stage N — Title` heading per stage, with Parts, Tools, Steps and Checkpoint inside it. Images use local relative links such as `images/assembly/01-drive-base.png`.
-- **Images:** edit labels and viewpoints in `cad/assembly_guide_images.py`. Regenerate the eight stage images with `scripts/guide-images.sh`. Generated images stay in `docs/images/assembly/`. Keep hand-edited artwork elsewhere so regeneration cannot overwrite it.
+- **Original CAD images:** edit labels and viewpoints in `cad/assembly_guide_images.py`. Regenerate the eight images in `docs/images/assembly/` with `scripts/guide-images.sh`.
+- **Additional diagrams and close-ups:** edit the [illustration sources](../illustrations/README.md), then run `scripts/illustrations.sh`. Vector diagrams have editable SVG copies beside their PNGs in `docs/images/wiring/` and `docs/images/assembly-detail/`. CAD close-ups are PNGs regenerated from editable Python layouts and the CAD source. Keep manual SVG variants under another name so regeneration cannot overwrite them.
 - **Geometry:** dimensions, positions and part counts come from [`params.py`](../cad/pip_robot/params.py), `parts.py` and the registry in [`assembly.py`](../cad/pip_robot/assembly.py). When CAD changes, run `scripts/cad.sh`, `scripts/guide-images.sh` and `scripts/viewer.sh`. Update the matching numbers here and in [11](11-mechanical-design-print-assembly.md). If the guide and CAD disagree, stop and resolve the mismatch. A valid CAD model does not prove a part can be inserted or physically assembled.
 - **Checks:** run `python3 scripts/check_docs.py` after editing. It checks local file links, image files, BOM arithmetic and viewer source freshness. It does not replace the physical checks in this guide.

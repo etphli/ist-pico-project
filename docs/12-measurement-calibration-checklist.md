@@ -50,7 +50,7 @@ Physical trial, after printing only the tray, the shims, the spacer and a test s
 | E3 | TT motor | Body, shaft position, shaft Ø/flats/length, shaft-end screw hole | `Drive.tt_*` | 70 × 22.5 × 18.8; Ø5.4/3.7 | |
 | E4 | FS90 | Body, tab span/height/thickness, spline offset/height, horn length | `Neck.servo_*`, `horn_*` | 22.5 × 12.1 × 22.4 | |
 | E5 | Kitronik 5331 + Pico 2 WH | Board size; hole spacing; height with the Pico seated; **switch position, travel and slide direction**; terminal positions; terminal accepts PiicoDev cable pins? | `Boards.ctrl_*`, `switch_uv`, `switch_travel` | 63 × 35; holes 55 × 28; 22 mm; switch (−20, 3) | |
-| E6 | PiicoDev Button × 2 | Board; **hole positions**; cap height above the board; travel; address-change method (no solder?) | `btn_h`, `btn_holes`, `btn_*_yz` | 9.5 mm; holes ±10.16 diagonal | |
+| E6 | PiicoDev Button × 2 | Board; **hole positions**; cap height above the board; travel; actual ID-switch setting | `btn_h`, `btn_holes`, `btn_*_yz` | 9.5 mm; holes ±10.16 diagonal; A all OFF, B ID:1 ON | |
 | E7 | DFR1154 | Board size and thickness; **lens centre offset**, lens height and diameter; rear component height; **mic position**; USB-C position; speaker socket position; mounting holes | `cam_*`, `MIC_HOLES` | 42 × 42 × 1.6; lens at centre, 5 mm high, Ø6 | |
 | E8 | DFR1154 view | Image of a grid at 0.5 m through the printed eye: check vignetting and the usable angle | `cam_fov_design` | 90° | |
 | E9 | Speaker | Size; plug fits the DFR1154 socket? | `spk_*` | 30 × 20 × 5 | |
@@ -62,7 +62,7 @@ Physical trial, after printing only the tray, the shims, the spacer and a test s
 
 ## B. Electrical checks before first power
 
-See [04](04-wiring-pin-plan.md) §5 and the gates PG1–PG7 in [05](05-power-budget-charging.md) §5. A multimeter is needed (borrow one; not in the BOM).
+See the connection reference in [04](04-wiring-pin-plan.md) §5, the power-off checks and bring-up prerequisites in [16](16-wire-by-wire-assembly.md) Stages 12–13, and the gates PG1–PG7 in [05](05-power-budget-charging.md) §5. A multimeter is needed (borrow one; not in the BOM).
 
 ## C. Print calibration (fit_test_coupon)
 

@@ -75,3 +75,27 @@ The viewer's final browser script passed 23 checks at 1280 × 800, including cha
 The guide was rendered from Markdown for review. All eleven linked images loaded and the desktop layout had no horizontal overflow. The main agent read all stages and inspected the labelled CAD images. `python3 scripts/check_docs.py` checks local links, PNG files, BOM maths and viewer freshness. Physical assembly, electrical operation and firmware remain untested. The atmospheric module mount, camera switch holder, servo hardware, insertion sequence, power protection and budget remain open.
 
 The preview update changes display shading and image layout, not the mechanical geometry. The main agent added crease-preserving smooth normals, softer edge lines, larger panels and higher-resolution output. The CAD checks and viewer source hashes still apply to the same geometry.
+
+
+## Wire-by-wire guide and additional illustrations, 21 October
+
+Claude Opus 5.5 at medium reasoning wrote the expanded [connection reference](04-wiring-pin-plan.md) and [beginner wiring tutorial](16-wire-by-wire-assembly.md). A separate Opus task produced editable diagrams and additional assembly illustrations. GPT-6.1 Sol reviewed the text against manufacturer sources and integrated the material into the existing guide.
+
+The review corrected the following:
+
+- Split each motor's two driver outputs into distinct nets. Joining both outputs together would short the driver.
+- Replaced the old approximately 7 mm generic stripping instruction with Wago's specified 11 mm at Wago ends only. Other terminal ends follow their own requirements.
+- Confirmed B7 colours, ADA3628 sleeve function, the Button ID-switch method and Core's GP8/GP9 defaults from the makers. Pip instead specifies GP0/GP1.
+- Clarified that the two bank branches may share an internal ground. Wi-Fi means no external head-to-body signal ground wire is needed; it does not mean isolated power supplies.
+- Withdrew unknown-gauge jumper tails for servo power. A rated compatible preterminated harness is now unselected B20. B10 remains provisional signal-only wiring.
+- Added the unresolved ten-module bus load and conditioning as B19 and extended PG6. A 100 kHz address scan does not validate full OLED operation; Core recommends at least 400 kHz for OLED use.
+- Separated paper prerequisites from measured bring-up results so a gate does not require its own successful result before it can be run. Initial programming uses the Pico alone, outside the carrier and without external loads. Mounted programming needs the carrier USB power path reviewed.
+- Moved the insertion-path print prerequisite ahead of the full-print table. The later Stage 5 STOP must be read and cleared before printing the base.
+
+Unlimited owned standard PiicoDev SH-to-SH cables cover C1–C9 at AU$0. They do not establish ownership of the male breakout, jumpers, USB cables or rated power wire. The priced subtotal stays AU$116.98 because no additional module-cable purchase was previously included. B19 and B20 are unpriced, so the subtotal is still incomplete.
+
+No hardware was connected, powered or tested in this documentation update. Power protection, bus capacity, physical connector fit, atmospheric mount, insertion sequence, firmware and budget remain unresolved.
+
+The illustration task reached a Claude provider rate limit after writing its assets. GPT-6.1 Sol continued from those files, finished the programming diagram and label corrections, and ran the final build and checks. The new set contains six wiring diagrams and thirteen assembly details, including eight renders of the existing CAD. All six wiring diagrams and five code-drawn assembly sheets include editable SVGs; the CAD close-ups regenerate from Python layouts.
+
+Final checks on 21 October: `scripts/illustrations.sh --strict` regenerated all 19 new images and exited 0, with no reported label overlaps or off-canvas labels. `python3 scripts/check_docs.py` passed 22 documents, 293 local links, 27 PNGs, 11 editable SVGs, BOM arithmetic and viewer-source freshness. The separate viewer mesh check passed all 44 entries and every vertex/index. Rendered Markdown for 04, 14 and 16 loaded all 6, 26 and 6 linked images respectively, with no horizontal overflow at 1280 × 800. Python compilation and `git diff --check` passed. The main agent inspected all new illustrations at full size and checked the corrected callouts. These checks do not establish physical fit, electrical operation or firmware behaviour.

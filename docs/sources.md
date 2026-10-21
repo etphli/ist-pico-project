@@ -8,6 +8,19 @@
 
 The sections below record the earlier research dates. Price and stock observations are not current-cart guarantees.
 
+## Wiring detail checked 2026-10-21
+
+- [Core's PiicoDev prototyping cable CE07796](https://core-electronics.com.au/piicodev-breakout-cable-200mm.html), maker documentation. Black is GND, red is the 3.3 V supply, blue is SDA and yellow is SCL. Its note describes the expansion board's 4.7 kΩ pull-ups and 120 Ω series resistors and recommends reviewing them when connecting directly. The complete ten-module interface has not been selected or tested.
+- [Core's PiicoDev connection guide](https://core-electronics.com.au/guides/piicodev/piicodev-connection-guide/), maker documentation. Additional modules and cable length affect bus loading. Its PCB-jumper cutting method is not adopted for this no-soldering build.
+- [Core's PiicoDev Button guide](https://core-electronics.com.au/guides/piicodev-button-getting-started-guide/) and [manufacturer driver](https://raw.githubusercontent.com/CoreElectronics/CE-PiicoDev-Switch-MicroPython-Module/main/PiicoDev_Switch.py). Four hardware ID switches provide a solder-free selection. All OFF uses the default 0x42. ID:1 alone ON selects 0x09, verified against the driver's nonzero-ID address calculation. Physical detection is untested.
+- [Wago's 221-413 datasheet, hosted by Mouser](https://www.mouser.com/datasheet/2/737/Data_Sheet221_413_-1928674.pdf), manufacturer PDF. Three connection points share one electrical potential. Strip length is 11 mm. The listed range is 24–12 AWG, with fine-stranded copper from 0.14–4 mm². The earlier generic 7 mm instruction was incorrect for these connectors. Other terminals need their own specified preparation.
+- [Adafruit USB-A terminal adapter 3628](https://www.adafruit.com/product/3628), maker documentation. Accepts 26–16 AWG. The extra fifth connection is the connector sleeve, not a USB ID signal. Pip uses only the supply and signal-ground terminals.
+- [MicroPython RP2 quick reference](https://micropython.org/resources/docs/en/latest/rp2/quickref.html), official documentation. Hardware I2C accepts explicit SDA, SCL and frequency arguments and exposes `scan()`. The guide's diagnostic example is not implemented Pip firmware and has not run on this robot.
+
+- [Core PiicoDev Unified source](https://raw.githubusercontent.com/CoreElectronics/CE-PiicoDev-Unified/main/PiicoDev_Unified.py), checked 21 October 2026: Pico expansion defaults GP8 SDA / GP9 SCL; explicit bus and pin arguments supported; at least 400 kHz recommended for OLED. The 100 kHz wiring-guide snippet is an address-scan diagnostic only.
+
+The user confirmed unlimited standard PiicoDev SH-to-SH module cables. This is an inventory statement, not a manufacturer limit or confirmation of other cable types.
+
 Type: **M** = manufacturer document (used for technical facts); **R** = retailer live page (used for price/stock, and for technical facts only where marked "retailer only"); **S** = search-engine extract (not relied on for decisions).
 Status: **V** = read directly that day; **X** = could not be fetched.
 
@@ -43,7 +56,7 @@ Status: **V** = read directly that day; **X** = could not be fetched.
 | 22 | Core cart quotes (example postcode 2000) | Standard delivery AU$6.25 for two smaller test carts. The full-concept cart could not be quoted: Core stopped responding later that day. | R/V |
 | 23 | Search extracts: Kitronik Mini 180 servo, Feetech FT90B voltage listings (conflicting), Kitronik Robotics Board prices | Not relied on | S |
 
-## Not checked this round
+## Not checked in the original 19 October round
 
 Feetech and Adafruit manufacturer pages (the servo and motor facts above are retailer copies); TI DRV8833 datasheet (over-current threshold), whose download failed; Kitronik 3 V regulator current rating, not stated in its datasheet; DFR1154 current draw and lens position; PiicoDev Button address-change method; any power bank; element14/Cytron/marketplace prices; OpenRouter terms beyond the facts above.
 

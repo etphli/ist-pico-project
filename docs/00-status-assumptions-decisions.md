@@ -14,6 +14,7 @@ User update, 2026-10-20: owned MINISO QW01, 10,000 mAh; approximately 130 × 60 
 |---|---|
 | Controller | One Raspberry Pi Pico 2 WH (owned) |
 | Kit | Core Electronics PiicoDev Starter Kit for Raspberry Pi Pico (owned; assumed current v1.2) |
+| Module cables | Unlimited standard PiicoDev SH-to-SH cables available, user confirmed 21 October. This does not establish ownership of the male-ended breakout cable, USB leads, jumper wires or motor/servo power wire. |
 | Users | Children aged 5–8, indoors |
 | Functions | 4 wheels; screen in the middle of the body for questions; moving head; two rear buttons (wake, movement enable); rechargeable onboard battery with an accessible port; camera tracking a person; onboard spoken conversation with a web AI over Wi-Fi; reacting to sensors |
 | Laptop | A nearby laptop on Wi-Fi is permitted as a bridge |
@@ -61,7 +62,7 @@ User update, 2026-10-20: owned MINISO QW01, 10,000 mAh; approximately 130 × 60 
 | Moving head | FS90, clutch, stops | Servo supply margin (PG2); no position feedback |
 | Rechargeable battery, accessible port | Power bank behind the rear door | Owned QW01; fit and combined output unverified (PG1) |
 | Camera person-tracking | DFR1154 + laptop tracker | Lens position placeholder; 160° lens needs calibration |
-| Two rear buttons | 2 PiicoDev Buttons + plungers | Second button address method to confirm |
+| Two rear buttons | 2 PiicoDev Buttons + plungers | Solder-free ID switches confirmed: A all OFF, B ID:1 ON. Physical fit and detection remain untested. |
 | Screen in the middle | Kit OLED in the belly | Small (23 × 11 mm active) |
 | Onboard spoken conversation | DFR1154 mic + amp + supplied speaker; laptop bridge; OpenRouter | Confirm retailer package and supplied speaker mount; echo not yet tested |
 | Follow a person | Camera bearing + ToF range with alignment, freshness and plausibility gates | ToF does not identify the person ([02](02-architecture.md) §4.2) |

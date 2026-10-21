@@ -9,6 +9,7 @@ Comparison prices are AU$ including GST, recorded on **2026-10-19** from Core El
 - Raspberry Pi Pico 2 WH
 - PiicoDev Starter Kit for Raspberry Pi Pico, assumed v1.2 ([00](00-status-assumptions-decisions.md) A1): OLED 128×64, RGB LED, atmospheric sensor, buzzer, colour sensor, capacitive touch, accelerometer, distance (ToF) sensor, PiicoDev LiPo Expansion Board, Platform, cables
 - Unlimited PLA/resin printing
+- Unlimited standard PiicoDev SH-to-SH module cables, confirmed by the user on 21 October. No extra purchase is needed for the nine proposed inter-module links. Use the shortest suitable cables with service slack. More cable does not establish that the ten-module bus is electrically valid.
 
 **Confirmed owned:** MINISO QW01 10,000 mAh power bank. Approximate size 130 × 60 × 10 mm, micro-USB input and two USB-A outputs, each reported 5 V / 2 A. Combined output and fit remain unverified. No spare Android phone.
 
@@ -28,7 +29,7 @@ The 21 October v0.3 revision adapts the mechanics to the owned QW01. It does not
 
 ## 3. Full-function concept: over budget, comparison only
 
-Every requirement is addressed by a part. The power design is still subject to the gates in [05](05-power-budget-charging.md).
+The rows show the intended components for the requested functions. The bus interface, servo harness, protection and some mounting hardware remain unselected. The power design is subject to the gates in [05](05-power-budget-charging.md).
 
 | ID | Item | Core SKU | Qty | Unit | Ext. | Stock 2026-10-19 | Notes |
 |---|---|---|---|---|---|---|---|
@@ -37,20 +38,23 @@ Every requirement is addressed by a part. The power design is still subject to t
 | B3 | Feetech FS90 servo 4.8–6 V | CE09376 | 1 | 5.70 | 5.70 | in stock | Voltage gate PG2 in [05](05-power-budget-charging.md) |
 | B4 | DFRobot ESP32-S3 AI Camera (camera, mic, I2S amp and supplied speaker) | DFR1154 | 1 | 37.23 | 37.23 | recorded 19 October | Manufacturer lists speaker in package. Confirm retailer bundle. |
 | B5 | Optional spare mini oval speaker 8 Ω 1 W | ADA3923 | 0 | 4.80 | 0.00 | recorded out of stock | Removed from required purchases. Existing CAD still uses its 30 × 20 × 5 mm envelope until the supplied speaker is measured. |
-| B6 | PiicoDev Button | CE08500 | 2 | 8.05 | 16.10 | in stock | Second unit needs a different I2C address (check method) |
+| B6 | PiicoDev Button | CE08500 | 2 | 8.05 | 16.10 | recorded 19 October | Solder-free ID switches: A all OFF, B ID:1 ON, see [04](04-wiring-pin-plan.md) |
 | B7 | PiicoDev Prototyping Cable (male pins) 200 mm | CE07796 | 1 | 0.95 | 0.95 | catalogue | I2C from Kitronik GP0/GP1/3V/GND terminals to the chain |
 | B8 | USB-A male plug → 5-pin screw terminal block | ADA3628 | 1 | 9.65 | 9.65 | in stock | Bank port 1 → body power |
 | B9 | Wago 221-413 3-conductor lever connector | WG-221-413 | 2 | 1.40 | 2.80 | in stock | +5 V and GND split: controller + servo |
-| B10 | Jumper wire 10 cm M/M (40) | CE09607 | 1 | 3.20 | 3.20 | catalogue | Servo signal and servo power tails |
+| B10 | Jumper wire 10 cm M/M (40), provisional signal wiring only | CE09607 | 1 | 3.20 | 3.20 | recorded 19 October | Never assume unknown-gauge jumpers fit Wago or carry servo power. Remove this pack if the selected B20 harness also provides the signal lead. |
 | B11 | USB-A → USB-C cable 50 cm, 2 A | CE09370 | 1 | 3.25 | 3.25 | in stock | Bank port 2 → camera switch |
 | B12 | USB-C in-line power switch cable 28 cm (C female → C male, ≤ 3 A) | CE06575 | 1 | 3.45 | 3.45 | in stock | Camera/mic hard-off |
 | | **Priced subtotal (hardware)** | | | | **116.98** | | |
 | B13 | Delivery | Core | 1 | — | **not quoted** | — | Core quoted AU$6.25 standard to example postcode 2000 for two smaller test carts the same day. Delivery depends on the cart and postcode. |
-| B14 | Stranded wire ~22 AWG, ~0.3 m red + ~0.3 m black | — | — | — | **unpriced** | — | No cheaper verified short pack found. Do not buy two spools for 30 cm. |
+| B14 | Stranded wire ~22 AWG, red + black; lengths measured for W2–W5 | — | — | — | **unpriced** | — | Measure all four routes and termination allowances before obtaining short lengths. No verified short pack selected. |
 | B15 | Owned MINISO QW01, micro-USB in; **2 × USB-A out**, reported 5 V / 2 A each; combined output unknown | — | 1 | — | **owned, AU$0 if compatible** | — | Core's AU$26.95 5000 mAh bank has one output, so it does not suit this topology. An owned bank must be checked ([05](05-power-budget-charging.md)). |
 | B16 | Screws: 15 × M3 total (4 shell M3×10, 1 hatch M3×8, 4 frame M3×12, 2 head M3×10, 4 controller M3×8), 4 × M2.5 × 6 | — | — | — | **unpriced** | — | List and locations in [11](11-mechanical-design-print-assembly.md) §6 |
 | B17 | 2 hook-and-loop straps, about 12 × 250 mm (bank), 2 O-rings ~60 mm ID (tyres) | — | — | — | **unpriced** | — | maybe owned |
 | B18 | FS90 tab and horn hardware, confirm what the servo supplies | — | — | — | **unpriced** | — | Diameter and length need measurement. Excluded from the 15 M3 total. |
+| B19 | PiicoDev bus interface and pull-up arrangement | — | — | — | **unpriced, unselected** | — | Review the ten-module load and Core's direct-wiring recommendations before selecting a solder-free interface. |
+| B20 | Rated preterminated servo power harness, compatible with FS90 plug | — | — | — | **unpriced, unselected** | — | Known suitable wire and contacts required. Existing unknown-gauge jumper tails are not approved. |
+| O1 | Standard PiicoDev SH-to-SH module cables | owned | 9 links | 0.00 | 0.00 | user confirmed unlimited stock | C1–C9. The separate male-ended B7 breakout cable remains in the comparison purchase list. |
 
 **Result:** priced hardware alone is AU$116.98, before delivery, wire, screws and strap. The owned bank adds no purchase cost if it proves compatible. That is **AU$46.98 over the cap before the unpriced items**. Status: **over budget, HOLD.**
 

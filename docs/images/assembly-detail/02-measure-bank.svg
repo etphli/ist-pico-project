@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1728pt" height="1180.8pt" viewBox="0 0 1728 1180.8" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 1180.8 
+L 1728 1180.8 
+L 1728 0 
+L 0 0 
+z
+" style="fill: #e4e2dc"/>
+  </g>
+  <g id="axes_1">
+   <g id="sketch">
+    <path d="M 56.16 136.8 
+L 807.84 136.8 
+Q 820.8 136.8 820.8 149.76 
+L 820.8 771.84 
+Q 820.8 784.8 807.84 784.8 
+L 56.16 784.8 
+Q 43.2 784.8 43.2 771.84 
+L 43.2 149.76 
+Q 43.2 136.8 56.16 136.8 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #f3f2ee; stroke: #b9b4aa; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="record">
+    <path d="M 855.36 136.8 
+L 1671.84 136.8 
+Q 1684.8 136.8 1684.8 149.76 
+L 1684.8 995.04 
+Q 1684.8 1008 1671.84 1008 
+L 855.36 1008 
+Q 842.4 1008 842.4 995.04 
+L 842.4 149.76 
+Q 842.4 136.8 855.36 136.8 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #f3f2ee; stroke: #b9b4aa; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="stop">
+    <path d="M 56.16 813.6 
+L 807.84 813.6 
+Q 820.8 813.6 820.8 826.56 
+L 820.8 1103.04 
+Q 820.8 1116 807.84 1116 
+L 56.16 1116 
+Q 43.2 1116 43.2 1103.04 
+L 43.2 826.56 
+Q 43.2 813.6 56.16 813.6 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #f3f2ee; stroke: #b9b4aa; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="plug">
+    <path d="M 855.36 1029.6 
+L 1671.84 1029.6 
+Q 1684.8 1029.6 1684.8 1042.56 
+L 1684.8 1103.04 
+Q 1684.8 1116 1671.84 1116 
+L 855.36 1116 
+Q 842.4 1116 842.4 1103.04 
+L 842.4 1042.56 
+Q 842.4 1029.6 855.36 1029.6 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #f3f2ee; stroke: #b9b4aa; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_2">
+    <path d="M 861.12 205.92 
+L 1666.08 205.92 
+Q 1670.4 205.92 1670.4 210.24 
+L 1670.4 256.32 
+Q 1670.4 260.64 1666.08 260.64 
+L 861.12 260.64 
+Q 856.8 260.64 856.8 256.32 
+L 856.8 210.24 
+Q 856.8 205.92 861.12 205.92 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #ffffff; stroke: #d5d1c8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 861.12 272.16 
+L 1666.08 272.16 
+Q 1670.4 272.16 1670.4 276.48 
+L 1670.4 322.56 
+Q 1670.4 326.88 1666.08 326.88 
+L 861.12 326.88 
+Q 856.8 326.88 856.8 322.56 
+L 856.8 276.48 
+Q 856.8 272.16 861.12 272.16 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #f7f6f2; stroke: #d5d1c8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 861.12 338.4 
+L 1666.08 338.4 
+Q 1670.4 338.4 1670.4 342.72 
+L 1670.4 388.8 
+Q 1670.4 393.12 1666.08 393.12 
+L 861.12 393.12 
+Q 856.8 393.12 856.8 388.8 
+L 856.8 342.72 
+Q 856.8 338.4 861.12 338.4 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #ffffff; stroke: #d5d1c8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 861.12 404.64 
+L 1666.08 404.64 
+Q 1670.4 404.64 1670.4 408.96 
+L 1670.4 455.04 
+Q 1670.4 459.36 1666.08 459.36 
+L 861.12 459.36 
+Q 856.8 459.36 856.8 455.04 
+L 856.8 408.96 
+Q 856.8 404.64 861.12 404.64 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #f7f6f2; stroke: #d5d1c8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 861.12 470.88 
+L 1666.08 470.88 
+Q 1670.4 470.88 1670.4 475.2 
+L 1670.4 521.28 
+Q 1670.4 525.6 1666.08 525.6 
+L 861.12 525.6 
+Q 856.8 525.6 856.8 521.28 
+L 856.8 475.2 
+Q 856.8 470.88 861.12 470.88 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #ffffff; stroke: #d5d1c8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 861.12 537.12 
+L 1666.08 537.12 
+Q 1670.4 537.12 1670.4 541.44 
+L 1670.4 587.52 
+Q 1670.4 591.84 1666.08 591.84 
+L 861.12 591.84 
+Q 856.8 591.84 856.8 587.52 
+L 856.8 541.44 
+Q 856.8 537.12 861.12 537.12 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #f7f6f2; stroke: #d5d1c8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 861.12 603.36 
+L 1666.08 603.36 
+Q 1670.4 603.36 1670.4 607.68 
+L 1670.4 653.76 
+Q 1670.4 658.08 1666.08 658.08 
+L 861.12 658.08 
+Q 856.8 658.08 856.8 653.76 
+L 856.8 607.68 
+Q 856.8 603.36 861.12 603.36 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #ffffff; stroke: #d5d1c8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 861.12 669.6 
+L 1666.08 669.6 
+Q 1670.4 669.6 1670.4 673.92 
+L 1670.4 720 
+Q 1670.4 724.32 1666.08 724.32 
+L 861.12 724.32 
+Q 856.8 724.32 856.8 720 
+L 856.8 673.92 
+Q 856.8 669.6 861.12 669.6 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #f7f6f2; stroke: #d5d1c8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 861.12 735.84 
+L 1666.08 735.84 
+Q 1670.4 735.84 1670.4 740.16 
+L 1670.4 786.24 
+Q 1670.4 790.56 1666.08 790.56 
+L 861.12 790.56 
+Q 856.8 790.56 856.8 786.24 
+L 856.8 740.16 
+Q 856.8 735.84 861.12 735.84 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #ffffff; stroke: #d5d1c8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 861.12 802.08 
+L 1666.08 802.08 
+Q 1670.4 802.08 1670.4 806.4 
+L 1670.4 852.48 
+Q 1670.4 856.8 1666.08 856.8 
+L 861.12 856.8 
+Q 856.8 856.8 856.8 852.48 
+L 856.8 806.4 
+Q 856.8 802.08 861.12 802.08 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #f7f6f2; stroke: #d5d1c8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 861.12 868.32 
+L 1666.08 868.32 
+Q 1670.4 868.32 1670.4 872.64 
+L 1670.4 918.72 
+Q 1670.4 923.04 1666.08 923.04 
+L 861.12 923.04 
+Q 856.8 923.04 856.8 918.72 
+L 856.8 872.64 
+Q 856.8 868.32 861.12 868.32 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #ffffff; stroke: #d5d1c8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 216 460.8 
+L 311.04 389.52 
+L 743.04 389.52 
+L 648 460.8 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #f2d9b0; stroke: #33475b; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 216 460.8 
+L 648 460.8 
+L 648 511.2 
+L 216 511.2 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #e0a040; stroke: #33475b; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 648 460.8 
+L 743.04 389.52 
+L 743.04 439.92 
+L 648 511.2 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #b97a22; stroke: #33475b; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 216 547.2 
+L 648 547.2 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #14305a; stroke-width: 2.4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 216 537.12 
+L 216 557.28 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #14305a; stroke-width: 2.4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 648 537.12 
+L 648 557.28 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #14305a; stroke-width: 2.4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 672.48 456.48 
+L 767.52 385.2 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #14305a; stroke-width: 2.4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 665.28 449.28 
+L 679.68 463.68 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #14305a; stroke-width: 2.4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_6">
+    <path d="M 760.32 378 
+L 774.72 392.4 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #14305a; stroke-width: 2.4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_7">
+    <path d="M 194.4 460.8 
+L 194.4 511.2 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #14305a; stroke-width: 2.4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_8">
+    <path d="M 184.32 460.8 
+L 204.48 460.8 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #14305a; stroke-width: 2.4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_9">
+    <path d="M 184.32 511.2 
+L 204.48 511.2 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #14305a; stroke-width: 2.4; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_10">
+    <path d="M 1368 240.48 
+L 1519.2 240.48 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #3d4f66; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_11">
+    <path d="M 1368 306.72 
+L 1519.2 306.72 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #3d4f66; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_12">
+    <path d="M 1368 372.96 
+L 1519.2 372.96 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #3d4f66; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_13">
+    <path d="M 1368 439.2 
+L 1519.2 439.2 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #3d4f66; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_14">
+    <path d="M 1368 505.44 
+L 1519.2 505.44 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #3d4f66; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_15">
+    <path d="M 1368 571.68 
+L 1519.2 571.68 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #3d4f66; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_16">
+    <path d="M 1368 637.92 
+L 1519.2 637.92 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #3d4f66; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_17">
+    <path d="M 1368 704.16 
+L 1519.2 704.16 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #3d4f66; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_18">
+    <path d="M 1368 770.4 
+L 1519.2 770.4 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #3d4f66; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_19">
+    <path d="M 1368 836.64 
+L 1519.2 836.64 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #3d4f66; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="line2d_20">
+    <path d="M 1368 902.88 
+L 1519.2 902.88 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #3d4f66; stroke-width: 2; stroke-linecap: round"/>
+   </g>
+   <g id="title">
+    <text style="font-weight: 700; font-size: 31.68px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="40.32" y="41.73795" transform="rotate(-0 40.32 41.73795)">Detail 2 · Measure the QW01 before printing</text>
+   </g>
+   <g id="subtitle">
+    <text style="font-size: 18px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="41.76" y="85.606875" transform="rotate(-0 41.76 85.606875)">Fill every blank from your own bank. The 130 × 60 × 10 mm figures are the user's estimate, not measurements.</text>
+   </g>
+   <g id="footer">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="40.32" y="1160.09325" transform="rotate(-0 40.32 1160.09325)">Pip v0.3 · code-drawn diagram, not a photo · no part of Pip has been built or tested   · illustrations/assembly_vectors.py</text>
+   </g>
+   <g id="heading-sketch">
+    <text style="font-weight: 700; font-size: 18.72px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="60.48" y="167.157787" transform="rotate(-0 60.48 167.157787)">Sketch (not to scale)</text>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 17.28px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #14305a" x="479.52" y="430.46415" transform="rotate(-0 479.52 430.46415)">MINISO QW01 (owned)</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #14305a" x="432" y="577.428975" transform="rotate(-0 432 577.428975)">length ≈130 mm (estimate) → Q1</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(695.517075 325.40535)">width ≈60 mm</text>
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(689.344425 344.162138)">(estimate) → Q2</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(90.60435 472.10535)">thickness</text>
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(48.086325 490.96485)">≈10 mm (est.)</text>
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(132.404625 510.5223)">→ Q3</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="64.8" y="733.622175" transform="rotate(-0 64.8 733.622175)">Tape a label on each port: "OUT 1 → body", "OUT 2 → camera", "IN (charge)".</text>
+   </g>
+   <g id="heading-record">
+    <text style="font-weight: 700; font-size: 18.72px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="859.68" y="167.157787" transform="rotate(-0 859.68 167.157787)">Record (docs/12 §A0)</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="864" y="192.346875" transform="rotate(-0 864 192.346875)">Row</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="928.8" y="192.346875" transform="rotate(-0 928.8 192.346875)">Measure</text>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="1368" y="192.5685" transform="rotate(-0 1368 192.5685)">Your value</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="1548" y="191.046375" transform="rotate(-0 1548 191.046375)">CAD accepts</text>
+   </g>
+   <g id="text_10">
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="864" y="235.1223" transform="rotate(-0 864 235.1223)">Q1</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="928.8" y="234.572175" transform="rotate(-0 928.8 234.572175)">Length, longest point</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="1548" y="235.641375" transform="rotate(-0 1548 235.641375)">126–134</text>
+   </g>
+   <g id="text_13">
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="864" y="301.3623" transform="rotate(-0 864 301.3623)">Q2</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="928.8" y="300.812175" transform="rotate(-0 928.8 300.812175)">Width, widest point</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="1548" y="301.881375" transform="rotate(-0 1548 301.881375)">56–64</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="864" y="367.6023" transform="rotate(-0 864 367.6023)">Q3</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="928.8" y="367.052175" transform="rotate(-0 928.8 367.052175)">Thickness incl. any bulge</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="1548" y="368.121375" transform="rotate(-0 1548 368.121375)">8–16</text>
+   </g>
+   <g id="text_19">
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="864" y="433.8423" transform="rotate(-0 864 433.8423)">Q4</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="928.8" y="433.292175" transform="rotate(-0 928.8 433.292175)">Edge rounding</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="1548" y="433.06425" transform="rotate(-0 1548 433.06425)">—</text>
+   </g>
+   <g id="text_22">
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="864" y="500.0823" transform="rotate(-0 864 500.0823)">Q5</text>
+   </g>
+   <g id="text_23">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="928.8" y="499.532175" transform="rotate(-0 928.8 499.532175)">Which end or face has each port?</text>
+   </g>
+   <g id="text_24">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="1548" y="500.7285" transform="rotate(-0 1548 500.7285)">all on one end</text>
+   </g>
+   <g id="text_25">
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="864" y="566.3223" transform="rotate(-0 864 566.3223)">Q6</text>
+   </g>
+   <g id="text_26">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="928.8" y="565.772175" transform="rotate(-0 928.8 565.772175)">Each port centre from centre line / bottom</text>
+   </g>
+   <g id="text_27">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="1548" y="566.2755" transform="rotate(-0 1548 566.2755)">≤16 / ≥3</text>
+   </g>
+   <g id="text_28">
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="864" y="632.5623" transform="rotate(-0 864 632.5623)">Q7</text>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="928.8" y="632.012175" transform="rotate(-0 928.8 632.012175)">Charge LED or button position</text>
+   </g>
+   <g id="text_30">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="1548" y="631.78425" transform="rotate(-0 1548 631.78425)">—</text>
+   </g>
+   <g id="text_31">
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="864" y="698.8023" transform="rotate(-0 864 698.8023)">Q8</text>
+   </g>
+   <g id="text_32">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="928.8" y="698.827444" transform="rotate(-0 928.8 698.827444)">Mass (kitchen scale)</text>
+   </g>
+   <g id="text_33">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="1548" y="698.02425" transform="rotate(-0 1548 698.02425)">—</text>
+   </g>
+   <g id="text_34">
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="864" y="765.0423" transform="rotate(-0 864 765.0423)">Q9</text>
+   </g>
+   <g id="text_35">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="928.8" y="764.492175" transform="rotate(-0 928.8 764.492175)">ADA3628 protrusion + bend room</text>
+   </g>
+   <g id="text_36">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="1548" y="764.26425" transform="rotate(-0 1548 764.26425)">—</text>
+   </g>
+   <g id="text_37">
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="864" y="831.2823" transform="rotate(-0 864 831.2823)">Q10</text>
+   </g>
+   <g id="text_38">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="928.8" y="832.196925" transform="rotate(-0 928.8 832.196925)">USB-A→C overmould size</text>
+   </g>
+   <g id="text_39">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="1548" y="830.50425" transform="rotate(-0 1548 830.50425)">—</text>
+   </g>
+   <g id="text_40">
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="864" y="897.5223" transform="rotate(-0 864 897.5223)">Q11</text>
+   </g>
+   <g id="text_41">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="928.8" y="896.972175" transform="rotate(-0 928.8 896.972175)">Micro-USB charge plug size</text>
+   </g>
+   <g id="text_42">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="1548" y="896.74425" transform="rotate(-0 1548 896.74425)">—</text>
+   </g>
+   <g id="text_43">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="864" y="968.7735" transform="rotate(-0 864 968.7735)">Units: mm (Q1–Q6, Q9–Q11), g (Q8). Leave a blank if not measured.</text>
+   </g>
+   <g id="heading-stop">
+    <text style="font-weight: 700; font-size: 18.72px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="60.48" y="845.05905" transform="rotate(-0 60.48 845.05905)">STOP if</text>
+   </g>
+   <g id="text_44">
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="64.8" y="872.581837" transform="rotate(-0 64.8 872.581837)">•</text>
+   </g>
+   <g id="text_45">
+    <text style="font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="93.6" y="871.07085" transform="rotate(-0 93.6 871.07085)">any size is outside 126–134 × 56–64 × 8–16 mm;</text>
+   </g>
+   <g id="text_46">
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="64.8" y="900.057037" transform="rotate(-0 64.8 900.057037)">•</text>
+   </g>
+   <g id="text_47">
+    <text style="font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="93.6" y="898.54605" transform="rotate(-0 93.6 898.54605)">a port is on a side or the far end;</text>
+   </g>
+   <g id="text_48">
+    <text style="font-weight: 700; font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="64.8" y="927.532238" transform="rotate(-0 64.8 927.532238)">•</text>
+   </g>
+   <g id="text_49">
+    <text style="font-size: 15.84px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="93.6" y="926.02125" transform="rotate(-0 93.6 926.02125)">a port centre is more than 16 mm from the centre line.</text>
+   </g>
+   <g id="text_50">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="64.8" y="978.422175" transform="rotate(-0 64.8 978.422175)">The cradle, rails or hatch then need a CAD change. Thinner fillers do not fix it.</text>
+   </g>
+   <g id="text_51">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(864 1057.622175)">Q9–Q11: measure how far each real plug sticks out past the port face, plus room for its cable</text>
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(864 1077.986925)">to bend.</text>
+   </g>
+   <g id="badge-DO-NOT-OPEN-THE-BANK">
+    <g id="patch_16">
+     <path d="M 1455.8661 57.6576 
+L 1679.3856 57.6576 
+Q 1694.9376 57.6576 1694.9376 42.1056 
+L 1694.9376 41.4144 
+Q 1694.9376 25.8624 1679.3856 25.8624 
+L 1455.8661 25.8624 
+Q 1440.3141 25.8624 1440.3141 41.4144 
+L 1440.3141 42.1056 
+Q 1440.3141 57.6576 1455.8661 57.6576 
+z
+" style="fill: #8e1b1b; stroke: #5a0f0f; stroke-width: 2; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 17.28px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: end; fill: #ffffff" x="1687.68" y="46.24875" transform="rotate(-0 1687.68 46.24875)">DO NOT OPEN THE BANK</text>
+   </g>
+   <g id="badge-SIZE-ESTIMATED">
+    <g id="patch_17">
+     <path d="M 1280.7423 57.6576 
+L 1423.008 57.6576 
+Q 1438.56 57.6576 1438.56 42.1056 
+L 1438.56 41.4144 
+Q 1438.56 25.8624 1423.008 25.8624 
+L 1280.7423 25.8624 
+Q 1265.1903 25.8624 1265.1903 41.4144 
+L 1265.1903 42.1056 
+Q 1265.1903 57.6576 1280.7423 57.6576 
+z
+" style="fill: #e3ddf5; stroke: #5b4bb0; stroke-width: 2; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 17.28px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: end; fill: #3a2c80" x="1431.3024" y="46.24875" transform="rotate(-0 1431.3024 46.24875)">SIZE ESTIMATED</text>
+   </g>
+   <g id="badge-STOP">
+    <g id="patch_18">
+     <path d="M 767.44125 851.328 
+L 796.608 851.328 
+Q 809.568 851.328 809.568 838.368 
+L 809.568 837.792 
+Q 809.568 824.832 796.608 824.832 
+L 767.44125 824.832 
+Q 754.48125 824.832 754.48125 837.792 
+L 754.48125 838.368 
+Q 754.48125 851.328 767.44125 851.328 
+z
+" style="fill: #8e1b1b; stroke: #5a0f0f; stroke-width: 2; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: end; fill: #ffffff" x="803.52" y="841.820625" transform="rotate(-0 803.52 841.820625)">STOP</text>
+   </g>
+   <g id="line2d_21">
+    <path d="M 695.52 613.908 
+L 695.52 450.36 
+" clip-path="url(#p0627e7e7b3)" style="fill: none; stroke: #1b2f4b; stroke-width: 2.4; stroke-linecap: round"/>
+   </g>
+   <g id="text_52">
+    <g id="patch_19">
+     <path d="M 391.068 681.192 
+L 738.164138 681.192 
+Q 745.724138 681.192 745.724138 673.632 
+L 745.724138 621.468 
+Q 745.724138 613.908 738.164138 613.908 
+L 391.068 613.908 
+Q 383.508 613.908 383.508 621.468 
+L 383.508 673.632 
+Q 383.508 681.192 391.068 681.192 
+z
+" style="fill: #ffffff; stroke: #9da9b8; stroke-width: 1.5; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(388.8 632.822175)">Which end carries each port? Positions are</text>
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(388.8 652.297444)">unknown (Q5, Q6). The CAD assumes all three</text>
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(388.8 672.086925)">on one end.</text>
+   </g>
+   <g id="patch_20">
+    <path d="M 695.52 445.32 
+C 696.856624 445.32 698.138683 445.851046 699.083818 446.796182 
+C 700.028954 447.741317 700.56 449.023376 700.56 450.36 
+C 700.56 451.696624 700.028954 452.978683 699.083818 453.923818 
+C 698.138683 454.868954 696.856624 455.4 695.52 455.4 
+C 694.183376 455.4 692.901317 454.868954 691.956182 453.923818 
+C 691.011046 452.978683 690.48 451.696624 690.48 450.36 
+C 690.48 449.023376 691.011046 447.741317 691.956182 446.796182 
+C 692.901317 445.851046 694.183376 445.32 695.52 445.32 
+z
+" clip-path="url(#p0627e7e7b3)" style="fill: #1b2f4b; stroke: #ffffff; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p0627e7e7b3">
+   <rect x="0" y="0" width="1728" height="1180.8"/>
+  </clipPath>
+ </defs>
+</svg>

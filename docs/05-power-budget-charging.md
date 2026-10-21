@@ -37,9 +37,11 @@ MINISO QW01, intact and strapped in the revised cradle
 
 The USB outputs remain separate power branches. The body needs a common signal ground between its Pico, driver and servo. No motor current passes through GPIO, Pico 3V3, a breadboard or PiicoDev cables. Every power connector and conductor must have a known current rating. Verify servo power leads rather than assuming any jumper wire is sufficient.
 
+The detailed wiring review replaces the earlier unknown-gauge servo power jumper tails with a requirement for a rated, compatible preterminated harness, B20. That harness is not selected or priced. Wago 221-413 accepts specified copper wire sizes and requires an 11 mm strip at its own end. Do not apply that length to the other end's screw terminal without checking its requirement. See [04](04-wiring-pin-plan.md) and [16](16-wire-by-wire-assembly.md).
+
 **Hard-off:** unplug both robot USB-A leads. The body switch does not disconnect the servo branch upstream of it, and it does not disconnect the head. The head has a separate camera power switch. Software sleep stops streaming and motion but is not a hardware disconnect. A single all-branch power switch remains unresolved and unpriced.
 
-**Programming:** with the rear shell removed, disconnect both bank output leads before plugging the Pico into a laptop. Do not assume the carrier prevents backfeeding from simultaneous supplies.
+**Programming:** disconnect both bank output leads and the charge cable. For initial programming, use the Pico alone outside the carrier with no attached loads. Programming in the mounted robot needs a reviewed carrier USB power path and attached-load budget in the approved bench plan. Do not assume the carrier prevents backfeeding from simultaneous supplies or that USB power clears the electrical HOLD.
 
 ## 3. Per-branch voltage and current budget
 
@@ -77,7 +79,7 @@ All results are pending. These gates are acceptance conditions for a future buil
 | PG3 | Source, motor, driver and servo protection | Selected hardware and documented continuous/transient limits. A teacher reviews a guarded, current-limited bench test plan. No sustained-stall or hand-held wheel tests on the unprotected concept |
 | PG4 | Camera rail during video, microphone and speaker load | Within the board's documented input limits and the port's 2 A limit, with margin. No resets; both-output demand within the verified shared limit |
 | PG5 | Master disconnect and charge procedure | Both USB-A leads can be reached and unplugged; no hidden live servo or head branch is mistaken for off. A single-switch solution remains optional unresolved work |
-| PG6 | Kitronik logic regulator and Pico sensor-chain capacity | Known ratings exceed peak measured logic and sensor current with margin; do not infer a regulator rating from a short successful test |
+| PG6 | Kitronik logic regulator, Pico sensor-chain capacity and I2C interface | Known ratings exceed peak measured current with margin. Review aggregate pull-ups, signal conditioning and cable length, then verify bus behaviour with the final ten-module layout. No rating is inferred from a short successful test. |
 | PG7 | Reset and watchdog behaviour | Motors remain off through boot/reset; motion enable clears; network and audio cannot hold motor outputs on |
 
 A multimeter and suitable guarded/current-limited bench equipment are school tools to borrow, not assumed purchases in the BOM. Do not test beyond a known component rating to discover its limit.

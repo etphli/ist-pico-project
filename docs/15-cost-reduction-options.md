@@ -4,6 +4,8 @@ Checked 21 October 2026. Keep the camera, microphone, speaker, four wheels, pann
 
 The current baseline is AU$116.98 before delivery and unpriced items. Combining the proposed button and cable substitutions gives AU$92.27 before resistors, mounts, wire, screws, straps, tyres, delivery and any required power-protection parts. This is a comparison, not a complete order or an AU$70 build.
 
+The user confirmed unlimited standard PiicoDev module cables on 21 October. The nine proposed SH-to-SH links therefore cost AU$0 to obtain. They were not included as an extra purchase in the subtotal, so this does not subtract another amount from it. The male-ended B7 breakout, USB leads and rated power wiring are separate. The later wiring review adds unpriced B19 bus-interface work and B20 servo-harness selection. B10 remains a provisional signal-only pack and can be removed if B20 provides that lead.
+
 ## Use the supplied speaker
 
 I counted an extra speaker in the earlier BOM. [DFRobot's DFR1154 shipping list](https://www.dfrobot.com/product-2899.html) includes a speaker and a Gravity cable. Confirm Core supplies that standard package, then use the supplied speaker. It removes the separate AU$4.80 purchase without removing voice output.

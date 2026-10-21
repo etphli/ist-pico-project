@@ -5,11 +5,13 @@
 Pip is a friendly, rounded, white companion robot for children aged 5–8 that encourages **off-screen play**. The design: Pip follows a selected child on four wheels, pans its head to look at them, asks questions on a belly screen, takes answers from touch pads or by voice, and talks through a web AI model reached over Wi-Fi via a nearby laptop. It is built around a **Raspberry Pi Pico 2 WH** and the **PiicoDev Starter Kit**, with **no soldering**.
 
 > **Status (2026-10-21): design v0.3. Design only; firmware not implemented. Purchase status: HOLD.**
-> No configuration meeting every requirement within the **AU$70 total** was found. The full concept's priced hardware is AU$116.98 before delivery and unpriced items. Reduced-scope options are listed for the user's decision ([docs/08](docs/08-bom-budget-sourcing.md)). The power design has verification gates that must pass before wiring ([docs/05](docs/05-power-budget-charging.md)). The CAD is a parametric prototype with placeholder dimensions for bought parts. Review status: [docs/13](docs/13-design-review.md).
+> No configuration meeting every requirement within the **AU$70 total** was found. The full concept's priced hardware is AU$116.98 before delivery and unpriced items. Reduced-scope options are listed for the user's decision ([docs/08](docs/08-bom-budget-sourcing.md)). The power design needs review before electrical assembly and gated bench tests before use ([docs/05](docs/05-power-budget-charging.md)). The CAD is a parametric prototype with placeholder dimensions for bought parts. Review status: [docs/13](docs/13-design-review.md).
 
 ![Pip CAD v0.3 reference elevations](cad/out/preview_front_reference.png)
 
-Start with the [illustrated assembly guide](docs/14-illustrated-assembly-guide.md). Inspect the internals in the [interactive 3D section viewer](cad/viewer/index.html), or read [how to open and edit the viewer](cad/viewer/README.md). GitHub displays HTML as source, so download the repository and open the viewer locally. The guide is editable Markdown, and the viewer includes its editable source and geometry generator.
+Start with the [illustrated assembly guide](docs/14-illustrated-assembly-guide.md). Inspect the internals in the [interactive 3D section viewer](cad/viewer/index.html), or read [how to open and edit the viewer](cad/viewer/README.md). GitHub displays HTML as source, so download the repository and open the viewer locally. The guide is editable Markdown, and the viewer includes its editable source and geometry generator. See the [illustration sources](illustrations/README.md) to change diagram labels and regenerate the added assembly close-ups.
+
+For each terminal and plug, follow the [wire-by-wire guide](docs/16-wire-by-wire-assembly.md) and [wiring reference](docs/04-wiring-pin-plan.md). Standard PiicoDev module cables are owned in unlimited quantity. The special breakout cable and motor, servo and USB leads remain separate items.
 
 ## Key facts
 
@@ -44,6 +46,7 @@ The v0.3 layout uses the bank's approximate dimensions, a fixed accommodation en
 | 13 | [Engineering review status](docs/13-design-review.md) |
 | 14 | [Illustrated assembly guide](docs/14-illustrated-assembly-guide.md) |
 | 15 | [Cost reductions that retain the requested functions](docs/15-cost-reduction-options.md) |
+| 16 | [Wire-by-wire assembly with connection diagrams](docs/16-wire-by-wire-assembly.md) |
 | — | [Sources](docs/sources.md) |
 
 ## CAD

@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="1728pt" height="1080pt" viewBox="0 0 1728 1080" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 1080 
+L 1728 1080 
+L 1728 0 
+L 0 0 
+z
+" style="fill: #e4e2dc"/>
+  </g>
+  <g id="axes_1">
+   <g id="robot">
+    <path d="M 56.16 136.8 
+L 577.44 136.8 
+Q 590.4 136.8 590.4 149.76 
+L 590.4 843.84 
+Q 590.4 856.8 577.44 856.8 
+L 56.16 856.8 
+Q 43.2 856.8 43.2 843.84 
+L 43.2 149.76 
+Q 43.2 136.8 56.16 136.8 
+z
+" clip-path="url(#pef26f1daeb)" style="fill: #f3f2ee; stroke: #b9b4aa; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="loops">
+    <path d="M 56.16 885.6 
+L 1671.84 885.6 
+Q 1684.8 885.6 1684.8 898.56 
+L 1684.8 1016.64 
+Q 1684.8 1029.6 1671.84 1029.6 
+L 56.16 1029.6 
+Q 43.2 1029.6 43.2 1016.64 
+L 43.2 898.56 
+Q 43.2 885.6 56.16 885.6 
+z
+" clip-path="url(#pef26f1daeb)" style="fill: #f3f2ee; stroke: #b9b4aa; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="box-pico">
+    <path d="M 74.88 187.2 
+L 558.72 187.2 
+Q 568.8 187.2 568.8 197.28 
+L 568.8 551.52 
+Q 568.8 561.6 558.72 561.6 
+L 74.88 561.6 
+Q 64.8 561.6 64.8 551.52 
+L 64.8 197.28 
+Q 64.8 187.2 74.88 187.2 
+z
+" clip-path="url(#pef26f1daeb)" style="fill: #ffffff; stroke: #33475b; stroke-width: 2.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="box-head">
+    <path d="M 74.88 590.4 
+L 558.72 590.4 
+Q 568.8 590.4 568.8 600.48 
+L 568.8 817.92 
+Q 568.8 828 558.72 828 
+L 74.88 828 
+Q 64.8 828 64.8 817.92 
+L 64.8 600.48 
+Q 64.8 590.4 74.88 590.4 
+z
+" clip-path="url(#pef26f1daeb)" style="fill: #ffffff; stroke: #33475b; stroke-width: 2.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="box-lap">
+    <path d="M 802.08 136.8 
+L 1329.12 136.8 
+Q 1339.2 136.8 1339.2 146.88 
+L 1339.2 846.72 
+Q 1339.2 856.8 1329.12 856.8 
+L 802.08 856.8 
+Q 792 856.8 792 846.72 
+L 792 146.88 
+Q 792 136.8 802.08 136.8 
+z
+" clip-path="url(#pef26f1daeb)" style="fill: #ffffff; stroke: #33475b; stroke-width: 2.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="box-or">
+    <path d="M 1457.28 352.8 
+L 1674.72 352.8 
+Q 1684.8 352.8 1684.8 362.88 
+L 1684.8 558.72 
+Q 1684.8 568.8 1674.72 568.8 
+L 1457.28 568.8 
+Q 1447.2 568.8 1447.2 558.72 
+L 1447.2 362.88 
+Q 1447.2 352.8 1457.28 352.8 
+z
+" clip-path="url(#pef26f1daeb)" style="fill: #ffffff; stroke: #33475b; stroke-width: 2.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_2">
+    <path d="M 828 214.56 
+L 1303.2 214.56 
+Q 1310.4 214.56 1310.4 221.76 
+L 1310.4 253.44 
+Q 1310.4 260.64 1303.2 260.64 
+L 828 260.64 
+Q 820.8 260.64 820.8 253.44 
+L 820.8 221.76 
+Q 820.8 214.56 828 214.56 
+z
+" clip-path="url(#pef26f1daeb)" style="fill: #eef2f6; stroke: #7a8fa6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 828 279.36 
+L 1303.2 279.36 
+Q 1310.4 279.36 1310.4 286.56 
+L 1310.4 318.24 
+Q 1310.4 325.44 1303.2 325.44 
+L 828 325.44 
+Q 820.8 325.44 820.8 318.24 
+L 820.8 286.56 
+Q 820.8 279.36 828 279.36 
+z
+" clip-path="url(#pef26f1daeb)" style="fill: #eef2f6; stroke: #7a8fa6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 828 380.16 
+L 1303.2 380.16 
+Q 1310.4 380.16 1310.4 387.36 
+L 1310.4 419.04 
+Q 1310.4 426.24 1303.2 426.24 
+L 828 426.24 
+Q 820.8 426.24 820.8 419.04 
+L 820.8 387.36 
+Q 820.8 380.16 828 380.16 
+z
+" clip-path="url(#pef26f1daeb)" style="fill: #eef2f6; stroke: #7a8fa6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 828 444.96 
+L 1303.2 444.96 
+Q 1310.4 444.96 1310.4 452.16 
+L 1310.4 483.84 
+Q 1310.4 491.04 1303.2 491.04 
+L 828 491.04 
+Q 820.8 491.04 820.8 483.84 
+L 820.8 452.16 
+Q 820.8 444.96 828 444.96 
+z
+" clip-path="url(#pef26f1daeb)" style="fill: #eef2f6; stroke: #7a8fa6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 828 509.76 
+L 1303.2 509.76 
+Q 1310.4 509.76 1310.4 516.96 
+L 1310.4 548.64 
+Q 1310.4 555.84 1303.2 555.84 
+L 828 555.84 
+Q 820.8 555.84 820.8 548.64 
+L 820.8 516.96 
+Q 820.8 509.76 828 509.76 
+z
+" clip-path="url(#pef26f1daeb)" style="fill: #eef2f6; stroke: #7a8fa6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 828 604.8 
+L 1303.2 604.8 
+Q 1310.4 604.8 1310.4 612 
+L 1310.4 691.2 
+Q 1310.4 698.4 1303.2 698.4 
+L 828 698.4 
+Q 820.8 698.4 820.8 691.2 
+L 820.8 612 
+Q 820.8 604.8 828 604.8 
+z
+" clip-path="url(#pef26f1daeb)" style="fill: #fff4de; stroke: #9a6200; stroke-width: 2; stroke-linejoin: miter"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 568.8 331.2 
+L 792 331.2 
+" clip-path="url(#pef26f1daeb)" style="fill: none; stroke-dasharray: 8,10; stroke-dashoffset: 0; stroke: #5b6b7f; stroke-width: 4"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 792 403.2 
+L 568.8 403.2 
+" clip-path="url(#pef26f1daeb)" style="fill: none; stroke-dasharray: 8,10; stroke-dashoffset: 0; stroke: #5b6b7f; stroke-width: 4"/>
+   </g>
+   <g id="line2d_3">
+    <path d="M 568.8 669.6 
+L 792 669.6 
+" clip-path="url(#pef26f1daeb)" style="fill: none; stroke-dasharray: 8,10; stroke-dashoffset: 0; stroke: #5b6b7f; stroke-width: 4"/>
+   </g>
+   <g id="line2d_4">
+    <path d="M 792 741.6 
+L 568.8 741.6 
+" clip-path="url(#pef26f1daeb)" style="fill: none; stroke-dasharray: 8,10; stroke-dashoffset: 0; stroke: #5b6b7f; stroke-width: 4"/>
+   </g>
+   <g id="line2d_5">
+    <path d="M 1339.2 439.2 
+L 1447.2 439.2 
+" clip-path="url(#pef26f1daeb)" style="fill: none; stroke-dasharray: 8,10; stroke-dashoffset: 0; stroke: #5b6b7f; stroke-width: 4"/>
+   </g>
+   <g id="line2d_6">
+    <path d="M 1447.2 511.2 
+L 1339.2 511.2 
+" clip-path="url(#pef26f1daeb)" style="fill: none; stroke-dasharray: 8,10; stroke-dashoffset: 0; stroke: #5b6b7f; stroke-width: 4"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 763.2 331.2 
+Q 777.6 331.2 788.645898 331.2 
+" style="fill: none; stroke: #5b6b7f; stroke-width: 3; stroke-linecap: round"/>
+    <path d="M 779.645898 326.7 
+L 788.645898 331.2 
+L 779.645898 335.7 
+z
+" style="fill: #5b6b7f; stroke: #5b6b7f; stroke-width: 3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 597.6 403.2 
+Q 583.2 403.2 572.154102 403.2 
+" style="fill: none; stroke: #5b6b7f; stroke-width: 3; stroke-linecap: round"/>
+    <path d="M 581.154102 407.7 
+L 572.154102 403.2 
+L 581.154102 398.7 
+z
+" style="fill: #5b6b7f; stroke: #5b6b7f; stroke-width: 3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 763.2 669.6 
+Q 777.6 669.6 788.645898 669.6 
+" style="fill: none; stroke: #5b6b7f; stroke-width: 3; stroke-linecap: round"/>
+    <path d="M 779.645898 665.1 
+L 788.645898 669.6 
+L 779.645898 674.1 
+z
+" style="fill: #5b6b7f; stroke: #5b6b7f; stroke-width: 3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 597.6 741.6 
+Q 583.2 741.6 572.154102 741.6 
+" style="fill: none; stroke: #5b6b7f; stroke-width: 3; stroke-linecap: round"/>
+    <path d="M 581.154102 746.1 
+L 572.154102 741.6 
+L 581.154102 737.1 
+z
+" style="fill: #5b6b7f; stroke: #5b6b7f; stroke-width: 3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 1418.4 439.2 
+Q 1432.8 439.2 1443.845898 439.2 
+" style="fill: none; stroke: #5b6b7f; stroke-width: 3; stroke-linecap: round"/>
+    <path d="M 1434.845898 434.7 
+L 1443.845898 439.2 
+L 1434.845898 443.7 
+z
+" style="fill: #5b6b7f; stroke: #5b6b7f; stroke-width: 3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 1368 511.2 
+Q 1353.6 511.2 1342.554102 511.2 
+" style="fill: none; stroke: #5b6b7f; stroke-width: 3; stroke-linecap: round"/>
+    <path d="M 1351.554102 515.7 
+L 1342.554102 511.2 
+L 1351.554102 506.7 
+z
+" style="fill: #5b6b7f; stroke: #5b6b7f; stroke-width: 3; stroke-linecap: round"/>
+   </g>
+   <g id="title">
+    <text style="font-weight: 700; font-size: 31.68px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="40.32" y="41.8617" transform="rotate(-0 40.32 41.8617)">Detail 13 · Software split and feedback loops</text>
+   </g>
+   <g id="subtitle">
+    <text style="font-size: 18px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="41.76" y="85.606875" transform="rotate(-0 41.76 85.606875)">Planned roles for future software. No firmware, bridge code, file names or commands exist yet.</text>
+   </g>
+   <g id="footer">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #3d4f66" x="40.32" y="1059.29325" transform="rotate(-0 40.32 1059.29325)">Pip v0.3 · code-drawn diagram, not a photo · no part of Pip has been built or tested   · illustrations/assembly_vectors.py</text>
+   </g>
+   <g id="heading-robot">
+    <text style="font-weight: 700; font-size: 18.72px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="60.48" y="168.093787" transform="rotate(-0 60.48 168.093787)">ROBOT</text>
+   </g>
+   <g id="title-pico">
+    <text style="font-weight: 700; font-size: 19.44px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #14305a" x="316.8" y="216.968287" transform="rotate(-0 316.8 216.968287)">Pico 2 WH (body)</text>
+   </g>
+   <g id="sub-pico">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #3d4f66" x="316.8" y="248.316975" transform="rotate(-0 316.8 248.316975)">safety and control, local</text>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="86.4" y="287.947125" transform="rotate(-0 86.4 287.947125)">•</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="115.2" y="286.5735" transform="rotate(-0 115.2 286.5735)">Safety supervisor: never waits on Wi-Fi</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="86.4" y="310.699125" transform="rotate(-0 86.4 310.699125)">•</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="115.2" y="309.3255" transform="rotate(-0 115.2 309.3255)">Motor commands expire after 0.2 s; watchdog</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="86.4" y="333.451125" transform="rotate(-0 86.4 333.451125)">•</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="115.2" y="332.737875" transform="rotate(-0 115.2 332.737875)">Button A wake, Button B movement enable</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="86.4" y="356.203125" transform="rotate(-0 86.4 356.203125)">•</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="115.2" y="355.489875" transform="rotate(-0 115.2 355.489875)">Servo ±70° firmware limit, slew-limited</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="86.4" y="378.955125" transform="rotate(-0 86.4 378.955125)">•</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="115.2" y="377.5815" transform="rotate(-0 115.2 377.5815)">ToF stop at 350 mm; tilt-stop heuristic</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="86.4" y="401.707125" transform="rotate(-0 86.4 401.707125)">•</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="115.2" y="400.3335" transform="rotate(-0 115.2 400.3335)">OLED, touch pads, RGB LED, buzzer</text>
+   </g>
+   <g id="title-head">
+    <text style="font-weight: 700; font-size: 19.44px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #14305a" x="316.8" y="620.983856" transform="rotate(-0 316.8 620.983856)">DFR1154 (head)</text>
+   </g>
+   <g id="sub-head">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #3d4f66" x="316.8" y="651.516975" transform="rotate(-0 316.8 651.516975)">camera · PDM mic · amp + speaker</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(86.4 704.1735)">Streams camera frames and microphone audio. Plays speech</text>
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(86.4 722.1735)">audio from the laptop.</text>
+   </g>
+   <g id="title-lap">
+    <text style="font-weight: 700; font-size: 19.44px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #14305a" x="1065.6" y="166.568287" transform="rotate(-0 1065.6 166.568287)">Laptop bridge</text>
+   </g>
+   <g id="sub-lap">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #3d4f66" x="1065.6" y="197.916975" transform="rotate(-0 1065.6 197.916975)">FUTURE · runs locally</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #14305a" x="1065.6" y="243.236925" transform="rotate(-0 1065.6 243.236925)">Person detector + tracker</text>
+   </g>
+   <g id="text_15">
+    <text style="font-weight: 700; font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #14305a" x="1065.6" y="306.513113" transform="rotate(-0 1065.6 306.513113)">Track ID, freshness and range</text>
+   </g>
+   <g id="text_16">
+    <text style="font-weight: 700; font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #14305a" x="1065.6" y="407.372175" transform="rotate(-0 1065.6 407.372175)">Voice detection → speech-to-text (local first)</text>
+   </g>
+   <g id="text_17">
+    <text style="font-weight: 700; font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #14305a" x="1065.6" y="472.113112" transform="rotate(-0 1065.6 472.113112)">Dialogue manager + safety filter</text>
+   </g>
+   <g id="text_18">
+    <text style="font-weight: 700; font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #14305a" x="1065.6" y="536.972175" transform="rotate(-0 1065.6 536.972175)">Text-to-speech (local first)</text>
+   </g>
+   <g id="text_19">
+    <text style="font-weight: 700; font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(835.2 629.23725)">OpenRouter API key lives here only: adult-owned, with a</text>
+    <text style="font-weight: 700; font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(835.2 647.76825)">credit limit. Never on the robot, never in the</text>
+    <text style="font-weight: 700; font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(835.2 665.23725)">repository.</text>
+   </g>
+   <g id="text_20">
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #3d4f66" transform="translate(820.8 740.1735)">The bridge sends targets and behaviours. It never commands</text>
+    <text style="font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #3d4f66" transform="translate(820.8 759.5685)">wheel PWM.</text>
+   </g>
+   <g id="title-or">
+    <text style="font-weight: 700; font-size: 19.44px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #14305a" x="1566" y="382.472606" transform="rotate(-0 1566 382.472606)">OpenRouter</text>
+   </g>
+   <g id="sub-or">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #3d4f66" transform="translate(1525.134656 415.381725)">text model</text>
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #3d4f66" transform="translate(1519.517813 432.060975)">(provisional,</text>
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #3d4f66" transform="translate(1502.266838 450.204975)">provider-neutral)</text>
+   </g>
+   <g id="text_21">
+    <g id="patch_14">
+     <path d="M 599.861138 324.378 
+L 760.938863 324.378 
+Q 767.778863 324.378 767.778863 317.538 
+L 767.778863 304.542 
+Q 767.778863 297.702 760.938863 297.702 
+L 599.861138 297.702 
+Q 593.021138 297.702 593.021138 304.542 
+L 593.021138 317.538 
+Q 593.021138 324.378 599.861138 324.378 
+z
+" style="fill: #ffffff; stroke: #9da9b8; stroke-width: 1.5; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 13.68px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #14305a" x="680.4" y="314.814825" transform="rotate(-0 680.4 314.814825)">telemetry 10 Hz, events</text>
+   </g>
+   <g id="text_22">
+    <g id="patch_15">
+     <path d="M 581.384588 396.378 
+L 779.415413 396.378 
+Q 786.255413 396.378 786.255413 389.538 
+L 786.255413 376.542 
+Q 786.255413 369.702 779.415413 369.702 
+L 581.384588 369.702 
+Q 574.544588 369.702 574.544588 376.542 
+L 574.544588 389.538 
+Q 574.544588 396.378 581.384588 396.378 
+z
+" style="fill: #ffffff; stroke: #9da9b8; stroke-width: 1.5; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 13.68px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #14305a" x="680.4" y="386.814825" transform="rotate(-0 680.4 386.814825)">targets, behaviour, heartbeat</text>
+   </g>
+   <g id="text_23">
+    <g id="patch_16">
+     <path d="M 592.80525 662.778 
+L 767.99475 662.778 
+Q 774.83475 662.778 774.83475 655.938 
+L 774.83475 642.942 
+Q 774.83475 636.102 767.99475 636.102 
+L 592.80525 636.102 
+Q 585.96525 636.102 585.96525 642.942 
+L 585.96525 655.938 
+Q 585.96525 662.778 592.80525 662.778 
+z
+" style="fill: #ffffff; stroke: #9da9b8; stroke-width: 1.5; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 13.68px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #14305a" x="680.4" y="653.842181" transform="rotate(-0 680.4 653.842181)">camera frames, mic audio</text>
+   </g>
+   <g id="text_24">
+    <g id="patch_17">
+     <path d="M 584.834513 734.778 
+L 775.965488 734.778 
+Q 782.805488 734.778 782.805488 727.938 
+L 782.805488 714.942 
+Q 782.805488 708.102 775.965488 708.102 
+L 584.834513 708.102 
+Q 577.994513 708.102 577.994513 714.942 
+L 577.994513 727.938 
+Q 577.994513 734.778 584.834513 734.778 
+z
+" style="fill: #ffffff; stroke: #9da9b8; stroke-width: 1.5; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 13.68px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: middle; fill: #14305a" x="680.4" y="725.214825" transform="rotate(-0 680.4 725.214825)">speech audio, camera on/off</text>
+   </g>
+   <g id="text_25">
+    <g id="patch_18">
+     <path d="M 1373.405681 426.528 
+L 1412.994319 426.528 
+Q 1419.834319 426.528 1419.834319 419.688 
+L 1419.834319 389.592 
+Q 1419.834319 382.752 1412.994319 382.752 
+L 1373.405681 382.752 
+Q 1366.565681 382.752 1366.565681 389.592 
+L 1366.565681 419.688 
+Q 1366.565681 426.528 1373.405681 426.528 
+z
+" style="fill: #ffffff; stroke: #9da9b8; stroke-width: 1.5; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 13.68px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(1379.69955 400.795706)">text</text>
+    <text style="font-size: 13.68px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(1371.353681 418.169306)">HTTPS</text>
+   </g>
+   <g id="text_26">
+    <g id="patch_19">
+     <path d="M 1378.091081 498.528 
+L 1408.308919 498.528 
+Q 1415.148919 498.528 1415.148919 491.688 
+L 1415.148919 461.592 
+Q 1415.148919 454.752 1408.308919 454.752 
+L 1378.091081 454.752 
+Q 1371.251081 454.752 1371.251081 461.592 
+L 1371.251081 491.688 
+Q 1371.251081 498.528 1378.091081 498.528 
+z
+" style="fill: #ffffff; stroke: #9da9b8; stroke-width: 1.5; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-size: 13.68px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(1379.69955 472.795706)">text</text>
+    <text style="font-size: 13.68px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(1376.039081 488.964825)">reply</text>
+   </g>
+   <g id="text_27">
+    <text style="font-weight: 700; font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #3d4f66" transform="translate(670.415625 176.470875)">Wi-Fi</text>
+    <text style="font-weight: 700; font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #3d4f66" transform="translate(623.583 192.9735)">(LAN or hotspot)</text>
+   </g>
+   <g id="heading-loops">
+    <text style="font-weight: 700; font-size: 18.72px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="60.48" y="915.24555" transform="rotate(-0 60.48 915.24555)">Feedback loops (planned)</text>
+   </g>
+   <g id="text_28">
+    <text style="font-weight: 700; font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="64.8" y="943.761712" transform="rotate(-0 64.8 943.761712)">1.</text>
+   </g>
+   <g id="text_29">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="93.6" y="942.422175" transform="rotate(-0 93.6 942.422175)">Head tracking: camera → tracker → track message → Pico → servo → new camera view.</text>
+   </g>
+   <g id="text_30">
+    <text style="font-weight: 700; font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="64.8" y="970.414538" transform="rotate(-0 64.8 970.414538)">2.</text>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="93.6" y="968.975775" transform="rotate(-0 93.6 968.975775)">Follow distance: ToF → Pico → motors. Runs on the Pico; gated by target and range checks.</text>
+   </g>
+   <g id="text_32">
+    <text style="font-weight: 700; font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="885.6" y="943.761712" transform="rotate(-0 885.6 943.761712)">1.</text>
+   </g>
+   <g id="text_33">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(914.4 942.422175)">Wi-Fi drop: motor commands expire after 0.2 s, so motion stops; the heartbeat timeout is</text>
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; fill: #14305a" transform="translate(914.4 961.322175)">a second stop. Pico-only games continue.</text>
+   </g>
+   <g id="text_34">
+    <text style="font-weight: 700; font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="885.6" y="989.768137" transform="rotate(-0 885.6 989.768137)">2.</text>
+   </g>
+   <g id="text_35">
+    <text style="font-size: 15.12px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: start; fill: #14305a" x="914.4" y="988.329375" transform="rotate(-0 914.4 988.329375)">Nothing offline is presented as AI. The robot does not follow anyone offline.</text>
+   </g>
+   <g id="badge-ALL-SOFTWARE-FUTURE">
+    <g id="patch_20">
+     <path d="M 1464.2874 57.6576 
+L 1679.3856 57.6576 
+Q 1694.9376 57.6576 1694.9376 42.1056 
+L 1694.9376 41.4144 
+Q 1694.9376 25.8624 1679.3856 25.8624 
+L 1464.2874 25.8624 
+Q 1448.7354 25.8624 1448.7354 41.4144 
+L 1448.7354 42.1056 
+Q 1448.7354 57.6576 1464.2874 57.6576 
+z
+" style="fill: #d4e6f9; stroke: #3c6ea8; stroke-width: 2; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 17.28px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: end; fill: #14305a" x="1687.68" y="46.24875" transform="rotate(-0 1687.68 46.24875)">ALL SOFTWARE FUTURE</text>
+   </g>
+   <g id="badge-FUTURE">
+    <g id="patch_21">
+     <path d="M 1610.46 923.328 
+L 1660.608 923.328 
+Q 1673.568 923.328 1673.568 910.368 
+L 1673.568 909.792 
+Q 1673.568 896.832 1660.608 896.832 
+L 1610.46 896.832 
+Q 1597.5 896.832 1597.5 909.792 
+L 1597.5 910.368 
+Q 1597.5 923.328 1610.46 923.328 
+z
+" style="fill: #d4e6f9; stroke: #3c6ea8; stroke-width: 2; stroke-linejoin: miter"/>
+    </g>
+    <text style="font-weight: 700; font-size: 14.4px; font-family: 'DejaVu Sans', 'Helvetica Neue', Arial, sans-serif; text-anchor: end; fill: #14305a" x="1667.52" y="913.820625" transform="rotate(-0 1667.52 913.820625)">FUTURE</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pef26f1daeb">
+   <rect x="0" y="0" width="1728" height="1080"/>
+  </clipPath>
+ </defs>
+</svg>
