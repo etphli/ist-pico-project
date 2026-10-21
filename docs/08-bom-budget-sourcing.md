@@ -2,7 +2,7 @@
 
 > **Purchase status: HOLD. Do not order anything from this page.** No complete configuration was found that meets every requirement within the **AU$70 total** (hardware plus delivery). The full concept below is an **over-budget alternative for comparison only**. The reduced-scope options in §4 drop requested functions. They are listed only so the user can decide whether to accept one. None of them is the requested robot.
 
-Prices are AU$ including GST, read on **2026-10-19** from Core Electronics' live catalogue (product pages and catalogue search, both generated from Core's live stock system). Later the same day Core stopped responding, so the full-concept cart could not be quoted end to end. Stock changes daily. Machine-readable version: [`bom.csv`](bom.csv).
+Comparison prices are AU$ including GST, last read on **2026-10-19** from Core Electronics' live catalogue (product pages and catalogue search, both generated from Core's live stock system). Later the same day Core stopped responding, so the full-concept cart could not be quoted end to end. Stock changes daily. Machine-readable version: [`bom.csv`](bom.csv).
 
 ## 1. Already owned (AU$0)
 
@@ -12,7 +12,9 @@ Prices are AU$ including GST, read on **2026-10-19** from Core Electronics' live
 
 **Confirmed owned:** MINISO QW01 10,000 mAh power bank. Approximate size 130 × 60 × 10 mm, micro-USB input and two USB-A outputs, each reported 5 V / 2 A. Combined output and fit remain unverified. No spare Android phone.
 
-**Not confirmed as owned:** small screws, wire, a hook-and-loop strap and two O-rings or rubber bands. The full concept needs two suitable USB-A outputs; ownership alone does not establish compatibility. See [00](00-status-assumptions-decisions.md) A4–A5.
+**Not confirmed as owned:** small screws, wire, two hook-and-loop straps and two O-rings or rubber bands. The full concept needs two suitable USB-A outputs; ownership alone does not establish compatibility. See [00](00-status-assumptions-decisions.md) A4–A5.
+
+The 21 October v0.3 revision adapts the mechanics to the owned QW01. It does not approve additional spending or change the AU$70 total cap. Battery ownership adds AU$0 only if its electrical and physical checks pass; the branch-protection solution and any extra plugs/cables remain unselected and unpriced.
 
 ## 2. What changed from the first concept, and why
 
@@ -45,9 +47,9 @@ Every requirement is addressed by a part. The power design is still subject to t
 | | **Priced subtotal (hardware)** | | | | **121.78** | | |
 | B13 | Delivery | Core | 1 | — | **not quoted** | — | Core quoted AU$6.25 standard to example postcode 2000 for two smaller test carts the same day. Delivery depends on the cart and postcode. |
 | B14 | Stranded wire ~22 AWG, ~0.3 m red + ~0.3 m black | — | — | — | **unpriced** | — | No cheaper verified short pack found. Do not buy two spools for 30 cm. |
-| B15 | Power bank, **2 × USB-A out**, combined ≥ 3 A preferred, stays on at low load | — | 1 | — | **owned, AU$0 if compatible** | — | Core's AU$26.95 5000 mAh bank has one output, so it does not suit this topology. An owned bank must be checked ([05](05-power-budget-charging.md)). |
-| B16 | Screws: 14 × M3 × 10–12 pan-head thread-forming for plastic, 4 × M2.5 × 6 | — | — | — | **unpriced** | — | List and locations in [11](11-mechanical-design-print-assembly.md) §6 |
-| B17 | Hook-and-loop strap (bank), 2 O-rings ~60 mm ID (tyres) | — | — | — | **unpriced** | — | maybe owned |
+| B15 | Owned MINISO QW01, micro-USB in; **2 × USB-A out**, reported 5 V / 2 A each; combined output unknown | — | 1 | — | **owned, AU$0 if compatible** | — | Core's AU$26.95 5000 mAh bank has one output, so it does not suit this topology. An owned bank must be checked ([05](05-power-budget-charging.md)). |
+| B16 | Screws: 15 × M3 total (4 shell M3×10, 1 hatch M3×8, 4 frame M3×12, 2 head M3×10, 4 controller M3×8), 4 × M2.5 × 6 | — | — | — | **unpriced** | — | List and locations in [11](11-mechanical-design-print-assembly.md) §6 |
+| B17 | 2 hook-and-loop straps, about 12 × 250 mm (bank), 2 O-rings ~60 mm ID (tyres) | — | — | — | **unpriced** | — | maybe owned |
 
 **Result:** priced hardware alone is AU$121.78, before delivery, wire, screws and strap. The owned bank adds no purchase cost if it proves compatible. That is **AU$51.78 over the cap before the unpriced items**. Status: **over budget, HOLD.**
 

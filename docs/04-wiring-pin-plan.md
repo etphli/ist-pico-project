@@ -4,11 +4,13 @@
 
 ## 1. Ground rules
 
+This v0.3 plan uses the owned MINISO QW01. Its micro-USB socket is the charging input, while its two USB-A sockets supply the body and camera separately. Each output is reported as 5 V / 2 A; the shared total remains unknown. The present body branch's fault estimate exceeds 2 A, so the connection list below is not cleared for assembly. Bank ports, plug clearance and lead routing must match the revised [mechanical layout](11-mechanical-design-print-assembly.md).
+
 1. **No soldering anywhere.** Every connection is a plug, a socket, a screw terminal or a lever connector. Stripping insulation is allowed. Cutting is allowed only where stated (option R1).
 2. Motor current flows only through the Kitronik terminals and the motors' own leads. Body supply current flows only through the ADA3628 terminals, ~22 AWG wire and the lever connectors. **No motor or supply current** goes through the Pico's pins, PiicoDev cables, breadboards or jumper pins. The servo's own current goes through jumper tails into its plug; ≤ 0.8 A at stall (listing). Check the jumper gauge on delivery.
 3. Logic is 3.3 V. Never connect 5 V to a GPIO or to the PiicoDev chain.
 4. One common ground ([05](05-power-budget-charging.md) §2).
-5. Body switch off and both bank plugs out before changing any connection.
+5. Body switch off and both bank plugs out before changing any connection. Do not join the USB outputs together or add a Y cable to combine their current.
 
 ## 2. Pin allocation (Pico 2 WH on Kitronik 5331)
 

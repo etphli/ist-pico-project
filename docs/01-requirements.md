@@ -13,7 +13,7 @@ Pip is a small, rounded robot that gets children aged 5–8 playing away from sc
 | F1 | M | Built around the user's Pico 2 WH | Pico 2 WH in a Kitronik 5331 motor board | designed | Inspection |
 | F2 | M | Four wheels | 2 driven TT wheels + 2 printed swivel casters | designed | T-DRV |
 | F3 | M | Head that pans | FS90 in a protected neck, slip clutch, ±75° stops | designed; servo supply gate PG2 | T-PAN |
-| F4 | M | Onboard rechargeable battery, accessible charge port | USB power bank in the base; charge input behind the rear door | designed; bank not selected (PG1) | T-PWR |
+| F4 | M | Onboard rechargeable battery, accessible charge port | owned MINISO QW01 power bank in the base; charge input behind the rear door | designed; bank not selected (PG1) | T-PWR |
 | F5 | M | Camera tracks a person | DFR1154 camera behind the left eye; tracking on the laptop; L1–L3 | designed | T-CAM |
 | F6 | M | Two rear buttons: wake and movement enable | Two PiicoDev Buttons behind printed rear plungers (A white = wake/sleep, B dark = movement enable). The body power switch is separate. | designed | T-UI-1..4 |
 | F7 | M | Screen in the middle of the body for questions | Kit OLED 128×64 behind a belly window; 3 touch pads below | designed | T-UI-5..6 |
@@ -34,9 +34,9 @@ Pip is a small, rounded robot that gets children aged 5–8 playing away from sc
 | ID | Requirement | Target (to be measured) |
 |---|---|---|
 | N1 | Friendly, rounded, white, upright, dark eyes; original design | ~300 mm tall, Ø195 mm body |
-| N2 | Stability | Static tip angle ≥ 25° all directions (CAD estimate 26–33° with guessed masses) |
+| N2 | Stability | Static tip angle ≥ 25° all directions (see generated report; bank mass excluded until weighed) |
 | N3 | Speed near children | ≤ 0.25 m/s |
-| N4 | Runtime | ≥ 1 h play; unknown until a bank is chosen |
+| N4 | Runtime | ≥ 1 h play; unmeasured for the owned QW01 |
 | N5 | Reply latency | ≤ 3 s target |
 | N6 | Tracking update rate | ≥ 5 Hz target |
 | N7 | Serviceability | Shells off with a screwdriver from underneath; modules plug in; Pico USB reachable with the rear shell off |

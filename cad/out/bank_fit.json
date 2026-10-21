@@ -1,0 +1,91 @@
+{
+ "version": "0.3-prototype",
+ "params": {
+  "bank_model": "MINISO QW01 10000 mAh (owned)",
+  "size_status": "user approximate estimate 2026-10-20; not measured",
+  "nominal_mm": [
+   130.0,
+   60.0,
+   10.0
+  ],
+  "accommodated_min_mm": [
+   126.0,
+   56.0,
+   8.0
+  ],
+  "accommodated_max_mm": [
+   134.0,
+   64.0,
+   16.0
+  ],
+  "port_plane_x": -47.5,
+  "port_assumptions": {
+   "y_max": 16.0,
+   "edge_z": 3.0,
+   "all_on_rear_end": true
+  },
+  "plugs_mm_protrusion_w_h_bend": {
+   "out1_ADA3628": [
+    40.0,
+    19.0,
+    11.4,
+    8.0
+   ],
+   "out2_USB-A_to_C": [
+    32.0,
+    16.0,
+    9.0,
+    12.0
+   ],
+   "charge_micro_USB": [
+    25.0,
+    11.0,
+    7.0,
+    15.0
+   ]
+  },
+  "plug_sweep_depth": 48.0,
+  "plug_sweep_y": 25.5,
+  "plug_sweep_z": [
+   46.3,
+   67.7
+  ],
+  "default_shim_mm": 1.8,
+  "default_spacer_mm": 3.8,
+  "hatch_screw": "1 x M3 x 8 pan head, thread-forming"
+ },
+ "results": {
+  "K1 largest bank": {
+   "clear": true,
+   "hits": {}
+  },
+  "K2 plug sweep": {
+   "clear": true,
+   "hits": {}
+  },
+  "K3 open end face": {
+   "clear": true,
+   "hits": {}
+  },
+  "K4 access path": {
+   "clear": true,
+   "hits": {}
+  },
+  "K5 lead route": {
+   "clear": true,
+   "hits": {}
+  },
+  "K6 strap path": {
+   "clear": true,
+   "hits": {}
+  },
+  "keeper_end_face_mm3": 98.52,
+  "floor_nominal": 1.0,
+  "floor_largest": 1.0,
+  "floor_smallest": 1.0,
+  "hatch_gap": 0.28,
+  "pod_to_plug_sweep": 1.9,
+  "legacy_collision_mm3": 1813.6,
+  "v03_column_overlap_mm3": 0.0
+ }
+}

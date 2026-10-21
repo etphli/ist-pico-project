@@ -4,10 +4,10 @@
 
 Pip is a friendly, rounded, white companion robot for children aged 5–8 that encourages **off-screen play**. The design: Pip follows a selected child on four wheels, pans its head to look at them, asks questions on a belly screen, takes answers from touch pads or by voice, and talks through a web AI model reached over Wi-Fi via a nearby laptop. It is built around a **Raspberry Pi Pico 2 WH** and the **PiicoDev Starter Kit**, with **no soldering**.
 
-> **Status (2026-10-19): design v0.2. Design only; firmware not implemented. Purchase status: HOLD.**
+> **Status (2026-10-21): design v0.3. Design only; firmware not implemented. Purchase status: HOLD.**
 > No configuration meeting every requirement within the **AU$70 total** was found. The full concept's priced hardware is AU$121.78 before delivery and unpriced items. Reduced-scope options are listed for the user's decision ([docs/08](docs/08-bom-budget-sourcing.md)). The power design has verification gates that must pass before wiring ([docs/05](docs/05-power-budget-charging.md)). The CAD is a parametric prototype with placeholder dimensions for bought parts. Review status: [docs/13](docs/13-design-review.md).
 
-![Pip CAD v0.2 reference elevations](cad/out/preview_front_reference.png)
+![Pip CAD v0.3 reference elevations](cad/out/preview_front_reference.png)
 
 ## Key facts
 
@@ -15,10 +15,12 @@ Pip is a friendly, rounded, white companion robot for children aged 5–8 that e
   - Body: Pico 2 WH on a Kitronik 5331 motor board (DRV8833, with protection stated by Kitronik), 2 TT motors + 2 printed casters, FS90 head servo in a slip-clutch neck.
   - Head: DFRobot ESP32-S3 camera board with mic and speaker amplifier.
   - Rear buttons: two PiicoDev Buttons (wake, movement enable).
-  - Display: kit OLED in the belly. Power: USB power bank behind a rear charge door.
+  - Display: kit OLED in the belly. Power: owned MINISO QW01, approximately 130 × 60 × 10 mm, with micro-USB charging and two USB-A outputs reported as 5 V / 2 A each. Combined simultaneous output is unverified.
 - **Closed loops:** camera head tracking, body-yaw assist, ToF follow distance (gated by target selection, freshness, alignment and range plausibility, with a 350 mm stop), tilt-stop heuristic, quiz adaptation ([docs/02](docs/02-architecture.md)).
 - **Not claimed:** motor-stall detection, reliable lift detection, edge detection, automatic reversing. Supervised floor use only ([docs/06](docs/06-safety.md)).
 - **AI split:** the Pico runs control and safety. The laptop runs tracking and speech locally and calls an LLM on OpenRouter (provider-neutral). No API calls were made and no keys exist in this repo.
+
+The v0.3 layout uses the bank's approximate dimensions, a fixed accommodation envelope, removable fillers, two retention straps and a screw-retained rear service hatch. The model assumes the required ports face the rear hatch. Exact dimensions, mass, port positions and electrical load tests are still needed before final printing or wiring. The budget remains AU$70 total; the AU$121.78 comparison BOM is a historical 19 October estimate, not an approved order.
 
 ## Documentation
 

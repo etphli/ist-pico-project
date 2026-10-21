@@ -1,4 +1,4 @@
-"""Pip companion robot - CAD v0.2 part geometry.
+"""Pip companion robot - CAD v0.3 part geometry.
 
 Every function returns a manifold3d.Manifold positioned in ASSEMBLY coordinates
 (see params.py). build.py re-orients printable parts for export.
@@ -17,6 +17,7 @@ from .prims import (box, cyl_x, cyl_y, cyl_z, interp_profile, polar, ring_sector
                     rounded_box, solid_of_profile, tube_z, union)
 
 pr, B, D, C, BAT, BD, N, H, F = P.pr, P.body, P.drive, P.caster, P.bat, P.boards, P.neck, P.head, P.front
+HT = P.hatch
 
 
 # --------------------------------------------------------------------------- derived
@@ -38,7 +39,7 @@ class Derived:
     deck_top: float = B.top_deck_z + B.top_deck_t
     neck_top: float = B.top_deck_z + B.top_deck_t + N.h
     head_floor_z: float = B.top_deck_z + B.top_deck_t + N.h + H.gap_above_neck
-    column_xy: tuple = ((24.0, 27.0), (24.0, -27.0))
+    column_xy: tuple = ((24.0, 27.0), (24.0, -27.0))     # column UPPER axis (deck sockets, unchanged from v0.2)
     upright_x: tuple = (-34.0, -30.0)
 
 
@@ -50,7 +51,33 @@ WELL_X = D.wheel_d / 2 + D.wheel_well_gap
 WELL_TOP = D.wheel_d + D.wheel_well_gap
 CASTER_HOLE_R = C.trail + C.wheel_d / 2 + 2.0
 CASTER_ROOF_Z = C.lift + C.wheel_d + 2.0 + C.fork_t + 0.5      # underside of tower roof
-TRAY_LEGS = ((45.0, 28.0), (45.0, -28.0), (-80.0, 36.0), (-80.0, -36.0))
+TRAY_LEGS = ((60.0, 40.0), (60.0, -40.0), (-72.0, 40.0), (-72.0, -40.0))   # v0.3: moved clear of the bank
+# v0.3 front columns: the 130 mm bank runs under them, so the LOWER axis moves outboard to
+# |y| = 43 and each column jogs back in to the unchanged deck sockets above the bank.
+COLUMN_LOW = ((24.0, 43.0), (24.0, -43.0))
+COLUMN_JOG_Z = (138.0, 162.0)
+COLUMN_R = 6.0
+
+# --------------------------------------------------------------------------- power bank (QW01)
+# Every bank number below derives from the APPROXIMATE user size plus the accommodation band in
+# params.Battery. The cradle is sized for the largest accommodated bank; printed shims, a front
+# spacer and two corner keepers take up the difference for the bank actually measured.
+BANK_L_MAX = BAT.len_range[1]
+BANK_W_MAX = BAT.w_range[1]
+BANK_T_MAX = BAT.t_range[1]
+BANK_L_MIN = BAT.len_range[0]
+BANK_W_MIN = BAT.w_range[0]
+BANK_T_MIN = BAT.t_range[0]
+CAV_HW = BANK_W_MAX / 2 + BAT.fit_gap                 # side-rail inner face |y|
+CAV_X1 = BAT.port_x + BANK_L_MAX + BAT.fit_gap        # front-wall inner face
+SPACER_X = (BAT.port_x + BAT.len_nom + BAT.fit_gap, CAV_X1 - 0.2)    # front spacer for len_nom
+SHIM_Y = (BAT.w_nom / 2 + BAT.fit_gap, CAV_HW - 0.2)                  # side shim for w_nom
+_PLUGS = (BAT.plug_out1, BAT.plug_out2, BAT.plug_charge)
+PLUG_LEN = max(p[0] + p[3] for p in _PLUGS)           # straight plug + cable bend, behind the port face
+SWEEP_Y = BAT.port_y_max + max(p[1] for p in _PLUGS) / 2
+SWEEP_Z = (B.tray_z + B.tray_t + BAT.port_edge_z - max(p[2] for p in _PLUGS) / 2,
+           B.tray_z + B.tray_t + BANK_T_MAX - BAT.port_edge_z + max(p[2] for p in _PLUGS) / 2)
+STRAP_SLOT_Y = (CAV_HW + BAT.rail_t + 0.5, CAV_HW + BAT.rail_t + 3.7)
 SHELL_RIB_ANGLES = (40.0, -40.0, 140.0, -140.0)
 # Shells are screwed from UNDER the base plate (adult, tool needed) into bosses inside the
 # shell rim. The v0.1 roof screws sat under the head and could not be reached.
@@ -128,13 +155,13 @@ def base_plate():
         adds.append(cyl_z(C.tower_r, CASTER_ROOF_Z, CASTER_ROOF_Z + 5, cx, 0))
         cuts.append(cyl_z(CASTER_HOLE_R, B.base_z - 1, CASTER_ROOF_Z, cx, 0, segs=64))
         cuts.append(cyl_z(C.stem_d / 2 + pr.clearance, CASTER_ROOF_Z - 1, CASTER_ROOF_Z + 6, cx, 0))
-    # columns, tray legs: peg sockets
-    for (x, y) in DV.column_xy:
+    # columns (lower axis), tray legs: peg sockets
+    for (x, y) in COLUMN_LOW:
         cuts.append(cyl_z(3.0 + pr.clearance / 2, pt - 3, pt + 0.1, x, y))
     for (x, y) in TRAY_LEGS:
         cuts.append(cyl_z(2.5 + pr.clearance / 2, pt - 3, pt + 0.1, x, y))
     # frame screws: M3 from below through the plate into each column (pan head under the plate)
-    for (x, y) in DV.column_xy:
+    for (x, y) in COLUMN_LOW:
         cuts.append(cyl_z(M3_CLEAR_R, B.base_z - 1, pt + 0.1, x, y, segs=20))
     # shell screws: M3 from below into the shell rim bosses, head in a counterbore
     for a in SHELL_SCREW_ANG_FRONT + SHELL_SCREW_ANG_REAR:
@@ -170,43 +197,81 @@ def motor_strap():
 
 
 def tray():
+    """Battery tray = QW01 cradle. Side rails and front wall are sized for the LARGEST bank in
+    the accommodation band; the rear (port) end is fully open, and the floor behind the port
+    plane is cut away so plug overmoulds that hang below the bank are not blocked."""
     t0, t1 = B.tray_z, DV.tray_top
-    shape = box(-87, 56, -47, 47, t0, t1) ^ body_inner(1.2)
+    shape = box(-100, 100, -47, 47, t0, t1)
     adds = []
-    bx0, bx1 = BAT.rear_x - 0.6, BAT.rear_x + BAT.len + 0.6
-    by = BAT.w / 2 + 0.6
-    # low lip around the bank, open at the rear so the charge cable can reach
-    lip = box(bx0 - 2.4, bx1 + 2.4, -by - 2.4, by + 2.4, t1, t1 + 4) - box(bx0, bx1 + 0.01, -by, by, t1 - 1, t1 + 5)
-    lip = lip - box(bx0 - 3, bx0 + 1, -by + 4, by - 4, t1 - 1, t1 + 5)
-    adds.append(lip)
+    for s in (1, -1):
+        adds.append(box(BAT.port_x, CAV_X1 + BAT.rail_t, *sorted((s * CAV_HW, s * (CAV_HW + BAT.rail_t))),
+                        t1 - 0.01, t1 + BAT.rail_h))
+    adds.append(box(CAV_X1, CAV_X1 + 8.0, -CAV_HW - BAT.rail_t, CAV_HW + BAT.rail_t, t1 - 0.01, t1 + BAT.rail_h))
     for (x, y) in TRAY_LEGS:
         adds.append(cyl_z(5.0, DV.plate_top + 0.2, t0 + 0.01, x, y))
         adds.append(cyl_z(2.5 - pr.clearance / 2, DV.plate_top - 2.8, DV.plate_top + 0.3, x, y))
-    out = union([shape] + adds) ^ body_inner(1.0)
+    out = union([shape] + adds) ^ body_inner(1.2)
     cuts = []
-    for (x, y) in DV.column_xy:
-        cuts.append(cyl_z(6.0 + pr.clearance + 0.2, t0 - 1, t1 + 6, x, y))
+    for (x, y) in COLUMN_LOW:
+        cuts.append(cyl_z(COLUMN_R + pr.clearance + 0.2, t0 - 1, t1 + 6, x, y))
     for s in (1, -1):
-        # hook-and-loop strap slots
-        for sx in (-55.0, -5.0):
-            cuts.append(box(sx - 10, sx + 10, s * (by + 3.5) - 1.6, s * (by + 3.5) + 1.6, t0 - 1, t1 + 6))
+        # hook-and-loop strap slots just outside the rails (2 straps)
+        for sx in BAT.strap_x:
+            cuts.append(box(sx - BAT.strap_w / 2, sx + BAT.strap_w / 2, *sorted((s * STRAP_SLOT_Y[0], s * STRAP_SLOT_Y[1])),
+                            t0 - 1, t1 + 1))
         # upright leg sockets
         cuts.append(box(DV.upright_x[0] - 0.2, DV.upright_x[1] + 0.2, *sorted((s * 38.0, s * 46.0)), t1 - 2.0, t1 + 0.1))
         # motor/cable pass
-        cuts.append(box(-70, -60, *sorted((s * 36.0, s * 46.0)), t0 - 1, t1 + 1))
+        cuts.append(box(-62, -52, *sorted((s * 36.0, s * 46.0)), t0 - 1, t1 + 1))
+    # plug relief behind the port plane (the whole end stays open; port positions unknown)
+    cuts.append(box(-110, BAT.port_x, -SWEEP_Y - 1.0, SWEEP_Y + 1.0, t0 - 1, t1 + 1))
     return out - union(cuts)
 
 
-def column():
-    """Front structural column (print 2, lying down). Pegs into base and deck."""
-    x, y = DV.column_xy[0]
-    c = cyl_z(6.0, DV.plate_top, B.top_deck_z, x, y, segs=40)
-    c = c + cyl_z(3.0 - pr.clearance / 2, DV.plate_top - 2.8, DV.plate_top + 0.5, x, y)
-    c = c + cyl_z(3.0 - pr.clearance / 2, B.top_deck_z - 0.5, B.top_deck_z + 3.0, x, y)
+def bank_shim(side=1):
+    """Removable side shim (print one L, one R). Fills the rail gap left by the bank width:
+    thickness = CAV_HW - 0.2 - (w/2 + fit_gap), generated from Battery.w_nom (set it to the
+    measured width and rebuild). Its rear end carries a LOW corner keeper that stops the bank
+    sliding back; it reaches only keeper_overlap in from the side and keeper_h up, outside the
+    assumed port sweep. Trim it off if a port turns out to be closer to the edge."""
+    t1 = DV.tray_top
+    px, g = BAT.port_x, BAT.fit_gap
+    y0, y1 = SHIM_Y
+    strip = box(px - 2.3, SPACER_X[0] - 0.3, y0, y1, t1, t1 + BAT.rail_h)
+    keeper = box(px - 2.3, px - g, BAT.w_nom / 2 - BAT.keeper_overlap, y1, t1, t1 + BAT.keeper_h)
+    grip = box(px + 4.0, px + 14.0, y0, y1, t1 + BAT.rail_h - 0.01, t1 + BAT.rail_h + 3.0)
+    out = union([strip, keeper, grip])
+    return out if side > 0 else out.mirror((0, 1, 0))
+
+
+def bank_front_spacer():
+    """Front spacer: sets the bank's port end on the design port plane whatever its length.
+    Thickness = L_max - len_nom - fit_gap - 0.2; regenerate from the measured length."""
+    t1 = DV.tray_top
+    x0, x1 = SPACER_X
+    plate = box(x0, x1, -(CAV_HW - 0.2), CAV_HW - 0.2, t1, t1 + BAT.rail_h)
+    tab = box(x0, x1, -6.0, 6.0, t1 + BAT.rail_h - 0.01, t1 + BAT.rail_h + 4.0)
+    return plate + tab
+
+
+def column(low=None, high=None, jog=COLUMN_JOG_Z):
+    """Front structural column (print 2, lying down; the jog lies flat on the bed).
+    v0.3: lower axis at COLUMN_LOW (beside the bank), upper axis at the v0.2 deck socket.
+    Pegs into base and deck; M3 at both ends. low == high gives the straight v0.2 column."""
+    xh, yh = high or DV.column_xy[0]
+    xl, yl = low or COLUMN_LOW[0]
+    r = COLUMN_R
+    j0, j1 = jog
+    c = cyl_z(r, DV.plate_top, j0, xl, yl, segs=40)
+    c = c + Manifold.batch_hull([Manifold.sphere(r, 40).translate((xl, yl, j0)),
+                                 Manifold.sphere(r, 40).translate((xh, yh, j1))])
+    c = c + cyl_z(r, j1, B.top_deck_z, xh, yh, segs=40)
+    c = c + cyl_z(3.0 - pr.clearance / 2, DV.plate_top - 2.8, DV.plate_top + 0.5, xl, yl)
+    c = c + cyl_z(3.0 - pr.clearance / 2, B.top_deck_z - 0.5, B.top_deck_z + 3.0, xh, yh)
     # M3 pilot holes at both ends: base -> column -> deck is a screwed frame, so lifting
     # Pip by the head cannot pull the deck off the columns.
-    c = c - cyl_z(M3_PILOT_R, DV.plate_top - 3.0, DV.plate_top + 10.0, x, y, segs=16)
-    c = c - cyl_z(M3_PILOT_R, B.top_deck_z - 10.0, B.top_deck_z + 3.1, x, y, segs=16)
+    c = c - cyl_z(M3_PILOT_R, DV.plate_top - 3.0, DV.plate_top + 10.0, xl, yl, segs=16)
+    c = c - cyl_z(M3_PILOT_R, B.top_deck_z - 10.0, B.top_deck_z + 3.1, xh, yh, segs=16)
     return c
 
 
@@ -396,24 +461,20 @@ def rear_shell():
     s = _shell_solid() ^ box(-200, -0.15, -200, 200, 0, 400)
     bosses, boss_cuts = _shell_bosses(SHELL_SCREW_ANG_REAR)
     adds = _ribs(-1) + bosses
-    # charge-door rails (door slides vertically in a flat plane at DOOR_X)
-    for s_ in (1, -1):
-        rail = box(-110, DOOR_X1 + 0.6, *sorted((s_ * (DOOR_W / 2 + 0.4), s_ * (DOOR_W / 2 + 3.0))), DOOR_Z0 + 3.5, DOOR_Z0 + DOOR_H + DOOR_TRAVEL + 2)
-        lip = box(DOOR_X1 + 0.3, DOOR_X1 + 1.8, *sorted((s_ * (DOOR_W / 2 - 1.5), s_ * (DOOR_W / 2 + 3.0))), DOOR_Z0 + 3.5, DOOR_Z0 + DOOR_H + DOOR_TRAVEL + 2)
-        adds.append((rail + lip) ^ body_outer())
+    # screw ledge for the bank hatch: fused to the shell above the opening, reaching down
+    # behind the hatch's top band (0.3 mm gap) so the hatch closes onto it from outside
+    lx0, lx1 = HATCH_LEDGE_X
+    adds.append(box(lx0 + 0.3, lx1, -5.0, 5.0, HT.screw_z - 4.5, HT.z1 + pr.clearance + 0.01))
+    adds.append(box(HATCH_SI_MIN - 1.5, lx1, -5.0, 5.0, HT.z1 + pr.clearance, HT.z1 + 6.0) ^ body_outer())
     # button bosses (guide the plungers)
     for (u, z) in (BD.btn_wake_yz, BD.btn_move_yz):
         xi = shell_x(z, u, inner=True, sign=-1)
         adds.append(cyl_x(8.0, xi - 1, xi + 6, u, z) ^ body_outer())
     s = union([s] + adds)
     cuts = list(boss_cuts)
-    # charge port window (bank USB-C input)
-    pz = B.tray_z + B.tray_t + BAT.port_z_off
-    cuts.append(_through_window(pz, 0, BAT.port_w + 3, BAT.port_h + 3, side=-1))
-    # bank LED window (light shows through a clear/white insert)
-    cuts.append(_through_window(pz + 12, 0, *BAT.led_window, side=-1))
-    # door grip slot
-    cuts.append(_through_window(DOOR_Z0 + 4 + DOOR_TRAVEL / 2, 0, 5.0, DOOR_TRAVEL + 5, side=-1))
+    # bank service opening (closed by rear_hatch) + pilot for the hatch screw in the ledge
+    cuts.append(hatch_region(pr.clearance))
+    cuts.append(cyl_x(M3_PILOT_R, lx0, lx1 + 0.1, 0, HT.screw_z, segs=16))
     # rear buttons
     for (u, z) in (BD.btn_wake_yz, BD.btn_move_yz):
         cuts.append(cyl_x(PLUNGER_CAP_R + 0.35, -120, 0, u, z))
@@ -430,26 +491,56 @@ def rear_shell():
 
 
 # --------------------------------------------------------------------------- rear UI
-DOOR_W = 22.0
-DOOR_H = 22.0
-DOOR_T = 2.5
-DOOR_X1 = -88.0           # inner face of door plane
-DOOR_X0 = DOOR_X1 - DOOR_T
-DOOR_Z0 = B.tray_z + B.tray_t + BAT.port_z_off - DOOR_H / 2    # closed position bottom
-DOOR_TRAVEL = 24.0
 PLUNGER_CAP_R = 4.5
 
 
-def charge_door(open_=False):
-    """Sliding charge-port door (inside the rear shell, grip nub through a slot).
-    v0.1 is a plain cover. The planned interlock (door can only open when the power
-    switch actuator is OFF) is NOT modelled yet - it needs the measured Robo Pico
-    switch position. See docs/05 and docs/11."""
-    dz = DOOR_TRAVEL if open_ else 0.0
-    z0 = DOOR_Z0 + dz
-    door = box(DOOR_X0, DOOR_X1, -DOOR_W / 2, DOOR_W / 2, z0, z0 + DOOR_H)
-    door = door + box(shell_x(DOOR_Z0 + 4, 0, sign=-1) - 1.5, DOOR_X0 + 0.01, -2.0, 2.0, z0 + 2, z0 + 7)
-    return door
+def _rear_inner_x(ys, zs):
+    """Rear-shell inner-surface X over a Y-Z patch: (most negative, least negative)."""
+    xs = [shell_x(z, y, inner=True, sign=-1) for y in ys for z in zs]
+    return min(xs), max(xs)
+
+
+def _span(a, b, n=9):
+    return [a + (b - a) * i / (n - 1) for i in range(n)]
+
+
+HATCH_SI_MIN, _HSI = _rear_inner_x(_span(-5, 5), _span(HT.screw_z - 4.5, HT.z1 + 6))
+HATCH_LEDGE_X = (_HSI, _HSI + 6.3)          # ledge 6 mm thick (screw engagement)
+
+
+def hatch_region(grow=0.0, x0=-130.0, x1=-60.0):
+    """Rounded-rectangle hatch outline (Y-Z plane) extruded along X."""
+    w, z0, z1, r = HT.y_half + grow, HT.z0 - grow, HT.z1 + grow, HT.corner_r + grow
+    pts = [cyl_x(r, x0, x1, sy * (w - r), z) for sy in (1, -1) for z in (z0 + r, z1 - r)]
+    return Manifold.batch_hull(pts)
+
+
+def _pod(inset=0.0):
+    x0, x1 = HT.pod_x + inset, -60.0
+    y = HT.pod_y_half - inset
+    z0, z1 = HT.pod_z[0] + inset, HT.pod_z[1] - inset
+    return rounded_box((x0 + x1) / 2, 0, (z0 + z1) / 2, x1 - x0, 2 * y, z1 - z0, HT.pod_r - inset)
+
+
+def rear_hatch():
+    """Bank service hatch (adult, 1 x M3 x 8). A patch of the rear shell with a shallow raised
+    pod that gives the bank plugs room. Two bottom tongues hook behind the shell; one screw at
+    the top goes into the shell ledge. Removing it exposes the whole port end of the bank."""
+    r = hatch_region()
+    h = ((body_outer() + _pod()) ^ r) - body_inner(0.0) - (_pod(pr.shell) ^ hatch_region(-pr.shell))
+    xo = shell_x(HT.screw_z, 0, sign=-1)
+    xi = shell_x(HT.screw_z, 0, inner=True, sign=-1)
+    boss = (cyl_x(6.0, xo - 3.0, xo + 1.0, 0, HT.screw_z) ^ r) - body_inner(0.0)   # overlaps the pod top (no tangent edge)
+    adds = [boss]
+    for s in (1, -1):
+        y0, y1 = sorted((s * (HT.tongue_y - 4), s * (HT.tongue_y + 4)))
+        lo, hi = _rear_inner_x(_span(abs(y0), abs(y1)), _span(HT.z0 - 5, HT.z0 + 4))
+        adds.append(box(hi + 0.3, hi + 2.3, y0, y1, HT.z0 - 5.0, HT.z0 + 4.0))      # behind the shell
+        adds.append(box(lo - 1.0, hi + 2.3, y0, y1, HT.z0 + 0.4, HT.z0 + 4.0))       # bridge to the rim
+    h = union([h] + adds)
+    h = h - cyl_x(3.3, xo - 5.0, xo - 0.4, 0, HT.screw_z, segs=24)                  # head counterbore
+    h = h - cyl_x(M3_CLEAR_R, xo - 5.0, xi + 1.0, 0, HT.screw_z, segs=20)
+    return h
 
 
 SW_BAR = 6.0
@@ -740,8 +831,67 @@ def eye(which=1):
 
 # --------------------------------------------------------------------------- reference (bought) parts
 def ref_power_bank():
+    """MINISO QW01 at its NOMINAL (user-approximate) size, port end on the port plane."""
     z0 = DV.tray_top
-    return rounded_box(BAT.rear_x + BAT.len / 2, 0, z0 + BAT.t / 2, BAT.len, BAT.w, BAT.t, 5.0)
+    L, W, T = BAT.len_nom, BAT.w_nom, BAT.t_nom
+    return rounded_box(BAT.port_x + L / 2, 0, z0 + T / 2, L, W, T, BAT.corner_r)
+
+
+# Keep-out envelopes for the bank-fit regression (not printed, not in the assembly).
+def bank_envelope_max():
+    """Largest accommodated bank (nominal + tolerance), sharp-cornered: the physical
+    accommodation cavity that structure must never enter."""
+    t1 = DV.tray_top
+    return box(BAT.port_x, BAT.port_x + BANK_L_MAX, -BANK_W_MAX / 2, BANK_W_MAX / 2, t1, t1 + BANK_T_MAX)
+
+
+def bank_plug_keepout():
+    """Every assumed port position x the largest plug + its cable bend, behind the port plane."""
+    return box(BAT.port_x - PLUG_LEN, BAT.port_x, -SWEEP_Y, SWEEP_Y, *SWEEP_Z)
+
+
+def bank_end_face_keepout():
+    """The whole port end of the largest bank, kept open end_open_depth deep (port positions are
+    unknown). Only the removable corner keepers may enter it. Deeper, K2 covers the plugs."""
+    t1 = DV.tray_top
+    return box(BAT.port_x - BAT.end_open_depth, BAT.port_x, -BANK_W_MAX / 2, BANK_W_MAX / 2, t1, t1 + BANK_T_MAX)
+
+
+def bank_access_path():
+    """Straight reach from outside the body to the port sweep with the hatch removed."""
+    return box(-120.0, BAT.port_x, -SWEEP_Y, SWEEP_Y, *SWEEP_Z)
+
+
+def bank_cable_route():
+    """Service route for the two output leads: up the robot's left (+Y) behind the upright,
+    clear of the rear buttons (-Y), to the controller level and the upright cable windows."""
+    a = box(-82.0, -42.0, 4.0, 34.0, SWEEP_Z[1], 114.0)
+    b = box(-62.0, -40.0, 30.0, 45.0, 96.0, 150.0)
+    return (a + b) ^ body_inner(3.0)
+
+
+def bank_strap_band():
+    """Hook-and-loop strap path under the tray and through the slots (1.5 mm band)."""
+    out = []
+    for sx in BAT.strap_x:
+        x0, x1 = sx - BAT.strap_w / 2 + 0.5, sx + BAT.strap_w / 2 - 0.5
+        out.append(box(x0, x1, -STRAP_SLOT_Y[1] + 0.3, STRAP_SLOT_Y[1] - 0.3, B.tray_z - 1.5, B.tray_z - 0.05))
+        for s in (1, -1):
+            out.append(box(x0, x1, *sorted((s * (STRAP_SLOT_Y[0] + 0.3), s * (STRAP_SLOT_Y[1] - 0.3))),
+                           B.tray_z - 1.5, DV.tray_top + BANK_T_MAX))
+    return union(out)
+
+
+def legacy_v02_column():
+    """v0.2 straight column at the deck-socket axis (regression reference only)."""
+    return column(low=DV.column_xy[0], high=DV.column_xy[0])
+
+
+def legacy_qw01_at_v02_position():
+    """The QW01 nominal envelope placed where the v0.2 bank sat (rear face x=-84 on the tray):
+    the collision the v0.3 layout fixes. The bank-fit check must still detect it."""
+    t1 = DV.tray_top
+    return box(-84.0, -84.0 + BAT.len_nom, -BAT.w_nom / 2, BAT.w_nom / 2, t1, t1 + BAT.t_nom)
 
 
 def ref_tt_motor(side=1):

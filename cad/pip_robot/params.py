@@ -1,4 +1,4 @@
-"""Pip companion robot - CAD v0.2 parameters (millimetres).
+"""Pip companion robot - CAD v0.3 parameters (millimetres).
 
 EVERY dimension tagged `# MEASURE` is a placeholder taken from a datasheet,
 retailer listing or a typical part. It MUST be checked against the physical part
@@ -11,7 +11,7 @@ Coordinate system (assembly): origin on the floor under the robot centre,
 
 from dataclasses import dataclass, field
 
-VERSION = "0.2-prototype"
+VERSION = "0.3-prototype"
 
 
 @dataclass(frozen=True)
@@ -80,15 +80,54 @@ class Caster:
 
 @dataclass(frozen=True)
 class Battery:
-    # Consumer USB power bank, placeholder for a slim 10 000 mAh class bank.  # MEASURE
-    len: float = 100.0             # along X
-    w: float = 66.0                # along Y
-    t: float = 24.0                # along Z
-    rear_x: float = -84.0          # rear (charge-port) face X position
-    port_z_off: float = 12.0       # charge-port centre above bank underside   # MEASURE
-    port_w: float = 13.0           # USB-C plug overmold clearance window
-    port_h: float = 8.0
-    led_window: tuple = (8.0, 4.0)  # bank charge-level LED window          # MEASURE
+    # Owned MINISO QW01 10 000 mAh. Size is the USER'S APPROXIMATE estimate (2026-10-20:
+    # "about 13 x 6 x 1 cm"), NOT a measurement and NOT a datasheet value.       # MEASURE
+    len_nom: float = 130.0         # along X   user approx
+    w_nom: float = 60.0            # along Y   user approx
+    t_nom: float = 10.0            # along Z   user approx
+    # Accommodation band: the cradle, keep-outs and access are built for ANY bank inside
+    # these fixed size ranges. Updating the nominal bank size changes the fillers, not the rails.
+    len_range: tuple = (126.0, 134.0)
+    w_range: tuple = (56.0, 64.0)
+    t_range: tuple = (8.0, 16.0)     # thickness is the least certain ("about 1 cm")
+    corner_r: float = 3.0          # edge rounding of the preview envelope only  # MEASURE
+    fit_gap: float = 0.3           # bank -> shim / spacer / keeper gap
+    port_x: float = -47.5          # bank port (rear) end-face plane, held there by the front spacer
+    # Port positions are NOT confirmed (not even that all ports share one end). The keep-out
+    # sweeps a plug envelope over every port centre inside these ASSUMED limits.
+    port_y_max: float = 16.0       # |y| of any port centre                       # MEASURE
+    port_edge_z: float = 3.0       # port centre at least this far inside top/bottom faces  # MEASURE
+    # Plugs used in the bank end (docs/04 W1, W14; charging lead). (protrusion beyond the
+    # port face, width, height, extra length for the cable/wire to bend)
+    plug_out1: tuple = (40.0, 19.0, 11.4, 8.0)   # ADA3628 52 x 19 x 11.4 overall (Adafruit) minus ~12 inserted  # MEASURE
+    plug_out2: tuple = (32.0, 16.0, 9.0, 12.0)   # USB-A -> USB-C cable overmould                    # MEASURE
+    plug_charge: tuple = (25.0, 11.0, 7.0, 15.0)  # micro-USB charging plug (hatch off, outputs unplugged) # MEASURE
+    end_open_depth: float = 25.0   # whole end face kept open this deep (any port position visible/reachable)
+    # Cradle
+    rail_h: float = 6.0            # side rails and front wall above the tray (< smallest thickness)
+    rail_t: float = 2.4
+    keeper_overlap: float = 4.0    # removable rear corner keeper reaches this far in from each side
+    keeper_h: float = 3.0          # ... and this high above the tray
+    strap_x: tuple = (-21.5, 40.0)  # hook-and-loop strap slot centres
+    strap_w: float = 14.0          # slot length along X (for a 12-13 mm strap)
+
+
+@dataclass(frozen=True)
+class Hatch:
+    # Rear bank-service hatch: adult-only, 1 x M3 (a lithium bank in a children's product
+    # should need a tool to reach). Opening in the rear shell, outline in the Y-Z plane.
+    y_half: float = 34.0
+    z0: float = 40.0
+    z1: float = 82.0
+    corner_r: float = 6.0
+    # Shallow raised pod on the hatch: the plugs in the bank end need more length than the
+    # round body leaves (see the bank-fit report). Only the hatch is enlarged, not the body.
+    pod_y_half: float = 31.0
+    pod_z: tuple = (42.0, 72.0)
+    pod_x: float = -102.0          # pod outer face (body outer at y=0, z=60 is -97.5)
+    pod_r: float = 5.0
+    screw_z: float = 76.5          # M3 x 8 through the hatch into a ledge on the shell
+    tongue_y: float = 20.0         # bottom hook tongues at +/- this Y
 
 
 @dataclass(frozen=True)
@@ -185,6 +224,7 @@ class Params:
     drive: Drive = field(default_factory=Drive)
     caster: Caster = field(default_factory=Caster)
     bat: Battery = field(default_factory=Battery)
+    hatch: Hatch = field(default_factory=Hatch)
     boards: Boards = field(default_factory=Boards)
     neck: Neck = field(default_factory=Neck)
     head: Head = field(default_factory=Head)
@@ -196,7 +236,7 @@ P = Params()
 # Rough masses (g) used ONLY for the static tip-angle estimate in build.py.
 # Sources: ADA3777 listing 30.6 g; others are estimates -> weigh real parts.
 COMPONENT_MASS_G = {
-    "power_bank": (190.0, "estimate - weigh yours"),
+    "power_bank": (None, "UNMEASURED (QW01) - excluded; weigh it"),
     "tt_motor_L": (30.6, "Core ADA3777 listing"),
     "tt_motor_R": (30.6, "Core ADA3777 listing"),
     "fs90_servo": (9.0, "estimate (9 g class)"),

@@ -1,101 +1,111 @@
-# 05 · Power topology, ratings, protection and charging
+# 05 · QW01 power topology, limits and charging
 
-User update, 2026-10-20: owned MINISO QW01, 10,000 mAh; approximately 130 × 60 × 10 mm, not exact. Micro-USB charging input and two USB-A outputs, each reported as 5 V / 2 A. Combined simultaneous output, protection, mass and low-load behaviour remain unverified. The current CAD still uses the older 100 × 66 × 24 mm placeholder. A placement check of the approximate footprint found tray/frame overlap, so fit is not approved.
+Design v0.3, 2026-10-21. **Electrical assembly remains on HOLD.** The mechanical revision accommodates the owned bank's approximate size. It does not establish electrical compatibility or approve the over-budget parts list.
 
-> **Wiring HOLD.** This page defines the revised power topology for the full concept in [08](08-bom-budget-sourcing.md) §3 and the **gates** it must pass. Nothing here authorises running any part outside its rating. If a gate fails, that branch stays unbuilt and the design changes. Running it "to see" is not an option.
+## 1. Owned source and evidence
 
-## 1. Corrections to the first concept
-
-| First concept said | What the manufacturer documents say | Consequence |
+| Property | Recorded value | Evidence and limit |
 |---|---|---|
-| Robo Pico servo/motor rail = VIN − 0.4 V ≈ 4.6 V | Cytron Robo Pico datasheet, spec table row 6: with **only VIN or only LiPo** connected, Vmotor & Vservo = **VIN**. The − 0.4 V drop applies when powered from the Pico's **USB** (rows 5, 7, 8). | The 4.6 V figure was wrong for VIN supply. The Robo Pico is dropped anyway (out of stock; 1 A continuous per channel is below the TT motor's stall current; no driver protection stated). |
-| XIAO powered from a servo-port rail via jumpers | Seeed: XIAO ESP32S3 USB-C input "5V". DFRobot: DFR1154 USB-C input "5V DC". | The camera board is now fed by an **ordinary USB cable from a bank USB-A port**, the way it is meant to be powered. No rail-derived 5 V is used. |
-| Firmware stall loop (L5), PWM caps and soft starts protect against stall | PWM and ramps limit average drive. They do not limit current into a stalled motor at the commanded duty, and they cannot detect a stall. There is no current sensing and no wheel encoder. | Stall protection must be **hardware** (§4). No firmware stall detection is claimed. |
+| Bank | MINISO QW01, 10,000 mAh | User report, 20 October |
+| Size | Approximately 130 × 60 × 10 mm | User estimate, not caliper measurements |
+| Charging input | Micro-USB | User report; input rating not provided |
+| Outputs | Two USB-A sockets | User confirmed wide rectangular sockets |
+| Output rating | **5 V / 2 A each**, or 10 W per port | User transcribed the label and clarified "each" |
+| Combined simultaneous output | **Unknown** | Two individually rated ports do not establish 4 A or 20 W combined |
+| Mass, protection, low-load shutdown | **Unknown** | No exact manufacturer datasheet located; requires verification |
 
-## 2. Revised topology (full concept)
+Do not substitute another MINISO model's specifications. Do not join the two USB outputs together, use a Y cable to combine current, or open the bank. Capacity in mAh does not specify output current. Runtime remains unmeasured.
+
+## 2. Proposed branch layout
+
+The branch assignment is retained so the camera/audio load has its own USB lead. It is a reference layout pending the load and protection work below.
 
 ```
-           USB power bank (2 x USB-A outputs; charge input behind the rear door)
-             │ port 1 (USB-A)                                │ port 2 (USB-A)
-        [B8 ADA3628 USB-A plug → screw terminals]       [B11 USB-A → USB-C 50 cm]
-             │ +5 V / GND on ~22 AWG (B14)                   │
-        [B9 lever connectors: +5 V, GND]                [B12 USB-C in-line power switch]  ← camera/mic hard-off
-          │                    │                             │ (power pins only)
-          │                    │                        DFR1154 camera board USB-C (head, through the neck)
-          │                    │                             └ MX1.25 → 8 Ω speaker (head)
-   Kitronik 5331 power    FS90 servo V+ / GND
-   terminal (3–10 V)      (jumper tails into servo plug)
-     │ on-board switch (body power) ← printed rear actuator
-     ├ DRV8833 → TT motor L, TT motor R
-     ├ 3 V regulator → Pico 2 WH (40-way socket) → Pico 3V3 OUT → PiicoDev chain (10 modules incl. 2 buttons)
-     └ GP27 → servo signal (jumper)
-   Common ground: both bank ports share the bank's ground. The body and camera are also tied through the USB grounds. The servo ground returns on the body ground.
+MINISO QW01, intact and strapped in the revised cradle
+  USB-A output 1, reported 5 V / 2 A
+    → USB-A terminal adapter → rated power wire and lever connectors
+      → Kitronik 5331 power terminal → board switch → Pico + sensor chain + motor driver
+      → FS90 servo power; GP27 supplies its signal, with a common body ground
+
+  USB-A output 2, reported 5 V / 2 A
+    → ordinary USB-A-to-USB-C cable → camera power switch
+      → DFR1154 camera/microphone/audio board → plug-in speaker
+
+  Micro-USB INPUT
+    ← charge cable only after BOTH robot output leads are unplugged
 ```
 
-**Master disconnect:** no solder-free switch rated for the whole robot's current was found in the checked catalogue. The interim master disconnect is **unplugging both USB-A plugs from the bank**. They sit in the charge-door bay, which only an adult opens. The Kitronik switch is the everyday "body power" switch, and the in-line switch is the "camera/mic" switch. **Gap:** the Kitronik switch does **not** cut the servo branch (the servo sits upstream of it). With the Pico off the servo receives no control pulses, but it stays connected to the bank. A single switch for all branches remains an **open item** (G-PWR-5).
+The USB outputs remain separate power branches. The body needs a common signal ground between its Pico, driver and servo. No motor current passes through GPIO, Pico 3V3, a breadboard or PiicoDev cables. Every power connector and conductor must have a known current rating. Verify servo power leads rather than assuming any jumper wire is sufficient.
 
-## 3. Rating check per branch
+**Hard-off:** unplug both robot USB-A leads. The body switch does not disconnect the servo branch upstream of it, and it does not disconnect the head. The head has a separate camera power switch. Software sleep stops streaming and motion but is not a hardware disconnect. A single all-branch power switch remains unresolved and unpriced.
 
-| Branch | Load rating (source) | Supply in this topology | Status |
+**Programming:** with the rear shell removed, disconnect both bank output leads before plugging the Pico into a laptop. Do not assume the carrier prevents backfeeding from simultaneous supplies.
+
+## 3. Per-branch voltage and current budget
+
+| Load or branch | Voltage requirement | Current evidence | QW01 assessment |
 |---|---|---|---|
-| Kitronik 5331 supply | 3–10 V (Kitronik datasheet) | Bank USB 5 V nominal | Within rating with wide margin |
-| TT motors ADA3777 | 3–6 V (listing) | DRV8833 output ≤ supply ≈ 5 V | Within rating |
-| DRV8833 channel current | 1.5 A max per channel (Kitronik datasheet) | TT stall 1.2 A at 4.5 V, 1.5 A at 6 V (Adafruit bench figures on the Core listing) | The figures are examples, not tolerance bounds. A 1.5 A maximum is not proof of a permissible continuous stall. Confirm continuous ratings and a motor-protection strategy before load tests (PG3). |
-| FS90 servo | 4.8–6 V (Core listing; Feetech page not checked) | Bank USB 5 V nominal minus plug, wire and lever-connector drops | Nominal 5 V is inside the rating, but the **margin is only ~0.2 V**. Gate **PG2**: the measured voltage at the servo plug must stay ≥ 4.8 V during the worst-case load test. **If it does not, the head servo stays disconnected.** No servo with a manufacturer-stated lower minimum was found. |
-| DFR1154 camera board | USB-C 5 V DC (DFRobot); VIN range conflicts between sources (Core 5–12 V, DFRobot wiki 3.7–15 V), so VIN is **not used** | Standard USB cable from a bank port | Within rating as an ordinary USB-powered device. Gate **PG4** records the voltage at its USB-C under load. |
-| Pico 2 WH | Powered by the Kitronik 3 V regulator through the socket (Kitronik datasheet) | — | **Regulator current capacity is not stated** by Kitronik. The Pico 2 W radio plus 10 PiicoDev modules must fit within it. Gate **PG6**: ask Kitronik or measure. HOLD until known. |
-| PiicoDev chain | 3.3 V modules | Pico 3V3 OUT (Pico 2 W datasheet recommends < 300 mA load on 3V3) | Keep RGB brightness low. Measure the chain current (PG6). |
-| Bank | MINISO QW01: user reports 5 V / 2 A on each of two USB-A outputs | Combined limit unknown | Each port is 10 W nominal. Do not infer 4 A / 20 W combined. PG1 is not passed; the original ≥ 2.1 A per-port criterion is not met by the reported 2 A rating. Reconcile measured load and protection with the actual limits before adopting this bank. |
+| Kitronik 5331 | 3–10 V, manufacturer datasheet | Logic-regulator capacity not published in the checked document | Nominal 5 V is in range; logic and sensor-chain capacity remains a gate |
+| Two TT motors | 3–6 V, retailer copy of Adafruit data | Example stall figures: 1.2 A each at 4.5 V, 1.5 A each at 6 V | Two simultaneous stalls can exceed one 2 A port before logic and servo loads are added |
+| FS90 | 4.8–6 V, retailer listing | About 0.8 A at stall, retailer listing | Only about 0.2 V nominal supply margin. Wiring loss or a bank voltage dip can take it below rating |
+| **Body branch, output 1** | Nominal 5 V | Previous fault estimate **3.3–4.1 A** including motors, servo and logic | **Exceeds the reported 2 A port limit. Not cleared for assembly** |
+| DFR1154 and speaker, output 2 | USB-C 5 V, DFRobot | Simultaneous streaming, microphone and audio-playback draw not established | Must be measured and remain within 2 A, with operating margin |
+| Both outputs together | Nominal 5 V | Shared bank limit unknown | Cannot approve simultaneous operation from the individual port labels alone |
 
-## 4. Current budget and hardware protection
+The body fault estimate is not a measured consumption value. Normal play could draw less, but that does not establish safe fault behaviour. Soft starts and PWM speed caps reduce demand in some conditions; they are not a dependable current limit.
 
-| Load | Typical (estimate unless noted) | Worst case | Hardware that limits or interrupts it |
-|---|---|---|---|
-| TT motor × 2 | 0.15 A no-load each (listing); 0.2–0.4 A driving, estimate | 1.2–1.5 A **each** at stall (listing) | **DRV8833 over-current and thermal protection** (stated by Kitronik). This protects the **driver**, not the motor windings. No motor stall-duration rating is published. |
-| FS90 | 0.12 A no-load at 6 V (listing) | 0.8 A stall (listing) | **None in hardware.** Mechanical: the neck slip clutch slips before the gear train is loaded to stall ([11](11-mechanical-design-print-assembly.md) §4), and firmware limits travel to ±70° against ±75° stops. The 250 mA PTC at Core (RXE025) is below normal servo current and was rejected. A suitable PTC was not found in stock and is unpriced (open item). |
-| Pico 2 W + PiicoDev chain | 0.1–0.3 A, estimate | measure | Kitronik regulator (rating not stated) |
-| DFR1154 + speaker | Not published. Seeed's comparable XIAO streaming figures (≈ 0.14 A average, 0.35 A peak) are a guide only. | measure | Bank port 2 protection (bank-specific) |
-| **Port 1 worst case** | ~1 A | **≈ 3.3–4.1 A** (both motors stalled + servo stalled + logic) | **Bank port over-current protection, if the chosen bank has it.** Verify from the bank maker's data, then by gate PG3. |
+The speaker, motor, servo and bank limits must be considered separately. A supply cutoff intended to protect the bank does not establish that motor windings, driver, leads or servo remain within their limits.
 
-**What this means, stated plainly:**
+## 4. Protection and outstanding redesign
 
-1. The worst case on port 1 (≈ 3.3–4.1 A) is **above** what most single USB-A ports supply. If the bank's own protection trips, the whole body loses power. The Pico restarts with **movement disabled** ([02](02-architecture.md) §3), so the robot stops. A reset must leave movement disabled, but this is **not a verified motor-protection strategy**. A bank may sustain a damaging motor stall below its trip threshold. Gate PG3 checks it.
-2. **No dependable motor-stall detection is claimed.** With no current sensor and no encoders, the Pico cannot tell "stalled against a wall" from "driving at constant speed". The accelerometer sees neither, because constant velocity and standstill both read ~1 g. The ToF sensor may be blocked or reading something else. The motion-anomaly heuristic in [02](02-architecture.md) is **advisory logging only**.
-3. **PWM duty limits and soft starts are kept** to limit speed and inrush. They are **not** stall protection.
-4. A sustained stall heats the TT motors at up to 1.5 A each until the driver's thermal protection cycles or the bank trips. Controls: adult supervision; motion only in short, enabled bursts with a time-out (enable expires after 5 min, any motion command expires after 0.2 s); stop if movement is commanded while the ToF reads below the stop threshold. Do not deliberately sustain a stall on this prototype. PG3 remains blocked until protection and component limits are established.
+Kitronik states that its DRV8833 has short-circuit, over-current and thermal protection. This is driver protection. It does not establish a safe sustained motor-stall duration. The board's maximum channel figure is not a motor-current limit selected for this robot.
 
-## 5. Gates before wiring and before driving
+Before this bank can power the complete concept, select and document a solder-free means of keeping the body branch within the source and component limits. Possible approaches include lower-stall-current motors or suitable hardware current limiting with a validated stop response. No such replacement or limiter has been selected, priced or approved in v0.3. Do not connect the existing body concept and rely on the bank to trip.
 
-Every gate is a pass/fail **verification of a rated condition**. None authorises out-of-rating operation.
+Moving the servo to the camera branch would reduce output-1 demand but would not, by itself, solve two simultaneous motor stalls or the unknown combined limit. It is not adopted as an unverified fix. Do not parallel the bank outputs.
 
-| Gate | What | Method | Pass |
-|---|---|---|---|
-| PG1 | Bank suitability | Read the maker's label/datasheet: two USB-A outputs, per-port and combined current, protection, low-load behaviour. Then a 10 min test at ~50 mA load. | Two A ports; per-port ≥ 2.1 A stated; stays on |
-| PG2 | Servo supply | Wheels off the ground. Meter (or a scope if borrowed) at the servo plug while both motors start and reverse at the speed cap and the servo slews. | **Never below 4.8 V.** Fail → servo stays disconnected; redesign the servo supply. |
-| PG3 | Overload behaviour | Before testing, a teacher reviews continuous component limits and hardware protection. Use a current-limited bench supply and guarded fixture, never hold a powered wheel by hand. Define fault duration from manufacturer limits. Without those limits and protection, keep this gate blocked. | Within documented current, duration and thermal limits; reset leaves motion disabled. A touch test alone cannot pass this gate. |
-| PG4 | Camera supply | Meter at the DFR1154 USB-C (USB-C breakout or USB meter, borrowed) while streaming and playing audio | Record; continuous streaming without brown-out resets for 10 min |
-| PG5 | Master disconnect | Decide a single all-branch switch, or accept the unplug procedure | User decision; recorded |
-| PG6 | Logic supply | Kitronik regulator rating (ask Kitronik) vs measured Pico + chain current at peak Wi-Fi | Known rating ≥ measured peak with margin |
-| PG7 | Reset state | Hold the Pico in reset, then reboot it, with motors connected and wheels off the ground | Motors do not move during reset or boot |
+The current mechanical and functional design is preserved while these electrical choices remain open. New electrical parts must also fit the no-soldering requirement and AU$70 total budget. The existing AU$121.78 comparison BOM already exceeds that cap.
 
-## 6. Battery and charging
+## 5. Gates before wiring and driving
 
-The owned bank is the MINISO QW01 described above. Its charging input is micro-USB, not USB-C. The charging opening, connector clearance and retention must be revised after exact measurements. PG1 remains open.
+All results are pending. These gates are acceptance conditions for a future build, not claims of completed tests.
 
-- **Option chosen:** a finished consumer power bank (its own charge and protection electronics). No loose lithium cells. The kit's PiicoDev LiPo Expansion Board is a 1-cell charger for the Pico. It has no motor or servo supply and is not used in the robot.
-- **Charge port access:** the bank's charge input sits behind the sliding rear door (CAD `charge_door`).
-- **Runtime:** unmeasured for the owned QW01. A bank's mAh label is the internal cell capacity, not the amount delivered at 5 V. Measure (T-PWR-1).
-- **Charging with the robot unable to drive:** the Pico cannot sense the bank charging. **No automatic interlock exists in this design.** Procedure: switch the body off, open the door, **unplug both robot leads from the bank**, then plug in the charger. With both leads unplugged the robot cannot drive. That is a procedural control, not an interlock. A mechanical interlock, where the door can only open with the switch off, is not modelled (open item).
-- Charge on a hard surface, supervised by an adult, following the bank maker's instructions.
+| Gate | Check | Pass condition |
+|---|---|---|
+| PG1 | Record both individual output limits, the combined limit, charging-input rating and low-load behaviour of this QW01 | Documented source limits and a complete branch budget with margin. The 2 A individual ratings alone do not pass this gate |
+| PG2 | Servo rail during motor starts and head motion, after a suitable protected power design exists | Remains inside the servo's 4.8–6 V rating throughout; no brownouts |
+| PG3 | Source, motor, driver and servo protection | Selected hardware and documented continuous/transient limits. A teacher reviews a guarded, current-limited bench test plan. No sustained-stall or hand-held wheel tests on the unprotected concept |
+| PG4 | Camera rail during video, microphone and speaker load | Within the board's documented input limits and the port's 2 A limit, with margin. No resets; both-output demand within the verified shared limit |
+| PG5 | Master disconnect and charge procedure | Both USB-A leads can be reached and unplugged; no hidden live servo or head branch is mistaken for off. A single-switch solution remains optional unresolved work |
+| PG6 | Kitronik logic regulator and Pico sensor-chain capacity | Known ratings exceed peak measured logic and sensor current with margin; do not infer a regulator rating from a short successful test |
+| PG7 | Reset and watchdog behaviour | Motors remain off through boot/reset; motion enable clears; network and audio cannot hold motor outputs on |
 
-## 7. Reduced-scope option R1 power (if chosen)
+A multimeter and suitable guarded/current-limited bench equipment are school tools to borrow, not assumed purchases in the BOM. Do not test beyond a known component rating to discover its limit.
 
-R1 replaces B8 with a spare USB-A cable cut and stripped into the lever connectors. Cutting and stripping is not soldering. The cable's conductor gauge is unknown and must carry the port-1 worst case. Use only a cable whose gauge can be identified, and repeat gates PG1–PG3 and PG6–PG7. There is no camera branch in R1.
+## 6. Charging and service access
 
-## 8. Owned-bank update and fit check, 2026-10-20
+The bank's **micro-USB input** is the only designated charging connection. The head's USB-C cable is an output load from the bank, not a way to charge the bank. There is no pass-through charging design.
 
-The brand, model, capacity, approximate size, input type and individual output ratings above are user-reported. No MINISO manufacturer datasheet for this exact model was located. Per-port ratings do not establish simultaneous combined capacity or protection behaviour. The bank must not be opened or modified.
+1. Disable movement and switch off the body and head.
+2. Undo the rear hatch's M3 screw with adult supervision, tilt the hatch out and lift it off the bottom tongues.
+3. Unplug **both** robot output leads from the bank.
+4. Connect the bank's micro-USB charging cable, following its own input rating and instructions.
+5. Leave the hatch off while charging on a hard surface under adult supervision. The hatch has no charging-cable notch.
+6. Disconnect the charge cable before reconnecting robot power. Route the leads up the left side behind the upright, refit the hatch tongues, and secure its screw before use.
 
-The current body's estimated 3.3–4.1 A port-1 fault demand exceeds this bank's reported 2 A individual output. Its second port does not add current to port 1. Do not parallel the outputs. A lower-current/protected drive arrangement or different power distribution is still required for the concept; no compatibility pass is claimed.
+No automatic charging interlock is claimed. Physical disconnection of both output leads is the procedural isolation. The revised opening must allow actual plug removal without forcing the connectors or pinching cables.
 
-A conservative rectangular 130 × 60 × 10 mm envelope, at the existing bank rear-face position and tray-top height, was checked against the current CAD. Approximate intersections were 510 mm³ with the tray and 907 mm³ with a front frame column. No intersection with the two body shells was found at that placement. This is a diagnostic placement check only, not a fit certificate: rounded corners, plugs, tolerances and straps were omitted. Exact dimensions and port positions are needed before revising the tray and frame. The existing STL set is unchanged.
+## 7. Mechanical acceptance
+
+The approximate 130 × 60 × 10 mm size drives the v0.3 cradle design. Accommodation space, strap retention, frame changes and connector clearance are described in [11](11-mechanical-design-print-assembly.md). Exact charge/output positions were not supplied. Open service access and adjustable placement must not be described as a measured port fit.
+
+Before printing the final set, measure length, width, thickness, mass, port positions and the plugs that will actually be used. Update the parameters and rerun the CAD checks. The generated report establishes geometry checks against modelled envelopes only; it does not prove the bank fits in real life.
+
+## 8. Technical references
+
+- [Kitronik 5331 datasheet](https://core-electronics.com.au/attachments/localcontent/5331-compact-motor-driver-raspberry-pi-pico-datasheet_30137893d1d.pdf), reviewed in the previous design round.
+- [DFRobot DFR1154 documentation](https://wiki.dfrobot.com/SKU_DFR1154_ESP32_S3_AI_CAM), USB power and audio/camera interfaces.
+- [FS90 retailer listing](https://core-electronics.com.au/feetech-fs90-1-5kgcm-micro-servo-9g.html), voltage and stall-current figures are retailer evidence.
+- [TT motor retailer listing](https://core-electronics.com.au/dc-gearbox-motor-tt-motor-200rpm-3-to-6vdc.html), example current figures are not tolerance bounds.
+
+The earlier Robo Pico voltage correction remains recorded in [13](13-design-review.md): VIN-only supply uses VIN on its servo rail; the 0.4 V reduction applied to USB supply. That board is not the current selected carrier.

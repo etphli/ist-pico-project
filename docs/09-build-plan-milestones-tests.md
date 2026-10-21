@@ -30,7 +30,8 @@ Record: date, firmware/CAD version, tester, method, **measured result**, pass/fa
 | ID | Test | Pass criterion | Result |
 |---|---|---|---|
 | T-PWR-1 | Runtime: full bank → demo loop until shutdown | ≥ 1 h (N4) | |
-| T-PWR-2 | Bank low-load behaviour with Pip asleep | Recorded; mitigation chosen | |
+| T-PWR-2 | QW01 low-load behaviour with Pip asleep | Recorded; mitigation chosen | |
+| T-PWR-6 | QW01 output labels and simultaneous-load capability | Per-port and shared ratings documented; no branch exceeds its rated current, with design margin | |
 | T-PWR-3 | Rail voltages during motor start/reverse, servo slew and audio | Servo ≥ 4.8 V (PG2); no resets | |
 | T-PWR-4 | Camera switch off → stream stops, camera LED off | Off | |
 | T-PWR-5 | Charging procedure: both robot leads unplugged before charging | Procedure followed; drive impossible with leads unplugged | |
@@ -90,6 +91,8 @@ Record: date, firmware/CAD version, tester, method, **measured result**, pass/fa
 | T-MECH-3 | Shells off/on from underneath | < 3 min, one screwdriver | |
 | T-MECH-4 | 10 cm drop of the bare chassis | No cracks | |
 | T-MECH-5 | Lift the assembled robot by the head (motors off) | Deck stays on the columns; head stays on | |
+| T-MECH-6 | QW01 in its revised cradle, robot fully disconnected | Actual dimensions within the accommodated envelope; strap retains it without crushing; no frame or cable interference | |
+| T-MECH-7 | QW01 service access with actual USB-A and micro-USB plugs | Both robot leads can be removed before charging; micro-USB input reachable; no forced bending or trapped cable | |
 
 ## 4. Evaluation with children (consent; supervised; only after T-SAF passes)
 

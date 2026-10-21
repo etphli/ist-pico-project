@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Build, validate and preview the Pip CAD model (v0.2 prototype).
+"""Build, validate and preview the Pip CAD model (v0.3 prototype).
 
 Usage (from repo root):  scripts/cad.sh            # everything
                          scripts/cad.sh --no-render
+                         scripts/cad.sh --bank-fit-only   # QW01 cradle regression only (fast)
 Outputs go to cad/out/ (STL per printable part, assembly STL, PNG previews,
 validation_report.md). Requires: manifold3d, numpy, trimesh, matplotlib
 (scripts/cad.sh provides them through an ephemeral `uv` environment).
@@ -87,7 +88,16 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-render", action="store_true")
     ap.add_argument("--no-assembly-stl", action="store_true")
+    ap.add_argument("--bank-fit-only", action="store_true",
+                    help="build the parts and run only the bank-fit regression (no files written)")
     args = ap.parse_args()
+    if args.bank_fit_only:
+        from pip_robot import bankfit
+        built = {p.name: p.make() for p in PARTS}
+        lines, problems, _, _ = bankfit.run(built, PARTS)
+        print("\n".join(lines))
+        print(f"\n{len(problems)} problem(s)" + "".join(f"\n- {p}" for p in problems))
+        return 1 if problems else 0
 
     STL.mkdir(parents=True, exist_ok=True)
     for old in STL.glob("*.stl"):          # drop STLs of parts that no longer exist
@@ -193,8 +203,12 @@ def main():
              ("head_base", "top_deck", "rotating head skirt vs fixed neck"),
              ("head_cap", "front_shell", "head vs body shoulder"),
              ("head_cap", "rear_shell", "head vs body shoulder"),
-             ("ref_power_bank", "tray", "bank in tray"),
-             ("ref_power_bank", "rear_shell", "bank rear vs charge-port wall"),
+             ("ref_power_bank", "tray", "nominal bank in cradle (sits on the floor: 0)"),
+             ("ref_power_bank", "bank_shim_L", "nominal bank vs side shim (~0.3)"),
+             ("ref_power_bank", "bank_front_spacer", "nominal bank vs front spacer (~0.3)"),
+             ("ref_power_bank", "column_L", "bank beside the jogged column"),
+             ("rear_hatch", "rear_shell", "hatch in its opening (~0.3)"),
+             ("rear_hatch", "tray", "hatch tongues vs tray"),
              ("ref_controller", "rear_shell", "controller + Pico vs shell"),
              ("ref_buttons", "plunger_wake", "button cap vs plunger tip (should be ~0.3)"),
              ("ref_buttons", "plunger_move", "button cap vs plunger tip (should be ~0.3)"),
@@ -262,6 +276,12 @@ def main():
     report.append("- Not checked: the lens's real position on the board, image distortion, glare or IR reflection "
                   "from the eye bore. Measure the lens position (docs/12 E8).\n")
 
+    # ---- power bank fit regression ---------------------------------------------
+    from pip_robot import bankfit
+    bl, bp, bank_data, keepouts = bankfit.run(built, PARTS)
+    report += bl
+    problems += bp
+
     # ---- mass / centre of gravity / tip angle --------------------------------
     report.append("## 4. Static stability ESTIMATE\n")
     total_m, mom = 0.0, np.zeros(3)
@@ -281,6 +301,9 @@ def main():
               "head_speaker": "ref_head_speaker", "piicodev_buttons_x2": "ref_buttons",
               "piicodev_modules_x6": "ref_front_modules"}
     for k, (mass, src) in params.COMPONENT_MASS_G.items():
+        if mass is None:
+            rows.append(f"| {k} | **unmeasured** | {src} |")
+            continue
         if k in refmap:
             v, f = to_arrays(built[refmap[k]])
             cen, _ = centroid_volume(v, f)
@@ -297,10 +320,15 @@ def main():
     fwd_tip = math.degrees(math.atan2(cx - cg[0], cg[2]))
     back_tip = math.degrees(math.atan2(cx + cg[0], cg[2]))
     report.append(f"- Printed plastic (PLA, {params.EFFECTIVE_FILL:.0%} effective fill): ~{plastics:.0f} g")
-    report.append(f"- Estimated total mass: ~{total_m:.0f} g (component masses below are partly guesses)")
-    report.append(f"- Estimated CG: x={cg[0]:.1f} y={cg[1]:.1f} z={cg[2]:.1f} mm")
-    report.append(f"- Static tip angle sideways (over a drive wheel): ~{side_tip:.0f} deg")
-    report.append(f"- Static tip angle forward/back (over a caster, worst trail orientation): ~{fwd_tip:.0f} / {back_tip:.0f} deg")
+    v, f = to_arrays(built["ref_power_bank"])
+    bank_cen, _ = centroid_volume(v, f)
+    report.append(f"- Estimated total mass WITHOUT the power bank: ~{total_m:.0f} g (component masses below are partly guesses)")
+    report.append(f"- The QW01 mass is unmeasured, so it is NOT included. Its nominal centroid is at x={bank_cen[0]:.0f} "
+                  f"y={bank_cen[1]:.0f} z={bank_cen[2]:.0f} mm, lower than the no-bank CG below; adding it would lower the CG and move it "
+                  "forward by an amount that depends on the real mass. No tip angle with the bank is claimed.")
+    report.append(f"- Estimated CG without the bank: x={cg[0]:.1f} y={cg[1]:.1f} z={cg[2]:.1f} mm")
+    report.append(f"- Static tip angle without the bank, sideways (over a drive wheel): ~{side_tip:.0f} deg")
+    report.append(f"- Static tip angle without the bank, forward/back (over a caster, worst trail orientation): ~{fwd_tip:.0f} / {back_tip:.0f} deg")
     report.append("- Physical test required: tilt-table test with the real build (docs/09).\n")
     report.append("| component | mass g | source |\n|---|---|---|")
     report += rows
@@ -309,7 +337,8 @@ def main():
     # ---- limits ----------------------------------------------------------------
     report.append("## 5. What these checks do NOT establish\n")
     report += [
-        "- Real fit: every bought-part envelope and mounting position is a placeholder (`# MEASURE`).",
+        "- Real fit: every bought-part envelope and mounting position is a placeholder (`# MEASURE`). "
+        "The QW01 size is the user's approximate estimate; section 3d checks accommodation envelopes, not the real bank.",
         "- Excluded contact pairs (section 2) are not proven to fit. They are listed with their overlap volume for review.",
         "- Continuous motion clearance: caster and head checks are discrete samples (section 3b).",
         "- Cable routing, bend radius and cable twist through the neck.",
@@ -339,13 +368,19 @@ def main():
             vs.append(v)
             fs.append(f + off)
             off += len(v)
-            meta.append({"name": p.name, "kind": p.kind, "colour": p.colour})
+            lo, hi = bbox(built[p.name])
+            meta.append({"name": p.name, "kind": p.kind, "qty": p.qty, "colour": p.colour,
+                         "print_rot": list(p.print_rot), "bbox_assembly_mm": [list(map(lambda t: round(float(t), 2), lo)),
+                                                                             list(map(lambda t: round(float(t), 2), hi))],
+                         "notes": p.notes})
         write_stl(OUT / "assembly_preview.stl", np.vstack(vs), np.vstack(fs))
         (OUT / "assembly_parts.json").write_text(json.dumps(meta, indent=1))
+        (OUT / "bank_fit.json").write_text(json.dumps({"version": params.VERSION, "params": bankfit.params_summary(),
+                                                        "results": bank_data}, indent=1))
     (OUT / "validation_report.md").write_text("\n".join(report) + "\n")
     if not args.no_render:
         from render import render_all
-        render_all(built, PARTS, OUT)
+        render_all(built, PARTS, OUT, keepouts)
     print("\n".join(report[-(len(problems) + 4):]))
     print(f"\nWrote {OUT}")
     return 1 if problems else 0

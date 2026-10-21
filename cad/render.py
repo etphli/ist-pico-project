@@ -11,6 +11,7 @@ Outputs (cad/out/):
   preview_xray.png             shells and head cap transparent
   preview_front_reference.png  orthographic front / rear / head elevations with labelled openings
   preview_sections.png         true cross-sections (manifold slices) incl. camera FOV lines
+  preview_bank_fit.png         QW01 cradle: sections with the bank-fit keep-outs, rear with the hatch off
   preview_parts.png            every printable part
 """
 
@@ -198,7 +199,7 @@ def _show(ax, img, ext, title):
     ax.set_axis_off()
 
 
-def render_all(built, parts, out):
+def render_all(built, parts, out, keepouts=None):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -211,7 +212,7 @@ def render_all(built, parts, out):
     # --- assembly
     fig, axs = plt.subplots(1, 4, figsize=(18, 6.2), dpi=110)
     for ax, (el, az, t) in zip(axs, [(0, 0, "front (orthographic)"), (14, 32, "front-left"),
-                                     (14, 148, "rear-left (buttons, switch, charge door)"), (10, 90, "left side")]):
+                                     (14, 148, "rear-left (buttons, switch, bank hatch)"), (10, 90, "left side")]):
         img, ext, _ = render(full, el, az, px_per_mm=2.6)
         _show(ax, img, ext, t)
     fig.suptitle(f"Pip CAD v{ver} PROTOTYPE - assembled (placeholder dimensions, not fit-verified). "
@@ -236,6 +237,8 @@ def render_all(built, parts, out):
 
     _front_reference(built, parts, out, plt, pt, params)
     _sections(built, parts, out, plt, pt, params)
+    if keepouts:
+        _bank_fit(built, parts, out, plt, pt, params, keepouts)
 
     # --- printable parts
     printable = [p for p in parts if p.kind in ("print", "cal")]
@@ -296,8 +299,8 @@ def _front_reference(built, parts, out, plt, pt, params):
         _label(ax, (-y, z), t, (-y + 25, z - 25 if "A" in t else z + 28))
     su, sv = BD.switch_uv
     _label(ax, (-su, BD.ctrl_bottom_z + sv), "power switch actuator", (-su + 20, BD.ctrl_bottom_z + sv + 30))
-    pz = P.body.tray_z + P.body.tray_t + P.bat.port_z_off
-    _label(ax, (0, pz), "charge-port door", (-70, pz - 25))
+    hz = (P.hatch.z0 + P.hatch.z1) / 2
+    _label(ax, (0, hz), "bank service hatch\n(adult, 1 x M3)", (-75, hz - 30))
     fig.suptitle(f"Pip CAD v{params.VERSION} - reference elevations (orthographic, axes in mm; placeholder positions)", fontsize=11)
     fig.tight_layout()
     fig.savefig(out / "preview_front_reference.png")
@@ -379,4 +382,86 @@ def _sections(built, parts, out, plt, pt, params):
                  "Placeholder positions for bought parts.", fontsize=11)
     fig.tight_layout()
     fig.savefig(out / "preview_sections.png")
+    plt.close(fig)
+
+
+def _poly_outline(ax, cs, color, mapper, ls="--", lw=1.2, label=None):
+    first = True
+    for poly in cs.to_polygons():
+        p = mapper(np.asarray(poly))
+        if len(p) < 2:
+            continue
+        p = np.vstack([p, p[:1]])
+        ax.plot(p[:, 0], p[:, 1], ls, color=color, lw=lw, label=label if first else None, zorder=5)
+        first = False
+
+
+def _bank_fit(built, parts, out, plt, pt, params, keep):
+    """QW01 cradle figure: true sections with the keep-out envelopes drawn as outlines, and
+    the rear with the hatch removed (what an adult sees when charging)."""
+    P = params.P
+    BAT = P.bat
+    colours = {p.name: p.colour for p in parts}
+    skip = {"fit_test_coupon", "fit_test_pegs"}
+    styles = {"K1": ("#1f5fbf", "--", f"K1 largest bank {pt.BANK_L_MAX:.0f}x{pt.BANK_W_MAX:.0f}x{pt.BANK_T_MAX:.0f}"),
+              "K2": ("#d02020", "-", f"K2 plug sweep ({pt.PLUG_LEN:.0f} deep)"),
+              "K4": ("#8a2be2", ":", "K4 access path (hatch off)"),
+              "K5": ("#1a9a50", "-.", "K5 lead route"),
+              "K6": ("#b07000", ":", "K6 strap path")}
+    fig, axs = plt.subplots(1, 3, figsize=(21, 7.4), dpi=110)
+
+    # A. plan section through the bank
+    ax = axs[0]
+    zc = pt.DV.tray_top + 4.0
+    top = lambda q: np.stack([-q[:, 1], q[:, 0]], 1)
+    for p in parts:
+        if p.name in skip:
+            continue
+        _poly_fill(ax, built[p.name].slice(zc), colours[p.name], mapper=top, alpha=0.85)
+    for k, (c, ls, lab) in styles.items():
+        _poly_outline(ax, keep[k].slice(zc), c, top, ls, label=lab)
+    ax.axhline(BAT.port_x, color="#444", lw=0.6)
+    ax.text(-95, BAT.port_x + 2, f"port plane x={BAT.port_x:.1f}", fontsize=7)
+    ax.set_aspect("equal")
+    ax.set_xlim(-100, 100)
+    ax.set_ylim(-108, 100)
+    ax.legend(fontsize=7, loc="lower right")
+    ax.set_title(f"A. Plan section z={zc:.0f} (face up). Orange = nominal {BAT.len_nom:.0f}x{BAT.w_nom:.0f}x{BAT.t_nom:.0f} "
+                 "(user approx.)\nGrey strips = shims/spacer/keepers; jogged columns beside the bank", fontsize=9)
+    ax.set_xlabel("-Y (mm)")
+    ax.set_ylabel("X (mm)")
+
+    # B. side sections
+    def side(ax, y, title):
+        mp = lambda q: np.stack([q[:, 0], -q[:, 1]], 1)
+        for p in parts:
+            if p.name in skip:
+                continue
+            m = built[p.name].translate((0, -y, 0)).rotate((90, 0, 0))
+            _poly_fill(ax, m.slice(0.0), colours[p.name], mapper=mp, alpha=0.85)
+        for k, (c, ls, lab) in styles.items():
+            m = keep[k].translate((0, -y, 0)).rotate((90, 0, 0))
+            _poly_outline(ax, m.slice(0.0), c, mp, ls, label=lab)
+        ax.set_aspect("equal")
+        ax.set_xlim(-112, 100)
+        ax.set_ylim(0, 160)
+        ax.set_title(title, fontsize=9)
+        ax.set_xlabel("X (mm, face to the right)")
+        ax.set_ylabel("Z (mm)")
+        ax.legend(fontsize=7, loc="upper right")
+    side(axs[1], 15.0, "B. Side section y=+15: bank on the cradle floor, plug sweep into the\nhatch pod, lead route up behind the upright")
+
+    # C. rear elevation with the hatch removed
+    ax = axs[2]
+    img, ext, _ = render(_items(built, parts, skip={"rear_hatch"}), 0, 180, px_per_mm=3.0,
+                         bounds=(-112, 112, 0, 175))
+    _show(ax, img, ext, "C. Rear elevation, hatch removed: the whole port end of the bank is open\n"
+                        "(viewer's right = robot's right, -Y)")
+    hz = (P.hatch.z0 + P.hatch.z1) / 2
+    _label(ax, (0, hz), "bank port end (positions unknown)", (-95, hz - 45))
+    _label(ax, (0, P.hatch.z1 - 4), "hatch screw ledge (behind the opening top)", (30, P.hatch.z1 + 40))
+    fig.suptitle(f"Pip CAD v{params.VERSION} - MINISO QW01 cradle and keep-outs (APPROXIMATE bank size; "
+                 "not a physical fit check)", fontsize=11)
+    fig.tight_layout()
+    fig.savefig(out / "preview_bank_fit.png")
     plt.close(fig)

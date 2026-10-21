@@ -14,8 +14,8 @@ B12,full;R2,USB-C In-Line Power Switch Cable 28 cm (C female -> C male; power pi
 B13,full;R1;R2,Delivery (Core standard),Core Electronics,-,1,,,not quoted for this cart; example quote AU$6.25 to postcode 2000 for smaller carts,-,delivery,F11,-,
 B14,full,Stranded wire ~22 AWG ~0.3 m red + black,-,-,1,,,unpriced; no cheaper verified short pack found,-,5 V feed ADA3628 -> lever connectors,F4,strip ~7 mm into terminals/levers,
 B15,full;R1;R2,MINISO QW01 10000mAh power bank; approx 130x60x10mm; micro-USB input; two USB-A outputs each user-reported 5V 2A,-,QW01,1,0,0,owned; user report 2026-10-20; combined output and fit unverified,owned,battery + accessible charge port,F4,finished product,
-B16,full;R1;R2,Screws: 14 x M3 x 10-12 pan-head thread-forming for plastic; 4 x M2.5 x 6,-,-,1,,,unpriced,-,frame/shell/head/board/button retention,N7 N10,-,
-B17,full;R1;R2,Hook-and-loop strap (bank); 2 x O-ring ~60 mm ID (tyres),-,-,1,,,unpriced; maybe owned,-,retention; traction,F2 F4,-,
+B16,full;R1;R2,Screws: 15 x M3 total (6 x M3x10; 5 x M3x8; 4 x M3x12); 4 x M2.5x6,-,-,1,,,unpriced,-,frame/shell/head/board/button retention,N7 N10,-,
+B17,full;R1;R2,2 x hook-and-loop strap approx 12x250mm (bank); 2 x O-ring approx 60mm ID (tyres),-,-,1,,,unpriced; maybe owned,-,retention; traction,F2 F4,-,
 X1,rejected,Makerverse Motor Driver 2 Channel,Core Electronics,CE08038,1,6.60,6.60,live product page 2026-10-19,in stock,rejected: terminals/headers need soldering (Core guide: unsoldered pads),-,-,https://core-electronics.com.au/makerverse-motor-driver-2-channel.html
 X2,rejected,TT Motor 50RPM L-type (JST-PH),Core Electronics,CE09390,2,2.50,5.00,live product page 2026-10-19,in stock,rejected: rated 3 V,-,-,https://core-electronics.com.au/tt-motor-l-type-50-rpm.html
 X3,rejected,Cytron Robo Pico,Core Electronics,CE11203,1,27.90,27.90,live product page 2026-10-19,OUT OF STOCK,rejected: out of stock; 1 A continuous < TT stall; no driver protection stated,-,-,https://core-electronics.com.au/robo-pico-simplifying-robotics-with-raspberry-pi-pico-pico-w.html

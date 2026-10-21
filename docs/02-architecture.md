@@ -4,6 +4,8 @@
 
 ## 1. Block diagram
 
+Power source: owned MINISO QW01, approximately 130 × 60 × 10 mm. Micro-USB is the charge input only. The two USB-A outputs are reported as 5 V / 2 A each. They remain separate branches; no output paralleling or assumed 4 A combined supply is allowed. The topology below is a comparison concept until the bank/load checks in [05](05-power-budget-charging.md) pass.
+
 ```
                       Wi-Fi 2.4 GHz (same LAN, or the laptop's hotspot)
  ┌──────────────────────── ROBOT "Pip" ─────────────────────────┐       ┌──────────── LAPTOP "Pip Bridge" ────────────┐
@@ -96,7 +98,7 @@ An accelerometer measures tilt well when the robot is still. During motion and h
   - Networking uses non-blocking sockets with bounded buffers. The supervisor runs at fixed priority, so a stalled Wi-Fi call cannot hold the motors on. Verify under load: T-SAF-3 with the camera streaming and audio playing.
 - **Stop triggers:** Button B, enable expiry, tilt heuristic, ToF ≤ 350 mm while moving forward, target loss, heartbeat loss, I2C bus error (accelerometer, ToF or Buttons not readable), supervisor overrun.
 - **Limits:** speed cap ≤ 0.25 m/s (PWM duty calibrated in T-DRV-3), acceleration ramp, servo ±70° and slew-limited.
-- **Not provided:** stall detection, lift detection guarantee, cliff detection, obstacle detection outside the ToF beam, reversing. The hardware's own protection ([05](05-power-budget-charging.md) §4) is the only limit on stall current.
+- **Not provided:** stall detection, lift detection guarantee, cliff detection, obstacle detection outside the ToF beam, reversing. Hardware motor protection remains unresolved ([05](05-power-budget-charging.md) §4). Do not treat the bank's cutoff as a motor-current limit.
 
 ## 6. Offline mode
 

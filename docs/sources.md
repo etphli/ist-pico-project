@@ -46,3 +46,7 @@ Kit contents (Core CE08256 page), PiicoDev OLED dimensions (CE07911), XIAO and G
 ## Owned power bank, user report 2026-10-20
 
 MINISO QW01, 10,000 mAh, approximately 130 × 60 × 10 mm; micro-USB charging input, two wide rectangular USB-A output sockets. The user reports 5 V / 2 A **each**. These are transcribed reports, not independently read label values. Combined simultaneous output, mass and protection behaviour are not established. A bounded manufacturer-document search did not find an exact QW01 datasheet; specifications from other MINISO models were not substituted.
+
+## v0.3 mechanical reference, 2026-10-21
+
+[Adafruit USB-A terminal adapter 3628](https://www.adafruit.com/product/3628) gives an overall envelope of 52 × 19 × 11.4 mm, used in the plug-clearance model. Inserted depth, cable bends, other plug envelopes and QW01 port positions remain measurement assumptions. The bank dimensions and 5 V / 2 A per-port ratings remain user reports; no combined-output rating was found.

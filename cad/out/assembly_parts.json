@@ -2,206 +2,1057 @@
  {
   "name": "base_plate",
   "kind": "print",
-  "colour": "#9aa3ad"
+  "qty": 1,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -92.2,
+    -92.2,
+    14.0
+   ],
+   [
+    92.2,
+    92.2,
+    71.0
+   ]
+  ],
+  "notes": "Flat side down. Support ON for caster tower roofs only (enforcer)."
  },
  {
   "name": "tray",
   "kind": "print",
-  "colour": "#9aa3ad"
+  "qty": 1,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   180,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -89.85,
+    -47.0,
+    15.2
+   ],
+   [
+    93.82,
+    47.0,
+    55.0
+   ]
+  ],
+  "notes": "QW01 cradle. Upside down (rails on bed, legs up); support under the plate. 2 hook-and-loop straps through the slots."
+ },
+ {
+  "name": "bank_shim_L",
+  "kind": "print",
+  "qty": 1,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -49.8,
+    26.0,
+    49.0
+   ],
+   [
+    82.5,
+    32.1,
+    58.0
+   ]
+  ],
+  "notes": "Removable side shim + low rear corner keeper. Thickness generated from Battery.w_nom: regenerate after measuring."
+ },
+ {
+  "name": "bank_shim_R",
+  "kind": "print",
+  "qty": 1,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -49.8,
+    -32.1,
+    49.0
+   ],
+   [
+    82.5,
+    -26.0,
+    58.0
+   ]
+  ],
+  "notes": "Mirror of bank_shim_L."
+ },
+ {
+  "name": "bank_front_spacer",
+  "kind": "print",
+  "qty": 1,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   90,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    82.8,
+    -32.1,
+    49.0
+   ],
+   [
+    86.6,
+    32.1,
+    59.0
+   ]
+  ],
+  "notes": "Sets the port end on the design plane. Thickness generated from Battery.len_nom: regenerate after measuring."
  },
  {
   "name": "column_L",
   "kind": "print",
-  "colour": "#9aa3ad"
+  "qty": 2,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   90,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    18.0,
+    21.0,
+    15.2
+   ],
+   [
+    30.0,
+    49.0,
+    183.0
+   ]
+  ],
+  "notes": "Print lying down (jog flat on the bed) for bending strength. Same part left/right (right = left turned 180 deg about its long side)."
  },
  {
   "name": "rear_upright",
   "kind": "print",
-  "colour": "#9aa3ad"
+  "qty": 1,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   90,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -38.0,
+    -52.76,
+    47.2
+   ],
+   [
+    -30.0,
+    48.0,
+    183.0
+   ]
+  ],
+  "notes": "Print flat. Carries the controller board (4x M3) and two PiicoDev Buttons (M2.5)."
  },
  {
   "name": "top_deck",
   "kind": "print",
-  "colour": "#9aa3ad"
+  "qty": 1,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -48.57,
+    -48.57,
+    180.0
+   ],
+   [
+    48.57,
+    48.57,
+    216.0
+   ]
+  ],
+  "notes": "Deck down, neck up. Servo ledges are bridges - check first layers."
  },
  {
   "name": "front_shell",
   "kind": "print",
-  "colour": "#f4f3ef"
+  "qty": 1,
+  "colour": "#f4f3ef",
+  "print_rot": [
+   0,
+   -90,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    0.15,
+    -97.5,
+    14.0
+   ],
+   [
+    97.5,
+    97.5,
+    191.0
+   ]
+  ],
+  "notes": "Print seam-face down. Needs tree supports for the shoulder. White PLA."
  },
  {
   "name": "rear_shell",
   "kind": "print",
-  "colour": "#f4f3ef"
+  "qty": 1,
+  "colour": "#f4f3ef",
+  "print_rot": [
+   0,
+   90,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -97.16,
+    -97.5,
+    14.0
+   ],
+   [
+    -0.15,
+    97.5,
+    191.0
+   ]
+  ],
+  "notes": "Print seam-face down. Tree supports. White PLA."
  },
  {
   "name": "head_cap",
   "kind": "print",
-  "colour": "#f4f3ef"
+  "qty": 1,
+  "colour": "#f4f3ef",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -46.0,
+    -60.0,
+    214.0
+   ],
+   [
+    46.0,
+    60.0,
+    300.0
+   ]
+  ],
+  "notes": "Open side down; tree supports for the top. White PLA."
  },
  {
   "name": "head_base",
   "kind": "print",
-  "colour": "#9aa3ad"
+  "qty": 1,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -43.3,
+    -57.3,
+    202.0
+   ],
+   [
+    43.3,
+    57.3,
+    279.0
+   ]
+  ],
+  "notes": "Skirt ring down; supports under the floor overhang and the snap hooks."
  },
  {
   "name": "clutch_disc",
   "kind": "print",
-  "colour": "#9aa3ad"
+  "qty": 1,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   180,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -17.2,
+    -15.17,
+    214.1
+   ],
+   [
+    17.2,
+    15.17,
+    217.9
+   ]
+  ],
+  "notes": "Print 3 variants of clutch_arm_t (1.2/1.6/2.0) and test slip torque."
  },
  {
   "name": "eye_left_camera",
   "kind": "print",
-  "colour": "#202326"
+  "qty": 1,
+  "colour": "#202326",
+  "print_rot": [
+   0,
+   -90,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    42.1,
+    9.0,
+    242.0
+   ],
+   [
+    47.0,
+    44.66,
+    278.0
+   ]
+  ],
+  "notes": "Black PLA. Inserted from inside the cap. Camera FOV aperture."
  },
  {
   "name": "eye_right",
   "kind": "print",
-  "colour": "#202326"
+  "qty": 1,
+  "colour": "#202326",
+  "print_rot": [
+   0,
+   -90,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    42.1,
+    -44.66,
+    242.0
+   ],
+   [
+    47.0,
+    -9.0,
+    278.0
+   ]
+  ],
+  "notes": "Black PLA. Inserted from inside the cap."
  },
  {
   "name": "drive_wheel_L",
   "kind": "print",
-  "colour": "#202326"
+  "qty": 1,
+  "colour": "#202326",
+  "print_rot": [
+   -90,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -32.5,
+    52.0,
+    0.0
+   ],
+   [
+    32.5,
+    73.0,
+    65.0
+   ]
+  ],
+  "notes": "Fit O-ring / thick rubber band tyre in groove, or TPU tyre if available."
  },
  {
   "name": "drive_wheel_R",
   "kind": "print",
-  "colour": "#202326"
+  "qty": 1,
+  "colour": "#202326",
+  "print_rot": [
+   90,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -32.5,
+    -73.0,
+    0.0
+   ],
+   [
+    32.5,
+    -52.0,
+    65.0
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "motor_strap",
   "kind": "print",
-  "colour": "#9aa3ad"
+  "qty": 4,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   180,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -14.0,
+    29.35,
+    38.75
+   ],
+   [
+    -6.0,
+    52.8,
+    45.9
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "caster_fork_F",
   "kind": "print",
-  "colour": "#9aa3ad"
+  "qty": 2,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    52.0,
+    -8.3,
+    6.5
+   ],
+   [
+    71.0,
+    8.3,
+    38.5
+   ]
+  ],
+  "notes": "Same part front/rear."
  },
  {
   "name": "caster_wheel_F",
   "kind": "print",
-  "colour": "#202326"
+  "qty": 2,
+  "colour": "#202326",
+  "print_rot": [
+   90,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    47.0,
+    -4.5,
+    1.5
+   ],
+   [
+    69.0,
+    4.5,
+    23.5
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "caster_axle_F",
   "kind": "print",
-  "colour": "#9aa3ad"
+  "qty": 2,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    54.0,
+    -10.3,
+    10.5
+   ],
+   [
+    62.0,
+    9.7,
+    16.5
+   ]
+  ],
+  "notes": "Exported lying on its side (layers along the pin). PETG preferred if available."
  },
  {
   "name": "caster_clip_F",
   "kind": "print",
-  "colour": "#9aa3ad"
+  "qty": 2,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    59.36,
+    -7.0,
+    34.9
+   ],
+   [
+    73.0,
+    7.0,
+    36.3
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "plunger_wake",
   "kind": "print",
-  "colour": "#f4f3ef"
+  "qty": 1,
+  "colour": "#f4f3ef",
+  "print_rot": [
+   0,
+   -90,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -87.23,
+    -46.5,
+    85.5
+   ],
+   [
+    -49.4,
+    -33.5,
+    98.5
+   ]
+  ],
+  "notes": "Rear button A: wake/sleep (PiicoDev Button, I2C)."
  },
  {
   "name": "plunger_move",
   "kind": "print",
-  "colour": "#202326"
+  "qty": 1,
+  "colour": "#202326",
+  "print_rot": [
+   0,
+   -90,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -95.34,
+    -18.5,
+    85.5
+   ],
+   [
+    -49.4,
+    -5.5,
+    98.5
+   ]
+  ],
+  "notes": "Rear button B: movement enable (PiicoDev Button, I2C). Different colour on purpose."
  },
  {
-  "name": "charge_door",
+  "name": "rear_hatch",
   "kind": "print",
-  "colour": "#f4f3ef"
+  "qty": 1,
+  "colour": "#f4f3ef",
+  "print_rot": [
+   0,
+   -90,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -102.0,
+    -34.0,
+    35.0
+   ],
+   [
+    -87.28,
+    34.0,
+    82.0
+   ]
+  ],
+  "notes": "Bank service hatch, pod face down; support under the bottom tongues. 1 x M3 x 8 into the shell ledge."
  },
  {
   "name": "switch_actuator",
   "kind": "print",
-  "colour": "#202326"
+  "qty": 1,
+  "colour": "#202326",
+  "print_rot": [
+   0,
+   90,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -89.4,
+    -25.5,
+    117.5
+   ],
+   [
+    -43.1,
+    -14.5,
+    126.5
+   ]
+  ],
+  "notes": "CONCEPT - fork geometry must be re-made after measuring the switch."
  },
  {
   "name": "column_R",
   "kind": "inst",
-  "colour": "#9aa3ad"
+  "qty": 1,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    18.0,
+    -49.0,
+    15.2
+   ],
+   [
+    30.0,
+    -21.0,
+    183.0
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "caster_fork_R",
   "kind": "inst",
-  "colour": "#9aa3ad"
+  "qty": 1,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -80.0,
+    -8.3,
+    6.5
+   ],
+   [
+    -61.0,
+    8.3,
+    38.5
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "caster_wheel_R",
   "kind": "inst",
-  "colour": "#202326"
+  "qty": 1,
+  "colour": "#202326",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -85.0,
+    -4.5,
+    1.5
+   ],
+   [
+    -63.0,
+    4.5,
+    23.5
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "caster_axle_R",
   "kind": "inst",
-  "colour": "#9aa3ad"
+  "qty": 1,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -78.0,
+    -10.3,
+    10.5
+   ],
+   [
+    -70.0,
+    9.7,
+    16.5
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "caster_clip_R",
   "kind": "inst",
-  "colour": "#9aa3ad"
+  "qty": 1,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -72.64,
+    -7.0,
+    34.9
+   ],
+   [
+    -59.0,
+    7.0,
+    36.3
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "motor_strap_2",
   "kind": "inst",
-  "colour": "#9aa3ad"
+  "qty": 1,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -49.0,
+    29.35,
+    38.75
+   ],
+   [
+    -41.0,
+    52.8,
+    45.9
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "motor_strap_3",
   "kind": "inst",
-  "colour": "#9aa3ad"
+  "qty": 1,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -14.0,
+    -52.8,
+    38.75
+   ],
+   [
+    -6.0,
+    -29.35,
+    45.9
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "motor_strap_4",
   "kind": "inst",
-  "colour": "#9aa3ad"
+  "qty": 1,
+  "colour": "#9aa3ad",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -49.0,
+    -52.8,
+    38.75
+   ],
+   [
+    -41.0,
+    -29.35,
+    45.9
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "ref_power_bank",
   "kind": "ref",
-  "colour": "#e0a040"
+  "qty": 1,
+  "colour": "#e0a040",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -47.5,
+    -30.0,
+    49.0
+   ],
+   [
+    82.5,
+    30.0,
+    59.0
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "ref_tt_motor_L",
   "kind": "ref",
-  "colour": "#e8c000"
+  "qty": 1,
+  "colour": "#e8c000",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -59.0,
+    23.2,
+    21.25
+   ],
+   [
+    11.0,
+    60.0,
+    43.75
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "ref_tt_motor_R",
   "kind": "ref",
-  "colour": "#e8c000"
+  "qty": 1,
+  "colour": "#e8c000",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -59.0,
+    -60.0,
+    21.25
+   ],
+   [
+    11.0,
+    -23.2,
+    43.75
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "ref_controller",
   "kind": "ref",
-  "colour": "#2a7a3a"
+  "qty": 1,
+  "colour": "#2a7a3a",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -61.6,
+    -31.5,
+    118.0
+   ],
+   [
+    -38.0,
+    31.5,
+    153.0
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "ref_buttons",
   "kind": "ref",
-  "colour": "#c03030"
+  "qty": 1,
+  "colour": "#c03030",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -49.1,
+    -52.7,
+    79.3
+   ],
+   [
+    -38.0,
+    0.7,
+    104.7
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "ref_servo",
   "kind": "ref",
-  "colour": "#3060c0"
+  "qty": 1,
+  "colour": "#3060c0",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -21.85,
+    -6.05,
+    187.6
+   ],
+   [
+    16.0,
+    6.05,
+    214.05
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "ref_cam_board",
   "kind": "ref",
-  "colour": "#2a7a3a"
+  "qty": 1,
+  "colour": "#2a7a3a",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    28.2,
+    6.0,
+    239.0
+   ],
+   [
+    38.8,
+    48.0,
+    281.0
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "ref_head_speaker",
   "kind": "ref",
-  "colour": "#e0a040"
+  "qty": 1,
+  "colour": "#e0a040",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    34.1,
+    -42.0,
+    221.0
+   ],
+   [
+    39.1,
+    -12.0,
+    241.0
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "ref_front_modules",
   "kind": "ref",
-  "colour": "#c03030"
+  "qty": 1,
+  "colour": "#c03030",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    34.58,
+    -42.7,
+    79.3
+   ],
+   [
+    89.98,
+    42.7,
+    172.7
+   ]
+  ],
+  "notes": ""
  },
  {
   "name": "ref_base_modules",
   "kind": "ref",
-  "colour": "#c03030"
+  "qty": 1,
+  "colour": "#c03030",
+  "print_rot": [
+   0,
+   0,
+   0
+  ],
+  "bbox_assembly_mm": [
+   [
+    -32.7,
+    -12.7,
+    19.5
+   ],
+   [
+    34.7,
+    12.7,
+    22.5
+   ]
+  ],
+  "notes": ""
  }
 ]

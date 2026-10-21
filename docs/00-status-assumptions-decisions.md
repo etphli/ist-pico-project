@@ -1,12 +1,12 @@
 # 00 · Status, assumptions and open decisions
 
-User update, 2026-10-20: owned MINISO QW01, 10,000 mAh; approximately 130 × 60 × 10 mm, not exact. Micro-USB charging input and two USB-A outputs, each reported as 5 V / 2 A. Combined simultaneous output, protection, mass and low-load behaviour remain unverified. The current CAD still uses the older 100 × 66 × 24 mm placeholder. A placement check of the approximate footprint found tray/frame overlap, so fit is not approved.
+User update, 2026-10-20: owned MINISO QW01, 10,000 mAh; approximately 130 × 60 × 10 mm, not exact. Micro-USB charging input and two USB-A outputs, each reported as 5 V / 2 A. Combined simultaneous output, protection, mass and low-load behaviour remain unverified. The v0.3 layout now accommodates this approximate bank envelope using revised columns, a cradle, fillers and rear service access. Exact dimensions, mass and port positions remain measurement tasks; physical fit is not approved. All required ports are provisionally assumed to face the rear hatch.
 
 **Project:** Pip, a companion robot for children aged 5–8 that encourages off-screen play (IST project; closed loop sensor → output → feedback).
-**Round:** design v0.2, 2026-10-19. No hardware has been bought, printed, wired or tested. Automated CAD checks have been run.
+**Round:** design v0.3, 2026-10-21. No hardware has been bought, printed, wired or tested. Automated CAD checks have been run.
 
 > **Status: design only. Firmware is not implemented. Purchase status: HOLD.**
-> No configuration meeting every requirement within the AU$70 total was found ([08](08-bom-budget-sourcing.md)). Nothing should be ordered until (1) a complete configuration meets the fixed budget, or the user explicitly accepts a reduced scope, (2) stock is re-checked on the day, and (3) the rated-power gates in [05](05-power-budget-charging.md) §5 can be met with the chosen parts. The CAD is a parametric prototype with placeholder dimensions for every bought part. It is not final and not fit-verified.
+> No configuration meeting every requirement within the AU$70 total was found ([08](08-bom-budget-sourcing.md)). Nothing should be ordered until (1) a complete configuration meets the fixed budget, or the user explicitly accepts a reduced scope, (2) stock is re-checked on the day, and (3) the rated-power gates in [05](05-power-budget-charging.md) §5 can be met with the chosen parts. The CAD is a parametric prototype. The bank dimensions come from an approximate user measurement; other component envelopes and port positions still need confirmation. It is not final and not fit-verified.
 
 ## 1. Confirmed by the user
 
@@ -48,7 +48,7 @@ User update, 2026-10-20: owned MINISO QW01, 10,000 mAh; approximately 130 × 60 
 | D2 | Deadline | unknown | Milestones are in relative weeks ([09](09-build-plan-milestones-tests.md)) |
 | D3 | AI account and who pays | OpenRouter with a per-key limit | Adult-owned |
 | D4 | Speech processing | Local on the laptop first | Local first |
-| D5 | Power bank compatibility | MINISO QW01: per-port rating reported, combined limit and physical fit unresolved | Check PG1 against its label before selecting a topology |
+| D5 | Power bank compatibility | QW01 approximate dimensions used for the mechanical revision; 2 A per port reported, combined limit unknown | Confirm dimensions and pass PG1–PG4. The present body-branch fault load exceeds 2 A. |
 | D6 | Master disconnect | Accept "unplug both leads" as the master disconnect, or find a solder-free rated switch | Open (PG5) |
 | D7 | Laptop OS / hotspot | — | — |
 | D8 | School consent for camera/mic with children | — | Ask before any session with children |

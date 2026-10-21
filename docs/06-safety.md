@@ -17,10 +17,10 @@ Pip is a school prototype. It has **not** been designed, tested or certified to 
 
 | # | Hazard | Design controls | Limits and actions |
 |---|---|---|---|
-| H1 | Small parts / choking | Eyes inserted from **inside** the head and backed by the eye frame. Plungers held by inner collars. Shells, head cap and frame screwed (tool needed). Caster clips under the base. Full retention list in [11](11-mechanical-design-print-assembly.md) §6. | Ages 5–8, but check before every session. Pull test T-SAF-6. |
+| H1 | Small parts / choking | Eyes inserted from **inside** the head and backed by the eye frame. Plungers held by inner collars. Shells, head cap and frame screwed (tool needed). Caster clips under the base. Full retention list in [11](11-mechanical-design-print-assembly.md) §6. | Ages 5–8, but check before every session. Pull test T-SAF-9. |
 | H2 | Wheel pinch | Wheels inside guard wells; 14 mm ground gap; speed cap ≤ 0.25 m/s | Contact patch reachable from below. Rule 4/5. |
-| H3 | Neck pinch | ~1.5 mm radial gap at the shell opening; tangential skirt motion; slow slew; slip clutch | Finger-probe test T-SAF-5 |
-| H4 | Tip-over | Bank low in the base; CAD static tip estimate 26–33° (guessed masses); speed/acceleration limits | Tilt-table T-SAF-1; L4 tilt heuristic |
+| H3 | Neck pinch | ~1.5 mm radial gap at the shell opening; tangential skirt motion; slow slew; slip clutch | Finger-probe test T-SAF-8 |
+| H4 | Tip-over | Bank low in the base; CAD stability estimate in the generated report (bank mass and other masses unmeasured); speed/acceleration limits | Tilt-table T-SAF-1; L4 tilt heuristic |
 | H5 | Battery fire/thermal | Finished consumer power bank in a tray; no loose cells; supervised charging with the robot leads unplugged | Inspect; replace a damaged bank |
 | H6 | **Motor stall / overheating** | DRV8833 over-current and thermal protection (Kitronik statement); speed cap; motion commands expire in 0.2 s; movement-enable time-out; stop when ToF ≤ 350 mm | **No stall detection is claimed.** Pushing against a wall at constant speed is not detected. A sustained stall heats the motors until the driver or the bank cuts out. Supervision and gate PG3 ([05](05-power-budget-charging.md)). |
 | H7 | Servo overload | Slip clutch; ±70° firmware limit vs ±75° stops | No hardware current limit on the servo branch (open item) |
@@ -28,7 +28,7 @@ Pip is a school prototype. It has **not** been designed, tested or certified to 
 | H9 | Driving into a person or object | Forward motion only with an aligned, fresh, selected target and a valid ToF range; stop at ToF ≤ 350 mm; no reversing | The ToF beam is narrow. Objects beside it are not seen. Supervision. |
 | H10 | Driving off an edge | None in hardware | **Rule 2.** No guarantee. |
 | H11 | Sharp edges / print defects | Rounded design; deburr; PLA | Inspection |
-| H12 | Resin | Not used for v0.2 parts; decorative only if ever used, fully cured | — |
+| H12 | Resin | Not used for v0.3 parts; decorative only if ever used, fully cured | — |
 | H13 | Noise | Small 1 W speaker; firmware volume cap | Low |
 | H14 | Privacy | Local vision; text-only to the cloud; no recordings by default; camera-on LED; physical camera/mic switch | Consent (D8) |
 | H15 | AI content | Child-safe prompt, laptop output filter, short replies, adult end-session control, key with credit limit | Review logs; fix on any unsafe reply |
@@ -42,3 +42,7 @@ Pip is a school prototype. It has **not** been designed, tested or certified to 
 - [ ] Teacher and parent consent for camera/mic (D8)
 - [ ] API key limit set; filter on; end-session control tested
 - [ ] Floor area cleared and enclosed; adult briefed on §1
+
+## 4. QW01-specific limits
+
+The user reports 2 A per USB-A output; simultaneous combined capacity is not known. The estimated body fault current exceeds one port's rating. A second socket does not raise that branch's limit. Keep electrical assembly on HOLD until the branch load and motor protection are redesigned or verified against documented limits. Do not open, alter, drill or clamp hard onto the power bank. Secure it with the cradle and two straps, leaving the intended removal and unplugging access clear. Micro-USB charging is performed with both robot output leads removed.

@@ -1,12 +1,12 @@
 # 13 · Engineering review status
 
-Round history (2026-10-19):
+Round history:
 1. Claude Opus 5.5 produced the v0.1 documentation and CAD. The parent agent reviewed it, corrected the budget framing and control claims, and rebuilt the CAD.
-2. **v0.2 (this round)**, also by Claude Opus 5.5, responds to the review objections listed below.
+2. **v0.2 (19 October)**, also by Claude Opus 5.5, responds to the review objections listed below.
 
 **Release: design prototype only. Firmware not implemented. Purchases, final printing and electrical assembly: HOLD.**
 
-## Objections and their status after v0.2
+## Previous review findings
 
 | # | Objection | v0.2 response | Status |
 |---|---|---|---|
@@ -25,7 +25,7 @@ Round history (2026-10-19):
 ## Still unresolved (blocking purchase)
 
 1. **Budget** (D1): over the cap.
-2. **Power bank** owned: MINISO QW01, approximate 130 × 60 × 10 mm; two USB-A outputs each reported 5 V / 2 A. Combined output, protection, low-load behaviour and fit are unverified (PG1, PG3). Approximate footprint overlaps the current tray/frame; existing CAD has not been resized.
+2. **Power bank** owned: MINISO QW01, approximate 130 × 60 × 10 mm; two USB-A outputs each reported 5 V / 2 A. Combined output, protection, low-load behaviour and fit are unverified (PG1, PG3). The v0.3 mechanical revision addresses the earlier footprint/frame clash; actual bank fit is still untested.
 3. **Servo voltage margin** (PG2) and **no servo-branch current limit**.
 4. **Kitronik regulator capacity** for the Pico 2 W plus 10 PiicoDev modules is not published (PG6).
 5. **Single master disconnect** not found solder-free (PG5). Interim: unplug both leads.
@@ -43,3 +43,15 @@ See `cad/out/validation_report.md` §5. In short: mesh validity, bed fit (boundi
 Kit-only stationary closed loops (option R0): ToF distance → OLED/LED/buzzer, touch → feedback, tilt → alarm, with logged setpoint, measurement and output. This builds assignment evidence. It does not replace the requested robot.
 
 Parent review of v0.2: confirmed Cytron VIN-only servo-rail correction against its datasheet. Removed the proposed hand-held and sustained-stall tests because protection and motor thermal limits remain unknown. PG3 stays blocked pending documented limits and a guarded current-limited test plan. CAD rebuild, local Markdown links and full-concept BOM arithmetic checked.
+
+## v0.3 QW01 revision, 2026-10-21
+
+The user requested the complete design be updated around the owned bank and pushed to main. The model is MINISO QW01, 10,000 mAh, approximately 130 × 60 × 10 mm. Charging is micro-USB; the two USB-A outputs are each reported as 5 V / 2 A. Shared simultaneous capacity is unknown. These remain user-reported values, not a manufacturer-certified envelope.
+
+The mechanical revision replaces the older bank placeholder and must eliminate the previously reproduced tray and frame-column clashes, provide retention and actual unplugging/charging access, and regenerate the STL and preview set. See the generated report for the modelled accommodation envelope and its checks. Exact measurements and a physical fit test remain required.
+
+The electrical documentation now uses 2 A per port as the reported limit and removes the earlier generic 2.1 A acceptance threshold. Acceptance depends on a load budget and protection within the actual limits. The existing body-branch fault estimate of 3.3–4.1 A exceeds the reported 2 A rating; the bank cannot yet be cleared for that circuit. No limiter, replacement motor or all-branch master switch has been selected or added to the BOM. The two outputs must not be paralleled.
+
+The AU$70 total cap, no-soldering requirement and requested functions remain unchanged. The historical comparison BOM remains over budget. A mechanically updated prototype is not a purchase-ready or electrically validated robot.
+
+Parent verification of v0.3: `scripts/cad.sh --no-render` and `scripts/cad.sh --bank-fit-only` passed. The legacy bank/column collision is detected while the new accommodation envelope clears the model. Fixed cavity bounds are independent of the nominal measured size: a 132 × 61 × 12 mm variant passed with resized fillers, while a 20 mm-thick variant was rejected. The full generated set contains 28 STL files, six preview PNGs, assembly metadata and the bank-fit report. Physical fit, strength and electrical operation remain untested.
